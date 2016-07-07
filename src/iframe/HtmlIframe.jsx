@@ -13,9 +13,10 @@ const EXTENDED_PADDING = 400;
  * @submodule app.component
  */
 
-export default class HtmlIframe {
+export default class HtmlIframe extends React.Component {
 
 	constructor(props, context) {
+		super(props, context);
 
 		this.state = {
 			visibleOnViewport: false
@@ -85,8 +86,12 @@ export default class HtmlIframe {
 		this.utils.$Window.bindEventListener(window, 'scroll', this._throttledCheckVisibility);
 	}
 
+	_findDOMNode() {
+		return ReactDOM.findDOMNode(this);
+	}
+
 	_checkVisibility() {
-		let clientRect = this.findDOMNode().getBoundingClientRect();
+		let clientRect = this._findDOMNode().getBoundingClientRect();
 
 		let elmRectStyle = {
 			top: clientRect.top - EXTENDED_PADDING,

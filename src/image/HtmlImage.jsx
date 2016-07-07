@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Loader from '../loader/Loader';
 import Sizer from '../sizer/Sizer';
 
@@ -13,9 +14,10 @@ const EXTENDED_PADDING = 300;
  * @submodule ima.ui
  */
 
-export default class HtmlImage {
+export default class HtmlImage extends React.Component {
 
 	constructor(props, context) {
+		super(props, context);
 
 		this.state = {
 			noloading: props.noloading || false,
@@ -85,8 +87,12 @@ export default class HtmlImage {
 		this.utils.$Window.bindEventListener(window, 'scroll', this._throttledCheckVisibility);
 	}
 
+	_findDOMNode() {
+		return ReactDOM.findDOMNode(this);
+	}
+
 	_checkVisibility() {
-		let clientRect = this.findDOMNode().getBoundingClientRect();
+		let clientRect = this._findDOMNode().getBoundingClientRect();
 
 		let elmRectStyle = {
 			top: clientRect.top - EXTENDED_PADDING,
