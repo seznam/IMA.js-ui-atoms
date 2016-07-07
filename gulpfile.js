@@ -20,15 +20,22 @@ let gulpConfig = {
 gulp.task('build', () => {
 	return (
 		gulp.src('./src/**/*.{js,jsx}')
-		.pipe(babel({
-			moduleIds: true,
-			presets: ['react'],
-			plugins: ['transform-es2015-modules-commonjs']
-		}))
-		.pipe(rename((path) => {
-			path.extname = '.js';
-		}))
-		.pipe(gulp.dest('./dist'))
+			.pipe(babel({
+				moduleIds: true,
+				presets: ['react'],
+				plugins: ['transform-es2015-modules-commonjs']
+			}))
+			.pipe(rename((path) => {
+				path.extname = '.js';
+			}))
+			.pipe(gulp.dest('./dist'))
+	);
+});
+
+gulp.task('copy', function() {
+	return (
+		gulp.src('./src/*.{less}')
+			.pipe(gulp.dest('./dist'))
 	);
 });
 
