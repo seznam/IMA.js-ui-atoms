@@ -34,7 +34,7 @@ gulp.task('build', () => {
 
 gulp.task('copy', function() {
 	return (
-		gulp.src('./src/*.{less}')
+		gulp.src('./src/**/*.less')
 			.pipe(gulp.dest('./dist'))
 	);
 });
