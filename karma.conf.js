@@ -10,14 +10,12 @@ module.exports = function(config) {
 			'PhantomJS'
 		],
 		files: [
-			'./src/*.{jsx, js}',
-			'./src/**/*Spec.js',
-			'./src/**/*Spec.jsx'
+			'./dist/*.js',
+			'./dist/**/*Spec.js'
 		],
 		preprocessors: {
-			'./src/*.{jsx, js}': ['browserify'],
-			'./src/**/*Spec.js': ['browserify'],
-			'./src/**/*Spec.jsx': ['browserify']
+			'./dist/**/*.js': ['browserify'],
+			'./src/**/*Spec.js': ['browserify']
 		},
 		babelPreprocessor: {
 			options: {
@@ -32,14 +30,15 @@ module.exports = function(config) {
 			}
 		},
 		browserify: {
-            debug: true,
+			debug: true,
 			transform: [
 				['babelify', { presets: ["es2015", "react"] }]
 			]
 		},
 		plugins: [
 			'karma-phantomjs-launcher',
-			//'karma-babel-preprocessor',
+			'karma-babel-preprocessor',
+			//'karma-renamer-preprocessor',
 			'karma-jasmine',
 			'karma-browserify'
 		],

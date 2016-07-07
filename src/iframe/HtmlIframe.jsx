@@ -1,5 +1,4 @@
 import React from 'react';
-import AbstractComponent from 'ima/page/AbstractComponent';
 import Loader from '../loader/Loader';
 import Sizer from '../sizer/Sizer';
 
@@ -14,10 +13,9 @@ const EXTENDED_PADDING = 400;
  * @submodule app.component
  */
 
-export default class HtmlIframe extends AbstractComponent {
+export default class HtmlIframe {
 
 	constructor(props, context) {
-		super(props, context);
 
 		this.state = {
 			visibleOnViewport: false
@@ -25,6 +23,10 @@ export default class HtmlIframe extends AbstractComponent {
 
 		this._mounted = false;
 		this._throttledCheckVisibility = this.utils.$Helper.throttle(this._checkVisibility, 333, this);
+	}
+
+	get utils() {
+		return this.context.$Utils || this.props.$Utils;
 	}
 
 	componentDidMount() {
@@ -42,7 +44,7 @@ export default class HtmlIframe extends AbstractComponent {
 	render() {
 		return (
 			<div
-					className = {this.cssClasses({
+					className = {this.utils.$UIComponentHelper.cssClasses({
 						'atm-iframe': true,
 						'atm-overflow': true,
 						'atm-responsive': this.props.layout
@@ -62,7 +64,7 @@ export default class HtmlIframe extends AbstractComponent {
 								sandbox = { this.props.sandbox }
 								frameBorder = { this.props.frameBorder }
 								allowFullScreen = { this.props.allowFullScreen }
-								className = {this.cssClasses({
+								className = {this.utils.$UIComponentHelper.cssClasses({
 									'atm-fill': true,
 									'atm-loaded': this.state.visibleOnViewport
 								})} />

@@ -1,28 +1,28 @@
-import UIComponentHelper from './UIComponentHelper.js';
+import UIComponentHelper from './UIComponentHelper';
 
-import Headline from './headline/Headline.js';
-import H1 from './headline/H1.js';
-import H2 from './headline/H2.js';
-import H3 from './headline/H3.js';
-import H4 from './headline/H4.js';
-import H5 from './headline/H5.js';
-import H6 from './headline/H6.js';
+import Headline from './headline/Headline';
+import H1 from './headline/H1';
+import H2 from './headline/H2';
+import H3 from './headline/H3';
+import H4 from './headline/H4';
+import H5 from './headline/H5';
+import H6 from './headline/H6';
 
-import Iframe from './iframe/Iframe.js';
+import Iframe from './iframe/Iframe';
 
-import Image from './image/Image.js';
+import Image from './image/Image';
 
-import Li from './li/Li.js';
+import Li from './li/Li';
 
-import Link from './link/Link.js';
+import Link from './link/Link';
 
-import List from './list/List.js';
+import List from './list/List';
 
-import Loader from './loader/Loader.js';
+import Loader from './loader/Loader';
 
-import Paragraph from './paragraph/Paragraph.js';
+import Paragraph from './paragraph/Paragraph';
 
-import Sizer from './sizer/Sizer.js';
+import Sizer from './sizer/Sizer';
 
 let defaultDependencies = ['$Router', '$Window'];
 

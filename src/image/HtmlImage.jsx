@@ -1,5 +1,4 @@
 import React from 'react';
-import AbstractComponent from 'ima/page/AbstractComponent';
 import Loader from '../loader/Loader';
 import Sizer from '../sizer/Sizer';
 
@@ -14,10 +13,9 @@ const EXTENDED_PADDING = 300;
  * @submodule ima.ui
  */
 
-export default class HtmlImage extends AbstractComponent {
+export default class HtmlImage {
 
 	constructor(props, context) {
-		super(props, context);
 
 		this.state = {
 			noloading: props.noloading || false,
@@ -27,6 +25,10 @@ export default class HtmlImage extends AbstractComponent {
 
 		this._mounted = false;
 		this._throttledCheckVisibility = this.utils.$Helper.throttle(this._checkVisibility, 333, this);
+	}
+
+	get utils() {
+		return this.context.$Utils || this.props.$Utils;
 	}
 
 	componentDidMount() {
@@ -46,7 +48,7 @@ export default class HtmlImage extends AbstractComponent {
 	render() {
 		return (
 			<div
-					className = {this.cssClasses({
+					className = {this.utils.$UIComponentHelper.cssClasses({
 						'atm-image': true,
 						'atm-overflow': true,
 						'atm-responsive': this.props.layout
@@ -62,7 +64,7 @@ export default class HtmlImage extends AbstractComponent {
 								src = { this.props.src }
 								srcSet = { this.props.srcSet }
 								alt = { this.props.alt }
-								className = {this.cssClasses({
+								className = {this.utils.$UIComponentHelper.cssClasses({
 									'atm-fill': true,
 									'atm-loaded': this.state.noloading && this.state.visibleOnViewport
 								})} />

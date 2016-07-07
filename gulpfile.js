@@ -4,7 +4,6 @@ require('babel-core/register.js')({
 
 let gulp = require('gulp');
 let babel = require('gulp-babel');
-let jasmine = require('gulp-jasmine');
 let rename = require('gulp-rename');
 let karma = require('karma');
 let path = require('path');
@@ -20,7 +19,7 @@ let gulpConfig = {
 // build module
 gulp.task('build', () => {
 	return (
-		gulp.src('./src/**/!(*Spec).{js,jsx}')
+		gulp.src('./src/**/*.{js,jsx}')
 		.pipe(babel({
 			moduleIds: true,
 			presets: ['react'],
@@ -42,10 +41,12 @@ gulp.task('test', function(done) {
 
 
 // -------------------------------------PRIVATE HELPER TASKS
-gulp.task('dev', (done) => {
+gulp.task('dev', ['build'], (done) => {
 	new karma.Server({
 		configFile: path.resolve('./karma.conf.js')
 	}, done).start();
+
+	gulp.watch('./src/**/*.{js,jsx}', ['build']);
 });
 
 if (gulpConfig.onTerminate) {
