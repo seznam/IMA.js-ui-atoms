@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Loader from '../loader/Loader';
 import Sizer from '../sizer/Sizer';
 
