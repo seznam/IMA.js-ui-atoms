@@ -53,13 +53,19 @@ export default class HtmlImage extends React.Component {
 					className = {this.utils.$UIComponentHelper.cssClasses({
 						'atm-image': true,
 						'atm-overflow': true,
-						'atm-responsive': this.props.layout
+						'atm-responsive': this.props.layout === 'responsive',
+						'atm-fill': this.props.layout === 'fill'
 					}, true)}
-					style = { this.props.layout ? {} : { width: this.props.width, height: this.props.height }}>
-				<Sizer
-						width = {this.props.width}
-						height = {this.props.height}
-						placeholder = {!this.state.noloading}/>
+					style = { this.props.layout === 'responsive' ? {} : { width: this.props.width, height: this.props.height }}>
+				{
+					this.props.layout === 'responsive' ?
+						<Sizer
+								width = {this.props.width}
+								height = {this.props.height}
+								placeholder = {!this.state.noloading}/>
+					:
+						null
+				}
 				{
 					this.state.noloading ?
 						<img
