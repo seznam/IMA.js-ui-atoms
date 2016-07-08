@@ -112,7 +112,7 @@ export default class HtmlImage extends React.Component {
 			top: clientRect.top - EXTENDED_PADDING,
 			left: clientRect.left - EXTENDED_PADDING,
 			width: clientRect.width + EXTENDED_PADDING,
-			height: (clientRect.height || this.props.height / this.props.width * clientRect.width) + EXTENDED_PADDING
+			height: (clientRect.height || this.props.height || 0 / this.props.width || 0 * clientRect.width) + EXTENDED_PADDING
 		};
 
 

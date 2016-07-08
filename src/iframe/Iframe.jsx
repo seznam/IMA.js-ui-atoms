@@ -24,8 +24,8 @@ Iframe.contextTypes = {
 
 Iframe.propTypes = {
 	src: PropTypes.oneOfType([PropTypes.string, null]),
-	width: PropTypes.number,
-	height: PropTypes.number,
+	width: PropTypes.oneOfType([PropTypes.number, null]),
+	height: PropTypes.oneOfType([PropTypes.number, null]),
 	scrolling: PropTypes.oneOfType([PropTypes.string, null]),
 	layout: PropTypes.oneOfType([PropTypes.string, null]),
 	sandbox: PropTypes.oneOfType([PropTypes.string, null]),
@@ -36,8 +36,8 @@ Iframe.propTypes = {
 
 Iframe.defaultProps = {
 	src: null,
-	width: 0,
-	height: 0,
+	width: null,
+	height: null,
 	scrolling: 'no',
 	layout: null,
 	sandbox: null,

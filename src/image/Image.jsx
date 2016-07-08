@@ -26,8 +26,8 @@ Image.contextTypes = {
 Image.propTypes = {
 	src: PropTypes.oneOfType([PropTypes.string, null]),
 	srcSet: PropTypes.oneOfType([PropTypes.string, null]),
-	width: PropTypes.number,
-	height: PropTypes.number,
+	width: PropTypes.oneOfType([PropTypes.number, null]),
+	height: PropTypes.oneOfType([PropTypes.number, null]),
 	layout: PropTypes.oneOfType([PropTypes.string, null]),
 	alt: PropTypes.oneOfType([PropTypes.string, null]),
 	noloading: PropTypes.oneOfType([PropTypes.bool, null]),
@@ -37,8 +37,11 @@ Image.propTypes = {
 
 Image.defaultProps = {
 	src: null,
-	width: 0,
-	height: 0,
+	width: null,
+	height: null,
+	layout: null,
+	alt: null,
+	noloading: false,
 	className: '',
 	"data-e2e": null
 };
