@@ -56,7 +56,15 @@ export default class HtmlImage extends React.Component {
 						'atm-responsive': this.props.layout === 'responsive',
 						'atm-fill': this.props.layout === 'fill'
 					}, true)}
-					style = { this.props.layout === 'responsive' ? {} : { width: this.props.width, height: this.props.height }}>
+					style = {
+						this.props.layout === 'responsive' ?
+							{}
+						:
+							{
+								width: this.props.width || 'auto',
+								height: this.props.height || 'auto'
+							}
+					}>
 				{
 					this.props.layout === 'responsive' ?
 						<Sizer
