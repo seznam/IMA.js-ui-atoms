@@ -21,8 +21,7 @@ export default class HtmlImage extends React.Component {
 
 		this.state = {
 			noloading: props.noloading || false,
-			visibleOnViewport: false,
-			loaded: false
+			visibleOnViewport: false
 		};
 
 		this._mounted = false;
@@ -53,6 +52,7 @@ export default class HtmlImage extends React.Component {
 					className = {this.utils.$UIComponentHelper.cssClasses({
 						'atm-image': true,
 						'atm-overflow': true,
+						'atm-placeholder': !this.state.noloading,
 						'atm-responsive': this.props.layout === 'responsive',
 						'atm-fill': this.props.layout === 'fill'
 					}, true)}
