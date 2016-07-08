@@ -111,13 +111,13 @@ export default class HtmlImage extends React.Component {
 		if (this.state.visibleOnViewport === false &&
 				this.utils.$UIComponentHelper.getPercentOfVisibility(elmRectStyle) > 0 &&
 				this._mounted) {
-			this._loadImage();
+			this._preLoadImage();
 			this._unbindEventListeners();
 			this.setState({ visibleOnViewport: true });
 		}
 	}
 
-	_loadImage() {
+	_preLoadImage() {
 		let image = new Image();
 
 		image.onload = () => {
