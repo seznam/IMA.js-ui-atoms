@@ -20,6 +20,7 @@ export default class HtmlIframe extends React.Component {
 		super(props, context);
 
 		this.state = {
+			noloading: false,
 			visibleOnViewport: false
 		};
 
@@ -49,6 +50,7 @@ export default class HtmlIframe extends React.Component {
 					className = {this.utils.$UIComponentHelper.cssClasses({
 						'atm-iframe': true,
 						'atm-overflow': true,
+						'atm-placeholder': !this.state.noloading,
 						'atm-responsive': this.props.layout === 'responsive',
 						'atm-fill': this.props.layout === 'fill'
 					}, true)}
@@ -72,9 +74,10 @@ export default class HtmlIframe extends React.Component {
 								sandbox = { this.props.sandbox }
 								frameBorder = { this.props.frameBorder }
 								allowFullScreen = { this.props.allowFullScreen }
+								onLoad = {() => this.setState({ noloading: true })}
 								className = {this.utils.$UIComponentHelper.cssClasses({
 									'atm-fill': true,
-									'atm-loaded': this.state.visibleOnViewport
+									'atm-loaded': this.state.noloading && this.state.visibleOnViewport
 								})} />
 					:
 						<Loader mode = 'small' layout = 'center'/>
