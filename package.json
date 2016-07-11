@@ -1,6 +1,6 @@
 {
 	"name": "ima-ui-atoms",
-	"version": "0.3.4",
+	"version": "0.3.5",
 	"description": "IMA.js UI React atoms",
 	"scripts": {
 		"prepublish": "npm run build && npm run copy && npm run test",
@@ -58,7 +58,7 @@
 		]
 	},
 	"dependencies": {
-		"react": "^15.2.0",
-		"react-dom": "^15.2.0"
+		"react": "^15.2.1",
+		"react-dom": "^15.2.1"
 	}
 }
