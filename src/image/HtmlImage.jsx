@@ -76,18 +76,27 @@ export default class HtmlImage extends React.Component {
 				}
 				{
 					this.state.noloading ?
-						<img
-								src = { this.props.src }
-								srcSet = { this.props.srcSet }
-								alt = { this.props.alt }
-								className = {this.utils.$UIComponentHelper.cssClasses({
-									'atm-fill': true,
-									'atm-loaded': this.state.noloading && this.state.visibleOnViewport
-								})} />
+						this._getImageFragment()
 					:
 						<Loader mode = 'small' layout = 'center'/>
 				}
+				<noscript>
+					{this._getImageFragment(true)}
+				</noscript>
 			</div>
+		);
+	}
+
+	_getImageFragment(noscript = false) {
+		return (
+			<img
+					src = { this.props.src }
+					srcSet = { this.props.srcSet }
+					alt = { this.props.alt }
+					className = {this.utils.$UIComponentHelper.cssClasses({
+						'atm-fill': true,
+						'atm-loaded': this.state.noloading && this.state.visibleOnViewport || noscript
+					})} />
 		);
 	}
 
