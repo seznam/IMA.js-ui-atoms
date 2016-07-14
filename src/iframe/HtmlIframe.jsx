@@ -74,23 +74,32 @@ export default class HtmlIframe extends React.Component {
 				}
 				{
 					this.state.visibleOnViewport ?
-						<iframe
-								src = { this.props.src }
-								width = { this.props.width }
-								height = { this.props.height }
-								scrolling = { this.props.scrolling }
-								sandbox = { this.props.sandbox }
-								frameBorder = { this.props.frameBorder }
-								allowFullScreen = { this.props.allowFullScreen }
-								onLoad = {() => this.setState({ noloading: true })}
-								className = {this.utils.$UIComponentHelper.cssClasses({
-									'atm-fill': true,
-									'atm-loaded': this.state.noloading && this.state.visibleOnViewport
-								})} />
+						this._getIframeFragment()
 					:
 						<Loader mode = 'small' layout = 'center'/>
 				}
+				<noscript>
+					{this._getIframeFragment(true)}
+				</noscript>
 			</div>
+		);
+	}
+
+	_getIframeFragment(noscript = false) {
+		return (
+			<iframe
+					src = { this.props.src }
+					width = { this.props.width }
+					height = { this.props.height }
+					scrolling = { this.props.scrolling }
+					sandbox = { this.props.sandbox }
+					frameBorder = { this.props.frameBorder }
+					allowFullScreen = { this.props.allowFullScreen }
+					onLoad = {() => this.setState({ noloading: true })}
+					className = {this.utils.$UIComponentHelper.cssClasses({
+						'atm-fill': true,
+						'atm-loaded': this.state.noloading && this.state.visibleOnViewport || noscript
+					})} />
 		);
 	}
 
