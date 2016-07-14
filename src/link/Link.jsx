@@ -33,14 +33,14 @@ Link.contextTypes = {
 
 
 Link.propTypes = {
-	text: PropTypes.oneOfType([PropTypes.string, null]),
-	href: PropTypes.oneOfType([PropTypes.string, null]),
-	title: PropTypes.oneOfType([PropTypes.string, null]),
-	target: PropTypes.oneOfType([PropTypes.string, null]),
-	onClick: PropTypes.oneOfType([PropTypes.func, null]),
+	text: PropTypes.string,
+	href: PropTypes.string,
+	title: PropTypes.string,
+	target: PropTypes.string,
+	onClick: PropTypes.func,
 	mode: PropTypes.string,
 	className: PropTypes.string,
-	"data-e2e": PropTypes.oneOfType([PropTypes.string, null])
+	"data-e2e": PropTypes.string
 };
 
 Link.defaultProps = {

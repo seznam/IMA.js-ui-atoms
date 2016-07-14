@@ -24,15 +24,15 @@ Image.contextTypes = {
 };
 
 Image.propTypes = {
-	src: PropTypes.oneOfType([PropTypes.string, null]),
-	srcSet: PropTypes.oneOfType([PropTypes.string, null]),
-	width: PropTypes.oneOfType([PropTypes.number, null]),
-	height: PropTypes.oneOfType([PropTypes.number, null]),
-	layout: PropTypes.oneOfType([PropTypes.string, null]),
-	alt: PropTypes.oneOfType([PropTypes.string, null]),
-	noloading: PropTypes.oneOfType([PropTypes.bool, null]),
+	src: PropTypes.string,
+	srcSet: PropTypes.string,
+	width: PropTypes.number,
+	height: PropTypes.number,
+	layout: PropTypes.string,
+	alt: PropTypes.string,
+	noloading: PropTypes.bool,
 	className: PropTypes.string,
-	"data-e2e": PropTypes.oneOfType([PropTypes.bool, null])
+	"data-e2e": PropTypes.bool
 };
 
 Image.defaultProps = {

@@ -29,10 +29,10 @@ Li.contextTypes = {
 
 
 Li.propTypes = {
-	text: PropTypes.oneOfType([PropTypes.string, null]),
+	text: PropTypes.string,
 	mode: PropTypes.string,
 	className: PropTypes.string,
-	"data-e2e": PropTypes.oneOfType([PropTypes.bool, null])
+	"data-e2e": PropTypes.bool
 };
 
 Li.defaultProps = {

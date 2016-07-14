@@ -23,13 +23,13 @@ Iframe.contextTypes = {
 };
 
 Iframe.propTypes = {
-	src: PropTypes.oneOfType([PropTypes.string, null]),
-	width: PropTypes.oneOfType([PropTypes.number, null]),
-	height: PropTypes.oneOfType([PropTypes.number, null]),
-	scrolling: PropTypes.oneOfType([PropTypes.string, null]),
-	layout: PropTypes.oneOfType([PropTypes.string, null]),
-	sandbox: PropTypes.oneOfType([PropTypes.string, null]),
-	allowFullScreen: PropTypes.oneOfType([PropTypes.bool, null]),
+	src: PropTypes.string,
+	width: PropTypes.number,
+	height: PropTypes.number,
+	scrolling: PropTypes.string,
+	layout: PropTypes.string,
+	sandbox: PropTypes.string,
+	allowFullScreen: PropTypes.bool,
 	frameBorder: PropTypes.string,
 	className: PropTypes.string
 };

@@ -36,7 +36,7 @@ Loader.propTypes = {
 	mode: PropTypes.string,
 	layout: PropTypes.string,
 	className: PropTypes.string,
-	"data-e2e": PropTypes.oneOfType([PropTypes.string, null])
+	"data-e2e": PropTypes.string
 };
 
 Loader.defaultProps = {

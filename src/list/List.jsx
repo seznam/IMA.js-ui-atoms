@@ -30,7 +30,7 @@ List.contextTypes = {
 List.propTypes = {
 	className:  PropTypes.string,
 	mode: PropTypes.string,
-	"data-e2e": PropTypes.oneOfType([PropTypes.string, null])
+	"data-e2e": PropTypes.string
 };
 
 List.defaultProps = {

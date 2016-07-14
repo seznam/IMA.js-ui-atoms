@@ -8,7 +8,7 @@ import React, { PropTypes } from 'react';
  * @module ima
  * @submodule ima.ui
  */
- 
+
 let Paragraph = (props, context) => {
 	var paragraph = null;
 
@@ -48,7 +48,7 @@ Paragraph.contextTypes = {
 
 Paragraph.propTypes = {
 	className:  PropTypes.string,
-	text: PropTypes.oneOfType([PropTypes.string, null]),
+	text: PropTypes.string,
 	mode: PropTypes.string
 };
 

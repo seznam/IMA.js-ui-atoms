@@ -29,9 +29,9 @@ Headline.contextTypes = {
 };
 
 Headline.propTypes = {
-	id:  PropTypes.oneOfType([PropTypes.string, null]),
-	className:  PropTypes.oneOfType([PropTypes.string, null]),
-	text: PropTypes.oneOfType([PropTypes.string, null]),
+	id:  PropTypes.string,
+	className:  PropTypes.string,
+	text: PropTypes.string,
 	mode: PropTypes.string
 };
 
