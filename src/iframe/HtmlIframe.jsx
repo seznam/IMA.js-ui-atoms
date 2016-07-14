@@ -85,12 +85,17 @@ export default class HtmlIframe extends React.Component {
 								onLoad = {() => this.setState({ noloading: true })}
 								className = {this.utils.$UIComponentHelper.cssClasses({
 									'atm-fill': true,
-									'atm-loaded': this.state.noloading && this.state.visibleOnViewport || noscript
+									'atm-loaded': this.state.noloading && this.state.visibleOnViewport
 								})} />
 					:
 						<Loader mode = 'small' layout = 'center'/>
 				}
 				<noscript
+						style = {{
+							display: 'block',
+							width: this.props.width || 'auto',
+							height: this.props.height || 'auto'
+						}}
 						dangerouslySetInnerHTML = {{
 							__html: `<iframe
 								src="${this.props.src}"
