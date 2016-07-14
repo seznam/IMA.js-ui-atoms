@@ -74,32 +74,35 @@ export default class HtmlIframe extends React.Component {
 				}
 				{
 					this.state.visibleOnViewport ?
-						this._getIframeFragment()
+						<iframe
+								src = { this.props.src }
+								width = { this.props.width }
+								height = { this.props.height }
+								scrolling = { this.props.scrolling }
+								sandbox = { this.props.sandbox }
+								frameBorder = { this.props.frameBorder }
+								allowFullScreen = { this.props.allowFullScreen }
+								onLoad = {() => this.setState({ noloading: true })}
+								className = {this.utils.$UIComponentHelper.cssClasses({
+									'atm-fill': true,
+									'atm-loaded': this.state.noloading && this.state.visibleOnViewport || noscript
+								})} />
 					:
 						<Loader mode = 'small' layout = 'center'/>
 				}
-				<noscript>
-					{this._getIframeFragment(true)}
-				</noscript>
+				<noscript
+						dangerouslySetInnerHTML = {{
+							__html: `<iframe
+								src="${this.props.src}"
+								width="${this.props.width || auto}"
+								height="${this.props.height || auto}"
+								sandbox="${this.props.sandbox || ''}"
+								scrolling="${this.props.scrolling || 'no'}"
+								frameborder="${this.props.frameBorder || '0'}"
+								allowfullscreen="${this.props.allowFullScreen || '0'}"
+								class="atm-fill atm-loaded"`
+						}}/>
 			</div>
-		);
-	}
-
-	_getIframeFragment(noscript = false) {
-		return (
-			<iframe
-					src = { this.props.src }
-					width = { this.props.width }
-					height = { this.props.height }
-					scrolling = { this.props.scrolling }
-					sandbox = { this.props.sandbox }
-					frameBorder = { this.props.frameBorder }
-					allowFullScreen = { this.props.allowFullScreen }
-					onLoad = {() => this.setState({ noloading: true })}
-					className = {this.utils.$UIComponentHelper.cssClasses({
-						'atm-fill': true,
-						'atm-loaded': this.state.noloading && this.state.visibleOnViewport || noscript
-					})} />
 		);
 	}
 
