@@ -1,5 +1,5 @@
 require('babel-core/register.js')({
-	presets: ['es2015', 'react']
+	presets: [require('babel-preset-es2015'), require('babel-preset-react')]
 });
 
 let gulp = require('gulp');
