@@ -1,6 +1,6 @@
 {
 	"name": "ima-ui-atoms",
-	"version": "0.3.11",
+	"version": "0.3.12",
 	"description": "IMA.js UI React atoms",
 	"scripts": {
 		"prepublish": "npm run build && npm run copy && npm run test",
