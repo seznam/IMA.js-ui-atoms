@@ -114,22 +114,23 @@ export default class HtmlImage extends React.Component {
 	}
 
 	_checkVisibility() {
-		let clientRect = this._findDOMNode().getBoundingClientRect();
+		if (this._mounted) {
+			let clientRect = this._findDOMNode().getBoundingClientRect();
 
-		let elmRectStyle = {
-			top: clientRect.top - EXTENDED_PADDING,
-			left: clientRect.left - EXTENDED_PADDING,
-			width: clientRect.width + EXTENDED_PADDING,
-			height: (clientRect.height || this.props.height || 0 / this.props.width || 0 * clientRect.width) + EXTENDED_PADDING
-		};
+			let elmRectStyle = {
+				top: clientRect.top - EXTENDED_PADDING,
+				left: clientRect.left - EXTENDED_PADDING,
+				width: clientRect.width + EXTENDED_PADDING,
+				height: (clientRect.height || this.props.height || 0 / this.props.width || 0 * clientRect.width) + EXTENDED_PADDING
+			};
 
 
-		if (this.state.visibleOnViewport === false &&
-				this.utils.$UIComponentHelper.getPercentOfVisibility(elmRectStyle) > 0 &&
-				this._mounted) {
-			this._preLoadImage();
-			this._unbindEventListeners();
-			this.setState({ visibleOnViewport: true });
+			if (this.state.visibleOnViewport === false &&
+					this.utils.$UIComponentHelper.getPercentOfVisibility(elmRectStyle) > 0) {
+				this._preLoadImage();
+				this._unbindEventListeners();
+				this.setState({ visibleOnViewport: true });
+			}
 		}
 	}
 
