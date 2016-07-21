@@ -82,7 +82,6 @@ export default class HtmlIframe extends React.Component {
 								sandbox = { this.props.sandbox }
 								frameBorder = { this.props.frameBorder }
 								allowFullScreen = { this.props.allowFullScreen }
-								onLoad = {() => this.setState({ noloading: true })}
 								className = {this.utils.$UIComponentHelper.cssClasses({
 									'atm-fill': true,
 									'atm-loaded': this.state.noloading && this.state.visibleOnViewport
