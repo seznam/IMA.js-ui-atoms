@@ -79,4 +79,37 @@ describe('UIComponentHelper', () => {
 
 	});
 
+	describe('getBoundingClientRect method', () => {
+
+		it('throw error for undefined element', () => {
+			expect(() => {
+				uiComponentHelper.getBoundingClientRect();
+			}).toThrow();
+		});
+
+		it('throw error for element without callable method getBoundingClientRect', () => {
+			expect(() => {
+				uiComponentHelper.getBoundingClientRect({});
+			}).toThrow();
+		});
+
+		it('should returns expanded size for element', () => {
+			let element = {
+				getBoundingClientRect: () => elmRect
+			};
+
+			expect(uiComponentHelper.getBoundingClientRect(element, {}, 300)).toEqual({
+				top: -370,
+				left: 162,
+				width: 400,
+				height: 400
+			});
+
+			expect(function() {
+				uiComponentHelper.getBoundingClientRect({});
+			}).toThrow();
+		});
+
+	});
+
 });

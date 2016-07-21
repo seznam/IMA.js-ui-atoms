@@ -151,6 +151,33 @@ export default class UIComponentHelper {
 	}
 
 	/**
+	 * Returns the size of an element and its position relative to the viewport and
+	 * add extended value to returned rect.
+	 *
+	 * @method getBoundingClientRect
+	 * @param {Element} element
+	 * @param {{width: number, height: number}} size
+	 * @param {number} extended
+	 * @return {{top: number, left: number, width: number, height: number}}
+	 */
+	getBoundingClientRect(element, { width, height } = { width: 0, height: 0 }, extended = 0) {
+		if (!element || typeof element.getBoundingClientRect !== 'function') {
+			throw new Error(`Element rect is required with callable getBoundingClientRect()` +
+					` method on element.`);
+		}
+
+		let clientRect = element.getBoundingClientRect();
+		let elmRectStyle = {
+			top: clientRect.top - extended,
+			left: clientRect.left - extended,
+			width: clientRect.width + extended,
+			height: (clientRect.height || height || 0 / width || 0 * clientRect.width) + extended
+		};
+
+		return elmRectStyle;
+	}
+
+	/**
 	 * Generate a string of CSS classes from the properties of the passed-in
 	 * object that resolve to true.
 	 *
