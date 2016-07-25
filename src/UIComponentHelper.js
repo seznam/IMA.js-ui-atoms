@@ -182,33 +182,39 @@ export default class UIComponentHelper {
 	 * object that resolve to true.
 	 *
 	 * @method cssClasses
-	 * @param {(string|Object<string, boolean>)} classRules CSS classes in a
-	 *        string separated by whitespace, or a map of CSS class names to
-	 *        boolean values. The CSS class name will be included in the result
-	 *        only if the value is {@code true}.
+	 * @param {...?(string|Object<string, boolean>)} classRuleGroups CSS
+	 *        classes in a string separated by whitespace, or a map of CSS
+	 *        class names to boolean values. The CSS class name will be
+	 *        included in the result only if the value is {@code true}.
+	 *        Declarations in the later class rule group will override the
+	 *        declarations in the previous group.
 	 * @return {string} String of CSS classes that had their property resolved
 	 *         to {@code true}.
 	 */
-	cssClasses(classRules) {
-		if (typeof classRules === 'string') {
-			var  separatedClassNames = classRules.split(/\s+/);
-			classRules = {};
+	cssClasses(...classRuleGroups) {
+		classRuleGroups = classRuleGroups
+			.filter(group => !!group)
+			.map((classRules) => {
+				if (typeof classRules === 'string') {
+					var  separatedClassNames = classRules.split(/\s+/);
+					classRules = {};
 
-			for (var className of separatedClassNames) {
-				classRules[className] = true;
-			}
-		}
+					for (var className of separatedClassNames) {
+						classRules[className] = true;
+					}
+				}
+				if (!(classRules instanceof Object)) {
+					throw new Error('The class rules must be specified as a ' +
+							`plain object or a string, ${classRules} provided`);
+				}
 
-		if (!(classRules instanceof Object)) {
-			throw new Error('The class rules must be specified as a plain ' +
-					`object, ${classRules} provided`);
-		}
+				return classRules;
+			});
 
-		return Object
-			.keys(classRules)
-			.filter((cssClassName) => {
-				return classRules[cssClassName];
-			})
-			.join(' ');
+		return classRuleGroups.map(
+			group => Object.keys(group).filter(className => group[className])
+		).map(
+			classNames => classNames.join(' ')
+		).join(' ');
 	}
 }
