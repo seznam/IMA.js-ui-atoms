@@ -19,9 +19,8 @@ let Paragraph = (props, context) => {
 					className = {context.$Utils.$UIComponentHelper.cssClasses({
 						'atm-paragraph': true,
 						['atm-paragraph-' + props.mode]: props.mode,
-						['atm-paragraph-align-' + props.align]: props.align,
-						[props.className]: props.className
-					})}>
+						['atm-paragraph-align-' + props.align]: props.align
+					}, props.className)}>
 				{props.children}
 			</p>
 		);
@@ -32,9 +31,8 @@ let Paragraph = (props, context) => {
 					className = {context.$Utils.$UIComponentHelper.cssClasses({
 						'atm-paragraph': true,
 						['atm-paragraph-' + props.mode]: props.mode,
-						['atm-paragraph-align-' + props.align]: props.align,
-						[props.className]: props.className
-					})}
+						['atm-paragraph-align-' + props.align]: props.align
+					}, props.className)}
 					dangerouslySetInnerHTML = {{ __html: props.text }}/>
 		);
 	}

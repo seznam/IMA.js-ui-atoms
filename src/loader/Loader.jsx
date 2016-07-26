@@ -15,9 +15,8 @@ let Loader = (props, context) => {
 				className = {context.$Utils.$UIComponentHelper.cssClasses({
 					'atm-loader': true,
 					['atm-loader-' + props.mode]: props.mode,
-					['atm-loader-' + props.layout]: props.layout,
-					[props.className]: props.className
-				})}
+					['atm-loader-' + props.layout]: props.layout
+				}, props.className)}
 				data-e2e = {props['data-e2e']}>
 			<span />
 			<span />
@@ -41,7 +40,7 @@ Loader.propTypes = {
 
 Loader.defaultProps = {
 	mode: '',
-	layoyt: '',
+	layout: '',
 	className: '',
 	"data-e2e": null
 };

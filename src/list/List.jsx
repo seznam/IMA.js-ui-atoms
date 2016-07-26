@@ -14,9 +14,8 @@ import React, { PropTypes } from 'react';
 		<ul
 				className = { context.$Utils.$UIComponentHelper.cssClasses({
 					'atm-list': true,
-					['atm-list-' + props.mode]: props.mode,
-					[props.className]: props.className
-				})}
+					['atm-list-' + props.mode]: props.mode
+				}, props.className)}
 				data-e2e = {props['data-e2e']}>
 			{props.children}
 		</ul>

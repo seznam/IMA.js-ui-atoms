@@ -17,9 +17,8 @@ let Link = (props, context) => {
 				target = {props.target}
 				className = {context.$Utils.$UIComponentHelper.cssClasses({
 					'atm-link': true,
-					['atm-link-' + props.mode]: props.mode,
-					[props.className]: props.className
-				})}
+					['atm-link-' + props.mode]: props.mode
+				}, props.className)}
 				data-e2e = {props['data-e2e']}
 				onClick = {props.onClick}>
 			{props.children || props.text}

@@ -55,7 +55,7 @@ export default class HtmlImage extends React.Component {
 						'atm-placeholder': !this.state.noloading,
 						'atm-responsive': this.props.layout === 'responsive',
 						'atm-fill': this.props.layout === 'fill'
-					}, true)}
+					}, this.props.className)}
 					style = {
 						this.props.layout === 'responsive' ?
 							{}

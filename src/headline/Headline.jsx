@@ -16,9 +16,8 @@ let Headline = (props, context) => {
 		<Type
 				id = {props.id}
 				className = {context.$Utils.$UIComponentHelper.cssClasses({
-					['atm-' + Type]: Type,
-					[props.className]: props.className
-				})}>
+					['atm-' + Type]: Type
+				}, props.className)}>
 			{props.children || props.text}
 		</Type>
 	);

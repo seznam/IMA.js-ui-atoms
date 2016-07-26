@@ -15,7 +15,7 @@ let Sizer = (props, context) => {
 				className = {context.$Utils.$UIComponentHelper.cssClasses({
 					'atm-sizer': true,
 					'atm-placeholder': props.placeholder
-				}, true)}
+				}, props.className)}
 				style = {{ paddingTop: props.height / props.width * 100 + "%" }}/>
 	);
 };

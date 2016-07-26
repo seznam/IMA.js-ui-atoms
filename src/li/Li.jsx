@@ -14,9 +14,8 @@ let Li = (props, context) => {
 		<li
 				className = {context.$Utils.$UIComponentHelper.cssClasses({
 					'atm-li': true,
-					['atm-li-' + props.mode]: props.mode,
-					[props.className]: props.className
-				})}
+					['atm-li-' + props.mode]: props.mode
+				}, props.className)}
 				data-e2e = {props['data-e2e']}>
 			{props.children || props.text}
 		</li>
