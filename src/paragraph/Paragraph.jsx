@@ -28,12 +28,12 @@ let Paragraph = (props, context) => {
 
 		paragraph = (
 			<p
-					className = {context.$Utils.$UIComponentHelper.cssClasses({
+					className = { context.$Utils.$UIComponentHelper.cssClasses({
 						'atm-paragraph': true,
 						['atm-paragraph-' + props.mode]: props.mode,
 						['atm-paragraph-align-' + props.align]: props.align
-					}, props.className)}
-					dangerouslySetInnerHTML = {{ __html: props.text }}/>
+					}, props.className) }
+					dangerouslySetInnerHTML = { { __html: props.text } }/>
 		);
 	}
 

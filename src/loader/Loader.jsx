@@ -12,12 +12,12 @@ import React, { PropTypes } from 'react';
 let Loader = (props, context) => {
 	return (
 		<div
-				className = {context.$Utils.$UIComponentHelper.cssClasses({
+				className = { context.$Utils.$UIComponentHelper.cssClasses({
 					'atm-loader': true,
 					['atm-loader-' + props.mode]: props.mode,
 					['atm-loader-' + props.layout]: props.layout
-				}, props.className)}
-				data-e2e = {props['data-e2e']}>
+				}, props.className) }
+				data-e2e = { props['data-e2e'] }>
 			<span />
 			<span />
 			<span />
