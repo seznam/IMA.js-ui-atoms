@@ -14,11 +14,11 @@ let Headline = (props, context) => {
 
 	return (
 		<Type
-				id = {props.id}
-				className = {context.$Utils.$UIComponentHelper.cssClasses({
+				id = { props.id }
+				className = { context.$Utils.$UIComponentHelper.cssClasses({
 					['atm-' + Type]: Type
-				}, props.className)}>
-			{props.children || props.text}
+				}, props.className) }>
+			{ props.children || props.text }
 		</Type>
 	);
 };

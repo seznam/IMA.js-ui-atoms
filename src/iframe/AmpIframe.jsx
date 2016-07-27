@@ -21,7 +21,7 @@ import React from 'react';
 				frameBorder = { props.frameBorder }
 				allowFullScreen = { props.allowFullScreen }
 				class = { props.className }
-				data-e2e = {props['data-e2e']}>
+				data-e2e = { props['data-e2e'] }>
 			<div placeholder='' />
 		</amp-iframe>
 	);

@@ -25,7 +25,11 @@ export default class HtmlIframe extends React.Component {
 		};
 
 		this._mounted = false;
-		this._throttledCheckVisibility = this.utils.$Helper.throttle(this._checkVisibility, 333, this);
+		this._throttledCheckVisibility = this.utils.$Helper.throttle(
+			this._checkVisibility,
+			333,
+			this
+		);
 	}
 
 	get utils() {
@@ -47,14 +51,14 @@ export default class HtmlIframe extends React.Component {
 	render() {
 		return (
 			<div
-					className = {this.utils.$UIComponentHelper.cssClasses({
+					className = { this.utils.$UIComponentHelper.cssClasses({
 						'atm-iframe': true,
 						'atm-overflow': true,
 						'atm-placeholder': !this.state.noloading,
 						'atm-responsive': this.props.layout === 'responsive',
 						'atm-fill': this.props.layout === 'fill'
-					}, this.props.className)}
-					data-e2e = {this.props['data-e2e']}
+					}, this.props.className) }
+					data-e2e = { this.props['data-e2e'] }
 					style = {
 						this.props.layout === 'responsive' ?
 							{}
@@ -67,9 +71,9 @@ export default class HtmlIframe extends React.Component {
 				{
 					this.props.layout === 'responsive' ?
 						<Sizer
-								width = {this.props.width}
-								height = {this.props.height}
-								placeholder = {true}/>
+								width = { this.props.width }
+								height = { this.props.height }
+								placeholder = { true }/>
 					:
 						null
 				}
@@ -83,20 +87,20 @@ export default class HtmlIframe extends React.Component {
 								sandbox = { this.props.sandbox }
 								frameBorder = { this.props.frameBorder }
 								allowFullScreen = { this.props.allowFullScreen }
-								className = {this.utils.$UIComponentHelper.cssClasses({
+								className = { this.utils.$UIComponentHelper.cssClasses({
 									'atm-fill': true,
 									'atm-loaded': this.state.noloading && this.state.visibleOnViewport
-								})} />
+								}) }/>
 					:
 						<Loader mode = 'small' layout = 'center'/>
 				}
 				<noscript
-						style = {{
+						style = { {
 							display: 'block',
 							width: this.props.width || 'auto',
 							height: this.props.height || 'auto'
-						}}
-						dangerouslySetInnerHTML = {{
+						} }
+						dangerouslySetInnerHTML = { {
 							__html: `<iframe
 								src="${this.props.src}"
 								width="${this.props.width || auto}"
@@ -106,7 +110,7 @@ export default class HtmlIframe extends React.Component {
 								frameborder="${this.props.frameBorder || '0'}"
 								allowfullscreen="${this.props.allowFullScreen || '0'}"
 								class="atm-fill atm-loaded"`
-						}}/>
+						} }/>
 			</div>
 		);
 	}

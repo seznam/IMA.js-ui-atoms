@@ -25,7 +25,11 @@ export default class HtmlImage extends React.Component {
 		};
 
 		this._mounted = false;
-		this._throttledCheckVisibility = this.utils.$Helper.throttle(this._checkVisibility, 333, this);
+		this._throttledCheckVisibility = this.utils.$Helper.throttle(
+			this._checkVisibility,
+			333,
+			this
+		);
 	}
 
 	get utils() {
@@ -49,14 +53,14 @@ export default class HtmlImage extends React.Component {
 	render() {
 		return (
 			<div
-					className = {this.utils.$UIComponentHelper.cssClasses({
+					className = { this.utils.$UIComponentHelper.cssClasses({
 						'atm-image': true,
 						'atm-overflow': true,
 						'atm-placeholder': !this.state.noloading,
 						'atm-responsive': this.props.layout === 'responsive',
 						'atm-fill': this.props.layout === 'fill'
-					}, this.props.className)}
-					data-e2e = {this.props['data-e2e']}
+					}, this.props.className) }
+					data-e2e = { this.props['data-e2e'] }
 					style = {
 						this.props.layout === 'responsive' ?
 							{}
@@ -69,9 +73,9 @@ export default class HtmlImage extends React.Component {
 				{
 					this.props.layout === 'responsive' ?
 						<Sizer
-								width = {this.props.width}
-								height = {this.props.height}
-								placeholder = {!this.state.noloading}/>
+								width = { this.props.width }
+								height = { this.props.height }
+								placeholder = { !this.state.noloading }/>
 					:
 						null
 				}
@@ -81,21 +85,21 @@ export default class HtmlImage extends React.Component {
 								src = { this.props.src }
 								srcSet = { this.props.srcSet }
 								alt = { this.props.alt }
-								className = {this.utils.$UIComponentHelper.cssClasses({
+								className = { this.utils.$UIComponentHelper.cssClasses({
 									'atm-fill': true,
 									'atm-loaded': this.state.noloading && this.state.visibleOnViewport
-								})} />
+								}) } />
 					:
 						<Loader mode = 'small' layout = 'center'/>
 				}
 				<noscript
-						dangerouslySetInnerHTML = {{
+						dangerouslySetInnerHTML = { {
 							__html: `<img
 								src="${this.props.src || ''}"
 								srcset="${this.props.srcSet || ''}"
 								alt="${this.props.alt || ''}"
 								class="atm-fill atm-loaded"`
-						}}/>
+						} }/>
 			</div>
 		);
 	}
