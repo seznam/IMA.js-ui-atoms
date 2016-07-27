@@ -54,6 +54,7 @@ export default class HtmlIframe extends React.Component {
 						'atm-responsive': this.props.layout === 'responsive',
 						'atm-fill': this.props.layout === 'fill'
 					}, this.props.className)}
+					data-e2e = {this.props['data-e2e']}
 					style = {
 						this.props.layout === 'responsive' ?
 							{}

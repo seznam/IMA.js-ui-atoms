@@ -20,7 +20,8 @@ import React from 'react';
 				sandbox = { props.sandbox }
 				frameBorder = { props.frameBorder }
 				allowFullScreen = { props.allowFullScreen }
-				class = { props.className }>
+				class = { props.className }
+				data-e2e = {props['data-e2e']}>
 			<div placeholder='' />
 		</amp-iframe>
 	);
