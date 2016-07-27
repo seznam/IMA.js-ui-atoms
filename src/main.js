@@ -42,7 +42,6 @@ let $registerImaPlugin = (ns) => {
 	ns.namespace('ima.ui.atom.video');
 
 	let nsHeadline = ns.ima.ui.atom.headline;
-
 	nsHeadline.Headline = Headline;
 	nsHeadline.Headline1 = Headline1;
 	nsHeadline.Headline2 = Headline2;
@@ -65,7 +64,7 @@ let $registerImaPlugin = (ns) => {
 	ns.ima.ui.atom.link.Link = Link;
 	ns.ima.ui.atom.link.A = Link;
 
-	nsList = ns.ima.ui.atom.list;
+	let nsList = ns.ima.ui.atom.list;
 	nsList.List = List;
 	nsList.ListItem = ListItem;
 	nsList.OrderedList = OrderedList;
