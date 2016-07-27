@@ -12,16 +12,16 @@ import React, { PropTypes } from 'react';
 let Link = (props, context) => {
 	return (
 		<a
-				href = {props.href}
-				title = {props.title}
-				target = {props.target}
-				className = {context.$Utils.$UIComponentHelper.cssClasses({
+				href = { props.href }
+				title = { props.title }
+				target = { props.target }
+				className = { context.$Utils.$UIComponentHelper.cssClasses({
 					'atm-link': true,
 					['atm-link-' + props.mode]: props.mode
-				}, props.className)}
-				data-e2e = {props['data-e2e']}
-				onClick = {props.onClick}>
-			{props.children || props.text}
+				}, props.className) }
+				data-e2e = { props['data-e2e'] }
+				onClick = { props.onClick }>
+			{ props.children || props.text }
 		</a>
 	);
 };
