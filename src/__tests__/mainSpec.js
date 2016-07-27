@@ -2,40 +2,44 @@ import * as UIAtoms from '../main';
 
 describe('UIAtoms', () => {
 
-	it('should has headline component', () => {
+	it('should have the headline component', () => {
 		expect(UIAtoms.Headline).not.toEqual(null);
 	});
 
-	it('should has image component', () => {
+	it('should have the image component', () => {
 		expect(UIAtoms.Image).not.toEqual(null);
 	});
 
-	it('should has iframe component', () => {
+	it('should have the iframe component', () => {
 		expect(UIAtoms.Iframe).not.toEqual(null);
 	});
 
-	it('should has link component', () => {
+	it('should have the link component', () => {
 		expect(UIAtoms.Link).not.toEqual(null);
 	});
 
-	it('should has loader component', () => {
+	it('should have the loader component', () => {
 		expect(UIAtoms.Loader).not.toEqual(null);
 	});
 
-	it('should has sizer component', () => {
+	it('should have the sizer component', () => {
 		expect(UIAtoms.Sizer).not.toEqual(null);
 	});
 
-	it('should has paragraph component', () => {
+	it('should have the paragraph component', () => {
 		expect(UIAtoms.Paragraph).not.toEqual(null);
 	});
 
-	it('should has list component', () => {
+	it('should have the list component', () => {
 		expect(UIAtoms.List).not.toEqual(null);
 	});
 
-	it('should has li component', () => {
+	it('should have the li component', () => {
 		expect(UIAtoms.Li).not.toEqual(null);
+	});
+
+	it('should have the video component', () => {
+		expect(UIAtoms.Video).not.toEqual(null);
 	});
 
 });

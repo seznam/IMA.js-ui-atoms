@@ -24,6 +24,8 @@ import Paragraph from './paragraph/Paragraph';
 
 import Sizer from './sizer/Sizer';
 
+import Video from './video/Video';
+
 let defaultDependencies = ['$Router', '$Window'];
 
 let $registerImaPlugin = (ns) => {
@@ -37,6 +39,7 @@ let $registerImaPlugin = (ns) => {
 	ns.namespace('ima.ui.atom.loader');
 	ns.namespace('ima.ui.atom.paragraph');
 	ns.namespace('ima.ui.atom.sizer');
+	ns.namespace('ima.ui.atom.video');
 
 	ns.ima.ui.atom.headline.Headline = Headline;
 	ns.ima.ui.atom.headline.H1 = H1;
@@ -61,6 +64,8 @@ let $registerImaPlugin = (ns) => {
 	ns.ima.ui.atom.paragraph.Paragraph = Paragraph;
 
 	ns.ima.ui.atom.sizer.Sizer = Sizer;
+
+	ns.ima.ui.atom.video.Video = Video;
 
 	ns.ima.ui.atom.UIComponentHelper = UIComponentHelper;
 	ns.ima.ui.atom.defaultDependencies = defaultDependencies;
@@ -88,6 +93,7 @@ export {
 	Loader,
 	Paragraph,
 	Sizer,
+	Video,
 	initBind,
 	$registerImaPlugin
 };
