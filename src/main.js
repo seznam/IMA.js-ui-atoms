@@ -44,18 +44,18 @@ let $registerImaPlugin = (ns) => {
 	let nsHeadline = ns.ima.ui.atom.headline;
 
 	nsHeadline.Headline = Headline;
-	nsHeadline.H1 = H1;
-	nsHeadline.H2 = H2;
-	nsHeadline.H3 = H3;
-	nsHeadline.H4 = H4;
-	nsHeadline.H5 = H5;
-	nsHeadline.H6 = H6;
-	nsHeadline.Headline1 = H1;
-	nsHeadline.Headline2 = H2;
-	nsHeadline.Headline3 = H3;
-	nsHeadline.Headline4 = H4;
-	nsHeadline.Headline5 = H5;
-	nsHeadline.Headline6 = H6;
+	nsHeadline.Headline1 = Headline1;
+	nsHeadline.Headline2 = Headline2;
+	nsHeadline.Headline3 = Headline3;
+	nsHeadline.Headline4 = Headline4;
+	nsHeadline.Headline5 = Headline5;
+	nsHeadline.Headline6 = Headline6;
+	nsHeadline.H1 = Headline1;
+	nsHeadline.H2 = Headline2;
+	nsHeadline.H3 = Headline3;
+	nsHeadline.H4 = Headline4;
+	nsHeadline.H5 = Headline5;
+	nsHeadline.H6 = Headline6;
 
 	ns.ima.ui.atom.iframe.Iframe = Iframe;
 
