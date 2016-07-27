@@ -20,7 +20,7 @@ export default class HtmlVideo extends React.Component {
 			visibleInViewport: false
 		};
 
-		this._throttledCheckVisibility = this.utils.$Helper.throttle(
+		this._throttledCheckVisibility = context.$Utils.$Helper.throttle(
 			this._checkVisibility,
 			333,
 			this
@@ -33,7 +33,7 @@ export default class HtmlVideo extends React.Component {
 		return (
 			<div
 					ref = 'root'
-					className = {this.utils.$UIComponentHelper.cssClasses({
+					className = {this.context.$Utils.$UIComponentHelper.cssClasses({
 						'atm-video': true,
 						'atm-overflow': true,
 						'atm-placeholder': !this.state.loaded,
@@ -69,7 +69,7 @@ export default class HtmlVideo extends React.Component {
 								muted = { this.props.muted }
 								width = { this.props.width }
 								height = { this.props.height }
-								className = {this.utils.$UIComponentHelper.cssClasses({
+								className = {this.context.$Utils.$UIComponentHelper.cssClasses({
 									'atm-fill': true,
 									'atm-loaded': this.state.loaded && this.state.visibleInViewport
 								})}>
@@ -108,13 +108,13 @@ export default class HtmlVideo extends React.Component {
 	}
 
 	_bindEventListeners() {
-		this.utils.$Window.unbindEventListener(window, 'resize', this._throttledCheckVisibility);
-		this.utils.$Window.unbindEventListener(window, 'scroll', this._throttledCheckVisibility);
+		this.context.$Utils.$Window.unbindEventListener(window, 'resize', this._throttledCheckVisibility);
+		this.context.$Utils.$Window.unbindEventListener(window, 'scroll', this._throttledCheckVisibility);
 	}
 
 	_unbindEventListeners() {
-		this.utils.$Window.bindEventListener(window, 'resize', this._throttledCheckVisibility);
-		this.utils.$Window.bindEventListener(window, 'scroll', this._throttledCheckVisibility);
+		this.context.$Utils.$Window.bindEventListener(window, 'resize', this._throttledCheckVisibility);
+		this.context.$Utils.$Window.bindEventListener(window, 'scroll', this._throttledCheckVisibility);
 	}
 
 	_checkVisibility() {
@@ -123,12 +123,12 @@ export default class HtmlVideo extends React.Component {
 		}
 
 		let rootElement = this.refs.root;
-		let rootElementBounds = this.utils.$UIComponentHelper.getBoundingClientRect(
+		let rootElementBounds = this.context.$Utils.$UIComponentHelper.getBoundingClientRect(
 			rootElement,
 			{ width: this.props.width, height: this.props.height },
 			EXTENDED_PADDING
 		);
-		let visibility = this.utils.$UIComponentHelper.getPercentOfVisibility(rootElementBounds);
+		let visibility = this.context.$Utils.$UIComponentHelper.getPercentOfVisibility(rootElementBounds);
 		if (visibility > 0) {
 			this._preLoadPosterImage();
 			this._unbindEventListeners();
