@@ -5,13 +5,13 @@ const EXTENDED_PADDING = 300;
 /**
  * HTML video player.
  *
- * @class HtmlImage
+ * @class HtmlVideo
  * @namespace ima.ui.atom.video
  * @module ima
  * @submodule ima.ui
  */
 
-export default class HtmlImage extends React.Component {
+export default class HtmlVideo extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 
@@ -158,4 +158,8 @@ export default class HtmlImage extends React.Component {
 			}
 		}
 	}
+};
+
+HtmlVideo.contextTypes = {
+	$Utils: React.PropTypes.object
 };

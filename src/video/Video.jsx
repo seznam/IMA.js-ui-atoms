@@ -19,7 +19,7 @@ export default function Video(props, context) {
 	}
 }
 
-Video.propTypes = {
+Video.contextTypes = {
 	$Utils: React.PropTypes.object
 };
 
