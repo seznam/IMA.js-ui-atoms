@@ -10,29 +10,26 @@ import React, { PropTypes } from 'react';
  */
 
 let Paragraph = (props, context) => {
-	var paragraph = null;
+	let paragraph = null;
+	let className = context.$Utils.$UIComponentHelper.cssClasses({
+		'atm-paragraph': true,
+		['atm-paragraph-' + props.mode]: props.mode,
+		['atm-paragraph-align-' + props.align]: props.align
+	}, props.className);
 
 	if (props.children) {
-
 		paragraph = (
 			<p
-					className = {context.$Utils.$UIComponentHelper.cssClasses({
-						'atm-paragraph': true,
-						['atm-paragraph-' + props.mode]: props.mode,
-						['atm-paragraph-align-' + props.align]: props.align
-					}, props.className)}>
+					className = { className }
+					data-e2e = { props['data-e2e'] }>
 				{props.children}
 			</p>
 		);
 	} else {
-
 		paragraph = (
 			<p
-					className = { context.$Utils.$UIComponentHelper.cssClasses({
-						'atm-paragraph': true,
-						['atm-paragraph-' + props.mode]: props.mode,
-						['atm-paragraph-align-' + props.align]: props.align
-					}, props.className) }
+					className = { className}
+					data-e2e = { props['data-e2e'] }
 					dangerouslySetInnerHTML = { { __html: props.text } }/>
 		);
 	}
@@ -47,13 +44,15 @@ Paragraph.contextTypes = {
 Paragraph.propTypes = {
 	className:  PropTypes.string,
 	text: PropTypes.string,
-	mode: PropTypes.string
+	mode: PropTypes.string,
+	"data-e2e": PropTypes.string
 };
 
 Paragraph.defaultProps = {
 	className: '',
 	text: null,
-	mode: ''
+	mode: '',
+	"data-e2e": null
 };
 
 export default Paragraph;
