@@ -120,20 +120,21 @@ export default class HtmlVideo extends React.Component {
 	}
 
 	_checkVisibility() {
-		if (this._mounted) {
-			let rootElement = this.refs.root;
-			let rootElementBounds = this.context.$Utils.$UIComponentHelper.getBoundingClientRect(
-				rootElement,
-				{ width: this.props.width, height: this.props.height },
-				EXTENDED_PADDING
-			);
-			let visibility = this.context.$Utils.$UIComponentHelper.getPercentOfVisibility(rootElementBounds);
+		if (this.state.visibleInViewport || !this._mounted) {
+			return;
+		}
 
-			if (visibility > 0) {
-				this._preLoadPosterImage();
-				this._unbindEventListeners();
-				this.setState({ visibleInViewport: true });
-			}
+		let rootElement = this.refs.root;
+		let rootElementBounds = this.context.$Utils.$UIComponentHelper.getBoundingClientRect(
+			rootElement,
+			{ width: this.props.width, height: this.props.height },
+			EXTENDED_PADDING
+		);
+		let visibility = this.context.$Utils.$UIComponentHelper.getPercentOfVisibility(rootElementBounds);
+		if (visibility > 0) {
+			this._preLoadPosterImage();
+			this._unbindEventListeners();
+			this.setState({ visibleInViewport: true });
 		}
 	}
 
