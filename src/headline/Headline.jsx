@@ -10,17 +10,34 @@ import React, { PropTypes } from 'react';
  */
 
 let Headline = (props, context) => {
-	let Type = props.mode;
+	let headline = null;
+	let Type = props.type;
+	let className = context.$Utils.$UIComponentHelper.cssClasses({
+		['atm-headline']: true,
+		['atm-' + props.mode]: props.mode,
+		['atm-' + Type]: Type
+	}, props.className);
 
-	return (
-		<Type
-				id = {props.id}
-				className = {context.$Utils.$UIComponentHelper.cssClasses({
-					['atm-' + Type]: Type
-				}, props.className)}>
-			{props.children || props.text}
-		</Type>
-	);
+	if (props.children) {
+		headline = (
+			<Type
+					id = { props.id }
+					className = { className }
+					data-e2e = { props['data-e2e'] }>
+				{props.children}
+			</Type>
+		);
+	} else {
+		headline = (
+			<Type
+					id = { props.id }
+					className = { className }
+					data-e2e = { props['data-e2e'] }
+					dangerouslySetInnerHTML = { { __html: props.text } }/>
+		);
+	}
+
+	return headline;
 };
 
 Headline.contextTypes = {
@@ -31,14 +48,18 @@ Headline.propTypes = {
 	id:  PropTypes.string,
 	className:  PropTypes.string,
 	text: PropTypes.string,
-	mode: PropTypes.string
+	type: PropTypes.string,
+	mode: PropTypes.string,
+	"data-e2e": PropTypes.string
 };
 
 Headline.defaultProps = {
 	id: null,
 	className: '',
 	text: null,
-	mode: 'h1'
+	mode: null,
+	type: 'h1',
+	"data-e2e": null
 };
 
 export default Headline;

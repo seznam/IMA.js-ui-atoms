@@ -1,58 +1,58 @@
 import React, { PropTypes } from 'react';
 
 /**
- * Common paragraph
+ * Common ListItem
  *
- * @class Paragraph
- * @namespace ima.ui.atom.paragraph
+ * @class ListItem
+ * @namespace ima.ui.atom.list
  * @module ima
  * @submodule ima.ui
  */
 
-let Paragraph = (props, context) => {
-	let paragraph = null;
+let ListItem = (props, context) => {
+	let listItem = null;
 	let className = context.$Utils.$UIComponentHelper.cssClasses({
-		'atm-paragraph': true,
-		['atm-paragraph-' + props.mode]: props.mode,
-		['atm-paragraph-align-' + props.align]: props.align
+		'atm-li': true,
+		['atm-li-' + props.mode]: props.mode
 	}, props.className);
 
 	if (props.children) {
-		paragraph = (
-			<p
+		listItem = (
+			<li
 					className = { className }
 					data-e2e = { props['data-e2e'] }>
 				{props.children}
-			</p>
+			</li>
 		);
 	} else {
-		paragraph = (
-			<p
+		listItem = (
+			<li
 					className = { className}
 					data-e2e = { props['data-e2e'] }
 					dangerouslySetInnerHTML = { { __html: props.text } }/>
 		);
 	}
 
-	return paragraph;
+	return listItem;
 };
 
-Paragraph.contextTypes = {
+ListItem.contextTypes = {
 	$Utils: React.PropTypes.object
 };
 
-Paragraph.propTypes = {
-	className:  PropTypes.string,
+
+ListItem.propTypes = {
 	text: PropTypes.string,
 	mode: PropTypes.string,
+	className: PropTypes.string,
 	"data-e2e": PropTypes.string
 };
 
-Paragraph.defaultProps = {
-	className: '',
+ListItem.defaultProps = {
 	text: null,
 	mode: '',
+	className: '',
 	"data-e2e": null
 };
 
-export default Paragraph;
+export default ListItem;

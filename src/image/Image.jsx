@@ -32,7 +32,7 @@ Image.propTypes = {
 	alt: PropTypes.string,
 	noloading: PropTypes.bool,
 	className: PropTypes.string,
-	"data-e2e": PropTypes.bool
+	"data-e2e": PropTypes.string
 };
 
 Image.defaultProps = {

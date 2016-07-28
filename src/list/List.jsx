@@ -10,15 +10,18 @@ import React, { PropTypes } from 'react';
  */
 
  let List = (props, context) => {
+	let Type = props.type;
+
 	return (
-		<ul
+		<Type
 				className = { context.$Utils.$UIComponentHelper.cssClasses({
 					'atm-list': true,
-					['atm-list-' + props.mode]: props.mode
-				}, props.className)}
-				data-e2e = {props['data-e2e']}>
+					['atm-list-' + props.mode]: props.mode,
+					['atm-list-' + Type]: Type
+				}, props.className) }
+				data-e2e = { props['data-e2e'] }>
 			{props.children}
-		</ul>
+		</Type>
 	);
 };
 
@@ -29,12 +32,14 @@ List.contextTypes = {
 List.propTypes = {
 	className:  PropTypes.string,
 	mode: PropTypes.string,
+	type: PropTypes.string,
 	"data-e2e": PropTypes.string
 };
 
 List.defaultProps = {
 	className: '',
 	mode: '',
+	type: 'ul',
 	"data-e2e": null
 };
 

@@ -2,16 +2,16 @@ import React from 'react';
 import Headline from './Headline';
 
 /**
- * Common H5 title
+ * Common Headline3 title
  *
- * @class H5
+ * @class Headline3
  * @namespace ima.ui.atom.headline
  * @module ima
  * @submodule ima.ui
  */
 
-let H5 = (props) => {
-	return <Headline {...props} mode = 'h5'/>;
+let Headline3 = (props) => {
+	return <Headline {...props} type = 'h3'/>;
 };
 
-export default H5;
+export default Headline3;

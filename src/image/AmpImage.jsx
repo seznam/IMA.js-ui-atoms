@@ -18,7 +18,8 @@ import React from 'react';
 				height = { props.height }
 				layout = { props.layout }
 				alt = { props.alt }
-				class = { props.className } />
+				class = { props.className }
+				data-e2e = { props['data-e2e'] } />
 	);
 };
 
