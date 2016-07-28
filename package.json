@@ -1,6 +1,6 @@
 {
 	"name": "ima-ui-atoms",
-	"version": "0.5.5",
+	"version": "0.6.0",
 	"description": "IMA.js UI React atoms",
 	"scripts": {
 		"prepublish": "npm run build && npm run copy && npm run test",
@@ -18,13 +18,13 @@
 	"author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
 	"repository": {
 		"type": "git",
-		"url": "https://gitlab.kancelar.seznam.cz/IMA.js/ui-atoms.git"
+		"url": "https://github.com/seznam/IMA.js-ui-atoms.git"
 	},
 	"publishConfig": {
-		"registry": "http://npmjs.dev/"
+		"registry": "http://registry.npmjs.org/"
 	},
 	"bugs": {
-		"url": "https://gitlab.kancelar.seznam.cz/IMA.js/ui-atoms/issues"
+		"url": "https://github.com/seznam/IMA.js-ui-atoms/issues"
 	},
 	"license": "MIT",
 	"devDependencies": {
