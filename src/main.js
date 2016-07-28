@@ -65,7 +65,7 @@ let $registerImaPlugin = (ns) => {
 	ns.ima.ui.atom.link.Link = Link;
 	ns.ima.ui.atom.link.A = Link;
 
-	var nsList = ns.ima.ui.atom.list;
+	let nsList = ns.ima.ui.atom.list;
 	nsList.List = List;
 	nsList.ListItem = ListItem;
 	nsList.OrderedList = OrderedList;
