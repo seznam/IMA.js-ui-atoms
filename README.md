@@ -1,5 +1,7 @@
 # ima-ui-atoms
 
+Th package is moved to [Github](https://github.com/seznam/IMA.js-ui-atoms).
+
 The [IMA](https://imajs.io) UI atoms are elementary UI components based on
 the [Pattern Lab](http://patternlab.io/) design pattern for creating atomic design
 systems.
