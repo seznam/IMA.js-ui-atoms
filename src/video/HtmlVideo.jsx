@@ -120,7 +120,7 @@ export default class HtmlVideo extends React.Component {
 	}
 
 	_checkVisibility() {
-		if (this.state.visibleInViewport) {
+		if (this.state.visibleInViewport || !this._mounted) {
 			return;
 		}
 
