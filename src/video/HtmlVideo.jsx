@@ -35,13 +35,13 @@ export default class HtmlVideo extends React.Component {
 		return (
 			<div
 					ref = 'root'
-					className = {this.context.$Utils.$UIComponentHelper.cssClasses({
+					className = { this.context.$Utils.$UIComponentHelper.cssClasses({
 						'atm-video': true,
 						'atm-overflow': true,
 						'atm-placeholder': !this.state.loaded,
 						'atm-responsive': this.props.layout === 'responsive',
 						'atm-fill': this.props.layout === 'fill'
-					}, this.props.className)}
+					}, this.props.className) }
 					style = {
 						this.props.layout === 'responsive' ?
 							{}
@@ -54,9 +54,9 @@ export default class HtmlVideo extends React.Component {
 				{
 					this.props.layout === 'responsive' ?
 						<Sizer
-								width = {this.props.width}
-								height = {this.props.height}
-								placeholder = {!this.state.loaded}/>
+								width = { this.props.width }
+								height = { this.props.height }
+								placeholder = { !this.state.loaded }/>
 					:
 						null
 				}
@@ -71,12 +71,12 @@ export default class HtmlVideo extends React.Component {
 								muted = { this.props.muted }
 								width = { this.props.width }
 								height = { this.props.height }
-								className = {this.context.$Utils.$UIComponentHelper.cssClasses({
+								className = { this.context.$Utils.$UIComponentHelper.cssClasses({
 									'atm-fill': true,
 									'atm-loaded': this.state.loaded && this.state.visibleInViewport
-								})}>
+								}) }>
 							<div placeholder=''/>
-							{this.props.children}
+							{ this.props.children }
 						</video>
 					:
 						<Loader mode = 'small' layout = 'center'/>
@@ -160,7 +160,7 @@ export default class HtmlVideo extends React.Component {
 			}
 		}
 	}
-};
+}
 
 HtmlVideo.contextTypes = {
 	$Utils: React.PropTypes.object

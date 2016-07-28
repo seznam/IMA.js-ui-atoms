@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Loader from '../loader/Loader';
 import Sizer from '../sizer/Sizer';
 
@@ -21,7 +20,7 @@ export default class HtmlImage extends React.Component {
 
 		this.state = {
 			noloading: props.noloading || false,
-			visibleOnViewport: false
+			visibleInViewport: false
 		};
 
 		this._mounted = false;
@@ -53,6 +52,7 @@ export default class HtmlImage extends React.Component {
 	render() {
 		return (
 			<div
+					ref = 'root'
 					className = { this.utils.$UIComponentHelper.cssClasses({
 						'atm-image': true,
 						'atm-overflow': true,
@@ -87,7 +87,7 @@ export default class HtmlImage extends React.Component {
 								alt = { this.props.alt }
 								className = { this.utils.$UIComponentHelper.cssClasses({
 									'atm-fill': true,
-									'atm-loaded': this.state.noloading && this.state.visibleOnViewport
+									'atm-loaded': this.state.noloading && this.state.visibleInViewport
 								}) } />
 					:
 						<Loader mode = 'small' layout = 'center'/>
@@ -114,24 +114,20 @@ export default class HtmlImage extends React.Component {
 		this.utils.$Window.bindEventListener(window, 'scroll', this._throttledCheckVisibility);
 	}
 
-	_findDOMNode() {
-		return ReactDOM.findDOMNode(this);
-	}
-
 	_checkVisibility() {
 		if (this._mounted) {
-			let element = this._findDOMNode();
-			let elementRect = this.utils.$UIComponentHelper.getBoundingClientRect(
-				element,
+			let rootElement = this.refs.root;
+			let rootElementRect = this.utils.$UIComponentHelper.getBoundingClientRect(
+				rootElement,
 				{ width: this.props.width, height: this.props.height },
 				EXTENDED_PADDING
 			);
 
-			if (this.state.visibleOnViewport === false &&
-					this.utils.$UIComponentHelper.getPercentOfVisibility(elementRect) > 0) {
+			if (this.state.visibleInViewport === false &&
+					this.utils.$UIComponentHelper.getPercentOfVisibility(rootElementRect) > 0) {
 				this._preLoadImage();
 				this._unbindEventListeners();
-				this.setState({ visibleOnViewport: true });
+				this.setState({ visibleInViewport: true });
 			}
 		}
 	}
