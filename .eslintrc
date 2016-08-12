@@ -1,6 +1,6 @@
 {
-  "extends": "eslint:recommended",
-  "rules": {
+"extends": "eslint:recommended",
+"rules": {
     "brace-style": [1, "1tbs", {"allowSingleLine": false}],
     "camelcase": 1,
     "comma-dangle": [1, "never"],
@@ -12,7 +12,7 @@
     "eol-last": 1,
     "guard-for-in": 0,
     "indent": [2, "tab", {"SwitchCase": 1}],
-   "key-spacing": 0,
+    "key-spacing": 0,
     "new-cap": [1, {"capIsNew": false, "newIsCap": true}],
     "new-parens": 0,
     "no-bitwise": 0,
@@ -103,24 +103,24 @@
     "react/react-in-jsx-scope": 0,
     "react/self-closing-comp": 1,
     "react/wrap-multilines": 1
-  },
-  "plugins": [
+    },
+    "plugins": [
     "react"
-  ],
-  "settings": {
-    "ecmascript": 6,
-    "jsx": true
-  },
-  "parserOptions": {
-      "sourceType": "module",
-      "ecmaVersion": 6,
-      "ecmaFeatures": {
+    ],
+    "settings": {
+        "ecmascript": 6,
         "jsx": true
-    }
-  },
-  "env": {
-    "browser": true,
-    "node": true,
-    "es6": true
-  }
-}
+        },
+        "parserOptions": {
+            "sourceType": "module",
+            "ecmaVersion": 6,
+            "ecmaFeatures": {
+                "jsx": true
+            }
+            },
+            "env": {
+                "browser": true,
+                "node": true,
+                "es6": true
+            }
+            }
