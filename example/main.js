@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import * as Atoms from '../dist/main.js';
+import * as Atoms from 'main.js';
 import ParentComponent from './lib/ParentComponent.jsx';
 
 ReactDOM.render(

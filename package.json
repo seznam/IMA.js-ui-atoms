@@ -1,68 +1,69 @@
 {
-  "name": "ima-ui-atoms",
-  "version": "0.6.4",
-  "description": "IMA.js UI React atoms",
-  "scripts": {
-    "prepublish": "npm run build && npm run copy && npm run test",
-    "build": "node node_modules/gulp/bin/gulp.js build",
-    "copy": "node node_modules/gulp/bin/gulp.js copy",
-    "test": "node node_modules/gulp/bin/gulp.js test",
-    "dev": "node node_modules/gulp/bin/gulp.js dev"
-  },
-  "keywords": [
-    "React",
-    "UI",
-    "IMA",
-    "atoms"
-  ],
-  "author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/seznam/IMA.js-ui-atoms.git"
-  },
-  "publishConfig": {
-    "registry": "http://registry.npmjs.org/"
-  },
-  "bugs": {
-    "url": "https://github.com/seznam/IMA.js-ui-atoms/issues"
-  },
-  "license": "MIT",
-  "devDependencies": {
-    "babel-core": "^6.13.2",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.11.5",
-    "babel-preset-es2015": "^6.13.2",
-    "babel-preset-react": "^6.11.1",
-    "babelify": "^7.3.0",
-    "browserify": "^13.1.0",
-    "eslint": "^3.2.2",
-    "eslint-plugin-react": "^6.0.0",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
-    "gulp-cached": "^1.1.0",
-    "gulp-jasmine": "^2.4.0",
-    "gulp-less": "^3.1.0",
-    "gulp-remember": "^0.3.1",
-    "gulp-rename": "^1.2.2",
-    "jasmine": "^2.4.1",
-    "jasmine-core": "^2.4.1",
-    "karma": "^1.1.2",
-    "karma-babel-preprocessor": "^6.0.1",
-    "karma-browserify": "^5.1.0",
-    "karma-jasmine": "^1.0.2",
-    "karma-phantomjs-launcher": "^1.0.1",
-    "karma-renamer-preprocessor": "0.0.1",
-    "phantomjs-prebuilt": "^2.1.11",
-    "react": "^15.3.0",
-    "react-addons-test-utils": "^15.3.0",
-    "react-dom": "^15.3.0",
-    "watchify": "^3.7.0"
-  },
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
-  },
-  "peerDependencies": {
-    "react": "15.x"
-  }
+	"name": "ima-ui-atoms",
+	"version": "0.6.4",
+	"description": "IMA.js UI React atoms",
+	"scripts": {
+		"prepublish": "npm run build && npm run copy && npm run test",
+		"build": "node node_modules/gulp/bin/gulp.js build",
+		"copy": "node node_modules/gulp/bin/gulp.js copy",
+		"test": "node node_modules/gulp/bin/gulp.js test",
+		"dev": "node node_modules/gulp/bin/gulp.js dev",
+		"dev:example": "node node_modules/gulp/bin/gulp.js dev:example"
+	},
+	"keywords": [
+		"React",
+		"UI",
+		"IMA",
+		"atoms"
+	],
+	"author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/seznam/IMA.js-ui-atoms.git"
+	},
+	"publishConfig": {
+		"registry": "http://registry.npmjs.org/"
+	},
+	"bugs": {
+		"url": "https://github.com/seznam/IMA.js-ui-atoms/issues"
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"babel-core": "^6.13.2",
+		"babel-plugin-transform-es2015-modules-commonjs": "^6.11.5",
+		"babel-preset-es2015": "^6.13.2",
+		"babel-preset-react": "^6.11.1",
+		"babelify": "^7.3.0",
+		"browserify": "^13.1.0",
+		"eslint": "^3.2.2",
+		"eslint-plugin-react": "^6.0.0",
+		"gulp": "^3.9.1",
+		"gulp-babel": "^6.1.2",
+		"gulp-cached": "^1.1.0",
+		"gulp-jasmine": "^2.4.0",
+		"gulp-less": "^3.1.0",
+		"gulp-remember": "^0.3.1",
+		"gulp-rename": "^1.2.2",
+		"jasmine": "^2.4.1",
+		"jasmine-core": "^2.4.1",
+		"karma": "^1.1.2",
+		"karma-babel-preprocessor": "^6.0.1",
+		"karma-browserify": "^5.1.0",
+		"karma-jasmine": "^1.0.2",
+		"karma-phantomjs-launcher": "^1.0.1",
+		"karma-renamer-preprocessor": "0.0.1",
+		"phantomjs-prebuilt": "^2.1.11",
+		"react": "^15.3.0",
+		"react-addons-test-utils": "^15.3.0",
+		"react-dom": "^15.3.0",
+		"watchify": "^3.7.0"
+	},
+	"browserify": {
+		"transform": [
+			"babelify"
+		]
+	},
+	"peerDependencies": {
+		"react": "15.x"
+	}
 }

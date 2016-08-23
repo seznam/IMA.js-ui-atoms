@@ -10,11 +10,11 @@ module.exports = function(config) {
 			'PhantomJS'
 		],
 		files: [
-			'./dist/*.js',
-			'./dist/**/*Spec.js'
+			'./src/*.js',
+			'./src/**/*Spec.js'
 		],
 		preprocessors: {
-			'./dist/**/*.js': ['browserify'],
+			'./src/**/*.js': ['browserify'],
 			'./src/**/*Spec.js': ['browserify']
 		},
 		babelPreprocessor: {
@@ -31,6 +31,8 @@ module.exports = function(config) {
 		},
 		browserify: {
 			debug: true,
+			paths: ['./'],
+			extensions: ['.jsx'],
 			transform: [
 				['babelify', { presets: ["es2015", "react"] }]
 			]

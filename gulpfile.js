@@ -50,10 +50,10 @@ gulp.task('build', () => {
 
 
 gulp.task('bundle', function() {
-	var options = { debug: false, insertGlobals : false, basedir: './example/' };
+	var options = { debug: false, insertGlobals : false, paths: ['./', './src'], extensions: ['.jsx'] };
 
 	return (
-		browserify(['main.js'], options)
+		browserify(['./example/main.js'], options)
 			.transform(babelify.configure({
 				presets: ['es2015', 'react']
 			}))
@@ -86,15 +86,6 @@ gulp.task('test', function(done) {
 // -------------------------------------PRIVATE HELPER TASKS
 gulp.task('dev', ['build', 'bundle', 'less'], (done) => {
 	startKarmaServer(done);
-
-	gulp.watch('./src/**/*.less', ['less']);
-	gulp.watch(['./src/**/*.{js,jsx}', './example/**/*.{js,jsx}'], ['build', 'bundle']);
-});
-
-gulp.task('dev:dist', ['build'], (done) => {
-	startKarmaServer(done);
-
-	gulp.watch('./src/**/*.{js,jsx}', ['build']);
 });
 
 gulp.task('dev:example', ['build', 'bundle', 'less'], (done) => {
