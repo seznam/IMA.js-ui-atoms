@@ -2,7 +2,7 @@ import React from 'react';
 import Loader from '../loader/Loader';
 import Sizer from '../sizer/Sizer';
 
-const EXTENDED_PADDING = 400;
+const EXTENDED_PADDING = 500;
 
 /**
  * Html classic iframe
@@ -26,7 +26,7 @@ export default class HtmlIframe extends React.Component {
 		this._mounted = false;
 		this._throttledCheckVisibility = this.utils.$Helper.throttle(
 			this._checkVisibility,
-			333,
+			100,
 			this
 		);
 	}

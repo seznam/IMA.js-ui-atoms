@@ -2,7 +2,7 @@ import React from 'react';
 import Loader from '../loader/Loader';
 import Sizer from '../sizer/Sizer';
 
-const EXTENDED_PADDING = 300;
+const EXTENDED_PADDING = 400;
 
 /**
  * HTML video player.
@@ -24,7 +24,7 @@ export default class HtmlVideo extends React.Component {
 
 		this._throttledCheckVisibility = context.$Utils.$Helper.throttle(
 			this._checkVisibility,
-			333,
+			100,
 			this
 		);
 
