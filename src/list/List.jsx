@@ -19,6 +19,7 @@ import React, { PropTypes } from 'react';
 					['atm-list-' + props.mode]: props.mode,
 					['atm-list-' + Type]: Type
 				}, props.className) }
+				id = { props.id }
 				data-e2e = { props['data-e2e'] }>
 			{props.children}
 		</Type>
