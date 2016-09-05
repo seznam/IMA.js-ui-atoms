@@ -52,10 +52,10 @@ describe('UIComponentHelper', () => {
 
 	});
 
-	describe('getPenetrationOfRects method', () => {
+	describe('getRectsIntersection method', () => {
 
 		it('should return penetration rect from two defined rects', () => {
-			let penetrationRect = uiComponentHelper.getPenetrationOfRects(windowViewportRect, elmRect);
+			let penetrationRect = uiComponentHelper.getRectsIntersection(windowViewportRect, elmRect);
 
 			expect(penetrationRect.top).toEqual(windowViewportRect.top);
 			expect(penetrationRect.left).toEqual(elmRect.left);

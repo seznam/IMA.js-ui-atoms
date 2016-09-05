@@ -35,7 +35,14 @@ module.exports = function(config) {
 			extensions: ['.jsx'],
 			transform: [
 				['babelify', { presets: ["es2015", "react"] }]
-			]
+			],
+			configure: function(bundle) {
+				bundle.on('prebundle', function() {
+					bundle.external('react/addons');
+					bundle.external('react/lib/ReactContext');
+					bundle.external('react/lib/ExecutionEnvironment');
+				});
+			}
 		},
 		plugins: [
 			'karma-phantomjs-launcher',

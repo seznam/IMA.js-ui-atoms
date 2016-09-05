@@ -90,21 +90,21 @@ export default class UIComponentHelper {
 
 		let windowViewportRect = this.getWindowViewportRect();
 
-		let penetrationRects = this.getPenetrationOfRects(windowViewportRect, elmRect);
+		let penetrationRects = this.getRectsIntersection(windowViewportRect, elmRect);
 		let percent = (penetrationRects.width * penetrationRects.height) / (elmRect.width * elmRect.height) * 100;
 
 		return isNaN(percent) ? 0 : percent;
 	}
 
 	/**
-	 * Returns penetration of defined rects.
+	 * Returns two reactangles intersection.
 	 *
-	 * @method getPenetrationOfRects
+	 * @method getRectsIntersection
 	 * @param {{top: number, left: number, width: number, height: number}} rect1
 	 * @param {{top: number, left: number, width: number, height: number}} react2
-	 * @return {{top: number, left: number, width: number, height: number}} The penetration of rects.
+	 * @return {{top: number, left: number, width: number, height: number}} The reactangle intersection.
 	 */
-	getPenetrationOfRects(rect1, rect2) {
+	getRectsIntersection(rect1, rect2) {
 		let top = this.getNumberFromRange(rect2.top, rect1.top, rect1.height);
 		let left = this.getNumberFromRange(rect2.left, rect1.left, rect1.width);
 		let bottom = this.getNumberFromRange(rect2.top + rect2.height, rect1.top, rect1.height);
