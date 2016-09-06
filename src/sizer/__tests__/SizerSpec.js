@@ -29,4 +29,13 @@ describe('Sizer component', () => {
 		expect(wrapper.hasClass('atm-placeholder')).toBeTruthy();
 	});
 
+	it('should calculate ratio between width and height', () => {
+		wrapper.setProps({
+			width: 16,
+			height: 9
+		});
+
+		expect(wrapper.get(0).props.style.paddingTop).toEqual('56.25%');
+	});
+
 });

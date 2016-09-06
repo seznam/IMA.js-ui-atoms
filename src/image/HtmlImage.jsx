@@ -2,7 +2,7 @@ import React from 'react';
 import Loader from '../loader/Loader';
 import Sizer from '../sizer/Sizer';
 
-const EXTENDED_PADDING = 300;
+const MIN_EXTENDED_PADDING = 300;
 
 /**
  * Html image
@@ -117,10 +117,14 @@ export default class HtmlImage extends React.Component {
 	_checkVisibility() {
 		if (this._mounted) {
 			let rootElement = this.refs.root;
+			let extendedPadding = Math.max(
+				Math.round(this.utils.$UIComponentHelper.getWindowViewportRect().height / 2),
+				MIN_EXTENDED_PADDING
+			);
 			let rootElementRect = this.utils.$UIComponentHelper.getBoundingClientRect(
 				rootElement,
 				{ width: this.props.width, height: this.props.height },
-				EXTENDED_PADDING
+				extendedPadding
 			);
 
 			if (this.state.visibleInViewport === false &&
