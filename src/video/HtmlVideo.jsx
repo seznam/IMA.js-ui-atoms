@@ -110,13 +110,13 @@ export default class HtmlVideo extends React.Component {
 	}
 
 	_bindEventListeners() {
-		this.context.$Utils.$Window.unbindEventListener(window, 'resize', this._throttledCheckVisibility);
-		this.context.$Utils.$Window.unbindEventListener(window, 'scroll', this._throttledCheckVisibility);
+		this.context.$Utils.$Window.bindEventListener(window, 'resize', this._throttledCheckVisibility);
+		this.context.$Utils.$Window.bindEventListener(window, 'scroll', this._throttledCheckVisibility);
 	}
 
 	_unbindEventListeners() {
-		this.context.$Utils.$Window.bindEventListener(window, 'resize', this._throttledCheckVisibility);
-		this.context.$Utils.$Window.bindEventListener(window, 'scroll', this._throttledCheckVisibility);
+		this.context.$Utils.$Window.unbindEventListener(window, 'resize', this._throttledCheckVisibility);
+		this.context.$Utils.$Window.unbindEventListener(window, 'scroll', this._throttledCheckVisibility);
 	}
 
 	_checkVisibility() {
