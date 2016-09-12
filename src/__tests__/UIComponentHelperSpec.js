@@ -101,8 +101,8 @@ describe('UIComponentHelper', () => {
 			expect(uiComponentHelper.getBoundingClientRect(element, {}, 300)).toEqual({
 				top: -370,
 				left: 162,
-				width: 400,
-				height: 400
+				width: 700,
+				height: 700
 			});
 
 			expect(function() {

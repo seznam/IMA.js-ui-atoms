@@ -90,8 +90,8 @@ export default class UIComponentHelper {
 
 		let windowViewportRect = this.getWindowViewportRect();
 
-		let penetrationRects = this.getRectsIntersection(windowViewportRect, elmRect);
-		let percent = (penetrationRects.width * penetrationRects.height) / (elmRect.width * elmRect.height) * 100;
+		let intersectionRect = this.getRectsIntersection(windowViewportRect, elmRect);
+		let percent = (intersectionRect.width * intersectionRect.height) / (elmRect.width * elmRect.height) * 100;
 
 		return isNaN(percent) ? 0 : percent;
 	}
@@ -170,8 +170,8 @@ export default class UIComponentHelper {
 		let elmRectStyle = {
 			top: clientRect.top - extended,
 			left: clientRect.left - extended,
-			width: clientRect.width + extended,
-			height: (clientRect.height || height || 0 / width || 0 * clientRect.width) + extended
+			width: clientRect.width + 2 * extended,
+			height: (clientRect.height || height || 0 / width || 0 * clientRect.width) + 2 * extended
 		};
 
 		return elmRectStyle;
