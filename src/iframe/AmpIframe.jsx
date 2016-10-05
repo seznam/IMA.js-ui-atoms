@@ -10,18 +10,23 @@ import React from 'react';
  */
 
  let AmpIframe = (props) => {
+	let attributes = {
+		src: props.src,
+		width: props.width,
+		height: props.height,
+		scrolling: props.scrolling,
+		layout: props.layout,
+		sandbox: props.sandbox,
+		frameBorder: props.frameBorder,
+		class: props.className,
+		'data-e2e': props['data-e2e']
+	};
+	if (props.allowFullScreen) {
+		attributes.allowFullScreen = '';
+	}
+
 	return (
-		<amp-iframe
-				src = { props.src }
-				width = { props.width }
-				height = { props.height }
-				scrolling = { props.scrolling }
-				layout = { props.layout }
-				sandbox = { props.sandbox }
-				frameBorder = { props.frameBorder }
-				allowFullScreen = { props.allowFullScreen }
-				class = { props.className }
-				data-e2e = { props['data-e2e'] }>
+		<amp-iframe {...attributes}>
 			<div placeholder='' />
 		</amp-iframe>
 	);
