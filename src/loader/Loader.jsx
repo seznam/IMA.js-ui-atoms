@@ -32,8 +32,8 @@ Loader.contextTypes = {
 };
 
 Loader.propTypes = {
-	mode: PropTypes.string,
-	layout: PropTypes.string,
+	mode: PropTypes.oneOf(['small', 'big']),
+	layout: PropTypes.oneOf(['center']),
 	className: PropTypes.string,
 	"data-e2e": PropTypes.string
 };
