@@ -98,7 +98,7 @@ export default class HtmlImage extends React.Component {
 								src="${this.props.src || ''}"
 								srcset="${this.props.srcSet || ''}"
 								alt="${this.props.alt || ''}"
-								class="atm-fill atm-loaded"`
+								class="atm-fill atm-loaded"/>`
 						} }/>
 			</div>
 		);
