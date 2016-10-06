@@ -109,7 +109,7 @@ export default class HtmlIframe extends React.Component {
 								scrolling="${this.props.scrolling || 'no'}"
 								frameborder="${this.props.frameBorder || '0'}"
 								allowfullscreen="${this.props.allowFullScreen || '0'}"
-								class="atm-fill atm-loaded"`
+								class="atm-fill atm-loaded"/>`
 						} }/>
 			</div>
 		);
