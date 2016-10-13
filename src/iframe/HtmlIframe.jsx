@@ -95,6 +95,7 @@ export default class HtmlIframe extends React.Component {
 						<Loader mode = 'small' layout = 'center'/>
 				}
 				<noscript
+						className = 'atm-fill'
 						style = { {
 							display: 'block',
 							width: this.props.width || 'auto',
@@ -105,7 +106,7 @@ export default class HtmlIframe extends React.Component {
 								src="${this.props.src}"
 								width="${this.props.width || auto}"
 								height="${this.props.height || auto}"
-								sandbox="${this.props.sandbox || ''}"
+								${ this.props.sandbox ? `sandbox="${this.props.sandbox}"` : '' }
 								scrolling="${this.props.scrolling || 'no'}"
 								frameborder="${this.props.frameBorder || '0'}"
 								allowfullscreen="${this.props.allowFullScreen || '0'}"
