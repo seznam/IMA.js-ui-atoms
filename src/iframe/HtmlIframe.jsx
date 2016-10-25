@@ -104,8 +104,8 @@ export default class HtmlIframe extends React.Component {
 						dangerouslySetInnerHTML = { {
 							__html: `<iframe
 								src="${this.props.src}"
-								width="${this.props.width || auto}"
-								height="${this.props.height || auto}"
+								width="${this.props.width || 'auto'}"
+								height="${this.props.height || 'auto'}"
 								${ this.props.sandbox ? `sandbox="${this.props.sandbox}"` : '' }
 								scrolling="${this.props.scrolling || 'no'}"
 								frameborder="${this.props.frameBorder || '0'}"
