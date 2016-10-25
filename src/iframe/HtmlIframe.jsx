@@ -19,11 +19,11 @@ export default class HtmlIframe extends React.Component {
 		super(props, context);
 
 		this.state = {
-			noloading: false,
-			visibleInViewport: false
+			visibleInViewport: props.noloading || false
 		};
 
 		this._mounted = false;
+
 		this._throttledCheckVisibility = this.utils.$Helper.throttle(
 			this._checkVisibility,
 			100,
@@ -37,8 +37,10 @@ export default class HtmlIframe extends React.Component {
 
 	componentDidMount() {
 		this._mounted = true;
-		this._bindEventListeners();
-		this._checkVisibility();
+		if (this.state.visibleInViewport === false) {
+			this._bindEventListeners();
+			this._checkVisibility();
+		}
 	}
 
 	componentWillUnmount() {
@@ -54,7 +56,7 @@ export default class HtmlIframe extends React.Component {
 					className = { this.utils.$UIComponentHelper.cssClasses({
 						'atm-iframe': true,
 						'atm-overflow': true,
-						'atm-placeholder': !this.state.noloading,
+						'atm-placeholder': !this.state.visibleInViewport,
 						'atm-responsive': this.props.layout === 'responsive',
 						'atm-fill': this.props.layout === 'fill'
 					}, this.props.className) }
@@ -88,8 +90,7 @@ export default class HtmlIframe extends React.Component {
 								frameBorder = { this.props.frameBorder }
 								allowFullScreen = { this.props.allowFullScreen }
 								className = { this.utils.$UIComponentHelper.cssClasses({
-									'atm-fill': true,
-									'atm-loaded': this.state.noloading && this.state.visibleInViewport
+									'atm-fill': true
 								}) }/>
 					:
 						<Loader mode = 'small' layout = 'center'/>

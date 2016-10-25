@@ -31,6 +31,7 @@ Iframe.propTypes = {
 	sandbox: PropTypes.string,
 	allowFullScreen: PropTypes.bool,
 	frameBorder: PropTypes.string,
+	noloading: PropTypes.bool,
 	className: PropTypes.string,
 	"data-e2e": PropTypes.string
 };
@@ -44,6 +45,7 @@ Iframe.defaultProps = {
 	sandbox: null,
 	allowFullScreen: null,
 	frameBorder: '0',
+	noloading: false,
 	className: '',
 	"data-e2e": null
 };
