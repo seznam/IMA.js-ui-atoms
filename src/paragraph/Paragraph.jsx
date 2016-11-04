@@ -10,8 +10,9 @@ import React, { PropTypes } from 'react';
  */
 
 let Paragraph = (props, context) => {
+	let helper = context.$Utils.$UIComponentHelper;
 	let paragraph = null;
-	let className = context.$Utils.$UIComponentHelper.cssClasses({
+	let className = helper.cssClasses({
 		'atm-paragraph': true,
 		['atm-paragraph-' + props.mode]: props.mode,
 		['atm-paragraph-align-' + props.align]: props.align
@@ -21,7 +22,7 @@ let Paragraph = (props, context) => {
 		paragraph = (
 			<p
 					className = { className }
-					data-e2e = { props['data-e2e'] }>
+					{...helper.getDataProps(props)}>
 				{props.children}
 			</p>
 		);
@@ -29,7 +30,7 @@ let Paragraph = (props, context) => {
 		paragraph = (
 			<p
 					className = { className}
-					data-e2e = { props['data-e2e'] }
+					{...helper.getDataProps(props)}
 					dangerouslySetInnerHTML = { { __html: props.text } }/>
 		);
 	}

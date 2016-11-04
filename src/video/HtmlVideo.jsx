@@ -32,54 +32,54 @@ export default class HtmlVideo extends React.Component {
 	}
 
 	render() {
+		let helper = this.utils.$UIComponentHelper;
+
 		return (
 			<div
 					ref = 'root'
-					className = { this.context.$Utils.$UIComponentHelper.cssClasses({
+					className = { helper.cssClasses({
 						'atm-video': true,
 						'atm-overflow': true,
 						'atm-placeholder': !this.state.loaded,
 						'atm-responsive': this.props.layout === 'responsive',
 						'atm-fill': this.props.layout === 'fill'
 					}, this.props.className) }
-					style = {
-						this.props.layout === 'responsive' ?
-							{}
-						:
-							{
-								width: this.props.width || 'auto',
-								height: this.props.height || 'auto'
-							}
-					}>
-				{
-					this.props.layout === 'responsive' ?
-						<Sizer
-								width = { this.props.width }
-								height = { this.props.height }
-								placeholder = { !this.state.loaded }/>
+					style = {this.props.layout === 'responsive' ?
+						{}
 					:
-						null
+						{
+							width: this.props.width || 'auto',
+							height: this.props.height || 'auto'
+						}
+					}
+					{...helper.getDataProps(this.props)}>
+				{this.props.layout === 'responsive' ?
+					<Sizer
+							width = { this.props.width }
+							height = { this.props.height }
+							placeholder = { !this.state.loaded }/>
+				:
+					null
 				}
-				{
-					this.state.loaded ?
-						<video
-								src = { this.props.src }
-								poster = { this.props.poster }
-								autoPlay = { this.props.autoplay }
-								controls = { this.props.controls }
-								loop = { this.props.loop }
-								muted = { this.props.muted }
-								width = { this.props.width }
-								height = { this.props.height }
-								className = { this.context.$Utils.$UIComponentHelper.cssClasses({
-									'atm-fill': true,
-									'atm-loaded': this.state.loaded && this.state.visibleInViewport
-								}) }>
-							<div placeholder=''/>
-							{ this.props.children }
-						</video>
-					:
-						<Loader mode = 'small' layout = 'center'/>
+				{this.state.loaded ?
+					<video
+							src = { this.props.src }
+							poster = { this.props.poster }
+							autoPlay = { this.props.autoplay }
+							controls = { this.props.controls }
+							loop = { this.props.loop }
+							muted = { this.props.muted }
+							width = { this.props.width }
+							height = { this.props.height }
+							className = { helper.cssClasses({
+								'atm-fill': true,
+								'atm-loaded': this.state.loaded && this.state.visibleInViewport
+							}) }>
+						<div placeholder=''/>
+						{ this.props.children }
+					</video>
+				:
+					<Loader mode = 'small' layout = 'center'/>
 				}
 				<noscript
 						dangerouslySetInnerHTML = {{

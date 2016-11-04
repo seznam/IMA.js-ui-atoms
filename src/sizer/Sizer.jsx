@@ -10,13 +10,15 @@ import React, { PropTypes } from 'react';
  */
 
 let Sizer = (props, context) => {
+	let helper = context.$Utils.$UIComponentHelper;
 	return (
 		<div
-				className = { context.$Utils.$UIComponentHelper.cssClasses({
+				className = { helper.cssClasses({
 					'atm-sizer': true,
 					'atm-placeholder': props.placeholder
 				}, props.className) }
-				style = { { paddingTop: props.height / props.width * 100 + "%" } }/>
+				style = { { paddingTop: props.height / props.width * 100 + '%' } }
+				{...helper.getDataProps(props)}/>
 	);
 };
 

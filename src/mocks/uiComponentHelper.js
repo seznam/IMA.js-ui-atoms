@@ -1,5 +1,5 @@
 let _uiComponentHelper = {
-	isAmp:() => null,
+	isAmp: () => null,
 	convertToNumber: () => null,
 	getPercentOfVisibility: () => null,
 	getRectsIntersection: () => null,

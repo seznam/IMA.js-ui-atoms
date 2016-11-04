@@ -12,9 +12,9 @@ import AmpIframe from './AmpIframe';
  */
 let Iframe = (props, context) => {
 	if (context.$Utils.$UIComponentHelper.isAmp()) {
-		return <AmpIframe {...props} />;
+		return <AmpIframe {...props}/>;
 	} else {
-		return <HtmlIframe {...props} />;
+		return <HtmlIframe {...props}/>;
 	}
 };
 

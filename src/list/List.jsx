@@ -10,17 +10,18 @@ import React, { PropTypes } from 'react';
  */
 
  let List = (props, context) => {
+	let helper = context.$Utils.$UIComponentHelper;
 	let Type = props.type;
 
 	return (
 		<Type
-				className = { context.$Utils.$UIComponentHelper.cssClasses({
+				className = { helper.cssClasses({
 					'atm-list': true,
 					['atm-list-' + props.mode]: props.mode,
 					['atm-list-' + Type]: Type
 				}, props.className) }
 				id = { props.id }
-				data-e2e = { props['data-e2e'] }>
+				{...helper.getDataProps(props)}>
 			{props.children}
 		</Type>
 	);

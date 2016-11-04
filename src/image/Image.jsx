@@ -13,9 +13,9 @@ import AmpImage from './AmpImage';
 
 let Image = (props, context) => {
 	if (context.$Utils.$UIComponentHelper.isAmp()) {
-		return <AmpImage {...props} />;
+		return <AmpImage {...props}/>;
 	} else {
-		return <HtmlImage {...props} />;
+		return <HtmlImage {...props}/>;
 	}
 };
 

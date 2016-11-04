@@ -10,19 +10,21 @@ import React, { PropTypes } from 'react';
  */
 
 let Loader = (props, context) => {
+	let helper = context.$Utils.$UIComponentHelper;
+
 	return (
 		<div
-				className = { context.$Utils.$UIComponentHelper.cssClasses({
+				className = { helper.cssClasses({
 					'atm-loader': true,
 					['atm-loader-' + props.mode]: props.mode,
 					['atm-loader-' + props.layout]: props.layout
 				}, props.className) }
-				data-e2e = { props['data-e2e'] }>
-			<span />
-			<span />
-			<span />
-			<span />
-			<span />
+				{...helper.getDataProps(props)}>
+			<span/>
+			<span/>
+			<span/>
+			<span/>
+			<span/>
 		</div>
 	);
 };

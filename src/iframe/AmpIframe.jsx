@@ -9,7 +9,8 @@ import React from 'react';
  * @submodule ima.ui
  */
 
- let AmpIframe = (props) => {
+let AmpIframe = (props, context) => {
+	let helper = context.$Utils.$UIComponentHelper;
 	let attributes = {
 		src: props.src,
 		width: props.width,
@@ -18,15 +19,14 @@ import React from 'react';
 		layout: props.layout,
 		sandbox: props.sandbox,
 		frameBorder: props.frameBorder,
-		class: props.className,
-		'data-e2e': props['data-e2e']
+		class: props.className
 	};
 	if (props.allowFullScreen) {
 		attributes.allowFullScreen = '';
 	}
 
 	return (
-		<amp-iframe {...attributes}>
+		<amp-iframe {...attributes} {...helper.getDataProps(props)}>
 			<div placeholder='' />
 		</amp-iframe>
 	);

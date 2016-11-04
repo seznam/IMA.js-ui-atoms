@@ -9,7 +9,9 @@ import React from 'react';
  * @submodule ima.ui
  */
 
- let AmpImage = (props) => {
+ let AmpImage = (props, context) => {
+	let helper = context.$Utils.$UIComponentHelper;
+
 	return (
 		<amp-img
 				src = { props.src }
@@ -19,7 +21,7 @@ import React from 'react';
 				layout = { props.layout }
 				alt = { props.alt }
 				class = { props.className }
-				data-e2e = { props['data-e2e'] } />
+				{...helper.getDataProps(props)}/>
 	);
 };
 

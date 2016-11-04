@@ -9,7 +9,9 @@ import React from 'react';
  * @submodule ima.ui
  */
 
-export default function AmpVideo(props) {
+export default function AmpVideo(props, context) {
+	let helper = context.$Utils.$UIComponentHelper;
+
 	return (
 		<amp-video
 				src = { props.src }
@@ -21,8 +23,9 @@ export default function AmpVideo(props) {
 				width = { props.width }
 				height = { props.height }
 				layout = { props.layout }
-				class = { props.className }>
-			<div placeholder='' />
+				class = { props.className }
+				{...helper.getDataProps(props)}>
+			<div placeholder = ''/>
 			{props.children}
 		</amp-video>
 	);

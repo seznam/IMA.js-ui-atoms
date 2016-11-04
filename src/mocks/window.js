@@ -1,5 +1,5 @@
 let _window = {
-	getWindow: () => {
+	getWindow() {
 		return {
 			innerWidth: 1024,
 			innerHeight: 768

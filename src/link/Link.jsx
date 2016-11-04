@@ -10,17 +10,19 @@ import React, { PropTypes } from 'react';
  */
 
 let Link = (props, context) => {
+	let helper = context.$Utils.$UIComponentHelper;
+
 	return (
 		<a
 				href = { props.href }
 				title = { props.title }
 				target = { props.target }
-				className = { context.$Utils.$UIComponentHelper.cssClasses({
+				className = { helper.cssClasses({
 					'atm-link': true,
 					['atm-link-' + props.mode]: props.mode
 				}, props.className) }
-				data-e2e = { props['data-e2e'] }
-				onClick = { props.onClick }>
+				onClick = { props.onClick }
+				{...helper.getDataProps(props)}>
 			{ props.children || props.text }
 		</a>
 	);

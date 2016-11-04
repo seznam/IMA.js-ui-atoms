@@ -52,6 +52,28 @@ export default class UIComponentHelper {
 	}
 
 	/**
+	 * Filters the provided properties and returns only the properties which's
+	 * names start with the {@code data-} prefix.
+	 *
+	 * @param {Object<string, *>} props
+	 * @return {Object<string, (number|string)>}
+	 */
+	getDataProps(props) {
+		let dataProps = {};
+
+		// TODO: replace with for-of Object.keys() when Phantom no longer sucks
+		let propertyNames = Object.keys(props);
+		for (let i = 0; i < propertyNames.length; i++) {
+			let propertyName = propertyNames[i];
+			if (/^data-/.test(propertyName)) {
+				dataProps[propertyName] = props[propertyName];
+			}
+		}
+
+		return dataProps;
+	}
+
+	/**
 	 * Convert string to number.
 	 *
 	 * @method convertToNumber

@@ -50,26 +50,27 @@ export default class HtmlIframe extends React.Component {
 
 
 	render() {
+		let helper = this.utils.$UIComponentHelper;
+
 		return (
 			<div
 					ref = 'root'
-					className = { this.utils.$UIComponentHelper.cssClasses({
+					className = { helper.cssClasses({
 						'atm-iframe': true,
 						'atm-overflow': true,
 						'atm-placeholder': !this.state.visibleInViewport,
 						'atm-responsive': this.props.layout === 'responsive',
 						'atm-fill': this.props.layout === 'fill'
 					}, this.props.className) }
-					data-e2e = { this.props['data-e2e'] }
-					style = {
-						this.props.layout === 'responsive' ?
-							{}
-						:
-							{
-								width: this.props.width || 'auto',
-								height: this.props.height || 'auto'
-							}
-					}>
+					style = {this.props.layout === 'responsive' ?
+						{}
+					:
+						{
+							width: this.props.width || 'auto',
+							height: this.props.height || 'auto'
+						}
+					}
+					{...helper.getDataProps(this.props)}>
 				{
 					this.props.layout === 'responsive' ?
 						<Sizer
@@ -89,7 +90,7 @@ export default class HtmlIframe extends React.Component {
 								sandbox = { this.props.sandbox }
 								frameBorder = { this.props.frameBorder }
 								allowFullScreen = { this.props.allowFullScreen }
-								className = { this.utils.$UIComponentHelper.cssClasses({
+								className = { helper.cssClasses({
 									'atm-fill': true
 								}) }/>
 					:

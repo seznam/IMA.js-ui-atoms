@@ -12,7 +12,8 @@ import React, { PropTypes } from 'react';
 let Headline = (props, context) => {
 	let headline = null;
 	let Type = props.type;
-	let className = context.$Utils.$UIComponentHelper.cssClasses({
+	let helper = context.$Utils.$UIComponentHelper;
+	let className = helper.cssClasses({
 		['atm-headline']: true,
 		['atm-' + props.mode]: props.mode,
 		['atm-' + Type]: Type
@@ -23,7 +24,7 @@ let Headline = (props, context) => {
 			<Type
 					id = { props.id }
 					className = { className }
-					data-e2e = { props['data-e2e'] }>
+					{...helper.getDataProps(props)}>
 				{props.children}
 			</Type>
 		);
@@ -32,7 +33,7 @@ let Headline = (props, context) => {
 			<Type
 					id = { props.id }
 					className = { className }
-					data-e2e = { props['data-e2e'] }
+					{...helper.getDataProps(props)}
 					dangerouslySetInnerHTML = { { __html: props.text } }/>
 		);
 	}

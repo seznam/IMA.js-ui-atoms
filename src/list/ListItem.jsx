@@ -10,8 +10,9 @@ import React, { PropTypes } from 'react';
  */
 
 let ListItem = (props, context) => {
+	let helper = context.$Utils.$UIComponentHelper;
 	let listItem = null;
-	let className = context.$Utils.$UIComponentHelper.cssClasses({
+	let className = helper.cssClasses({
 		'atm-li': true,
 		['atm-li-' + props.mode]: props.mode
 	}, props.className);
@@ -20,7 +21,7 @@ let ListItem = (props, context) => {
 		listItem = (
 			<li
 					className = { className }
-					data-e2e = { props['data-e2e'] }>
+					{...helper.getDataProps(props)}>
 				{props.children}
 			</li>
 		);
@@ -28,7 +29,7 @@ let ListItem = (props, context) => {
 		listItem = (
 			<li
 					className = { className}
-					data-e2e = { props['data-e2e'] }
+					{...helper.getDataProps(props)}
 					dangerouslySetInnerHTML = { { __html: props.text } }/>
 		);
 	}
