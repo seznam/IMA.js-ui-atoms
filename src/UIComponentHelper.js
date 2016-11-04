@@ -43,7 +43,7 @@ export default class UIComponentHelper {
 		var amp = null;
 
 		try {
-			amp = this._router.getCurrentRouteInfo().params.amp ? true : false;
+			amp = !!this._router.getCurrentRouteInfo().params.amp;
 		} catch (e) {
 			amp = false;
 		}
@@ -101,7 +101,7 @@ export default class UIComponentHelper {
 	 *
 	 * @method getRectsIntersection
 	 * @param {{top: number, left: number, width: number, height: number}} rect1
-	 * @param {{top: number, left: number, width: number, height: number}} react2
+	 * @param {{top: number, left: number, width: number, height: number}} rect2
 	 * @return {{top: number, left: number, width: number, height: number}} The reactangle intersection.
 	 */
 	getRectsIntersection(rect1, rect2) {
