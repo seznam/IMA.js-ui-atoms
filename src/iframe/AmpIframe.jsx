@@ -32,4 +32,8 @@ let AmpIframe = (props, context) => {
 	);
 };
 
+AmpIframe.contextTypes = {
+	$Utils: React.PropTypes.object
+};
+
 export default AmpIframe;

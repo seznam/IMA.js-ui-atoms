@@ -29,4 +29,8 @@ export default function AmpVideo(props, context) {
 			{props.children}
 		</amp-video>
 	);
+}
+
+AmpVideo.contextTypes = {
+	$Utils: React.PropTypes.object
 };

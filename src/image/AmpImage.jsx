@@ -25,4 +25,8 @@ import React from 'react';
 	);
 };
 
+AmpImage.contextTypes = {
+	$Utils: React.PropTypes.object
+};
+
 export default AmpImage;
