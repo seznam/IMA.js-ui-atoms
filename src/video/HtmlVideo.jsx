@@ -31,6 +31,10 @@ export default class HtmlVideo extends React.Component {
 		this._mounted = false;
 	}
 
+	get utils() {
+		return this.context.$Utils || this.props.$Utils;
+	}
+
 	render() {
 		let helper = this.utils.$UIComponentHelper;
 
