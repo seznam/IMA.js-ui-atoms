@@ -24,21 +24,21 @@ let gulpConfig = {
 exports.build = gulp.series(
 	clean,
 	gulp.parallel(
-		build_js,
+		compile,
 		copy
 	)
 );
 
-function build_js() {
+function compile() {
 	return gulp
 		.src('./src/**/*.{js,jsx}')
-		.pipe(cache('build'))
+		.pipe(cache('compile'))
 		.pipe(babel({
 			moduleIds: true,
 			presets: ['react'],
 			plugins: ['transform-es2015-modules-commonjs']
 		}))
-		.pipe(remember('Es6ToEs5:ima'))
+		.pipe(remember('compile'))
 		.pipe(rename((path) => {
 			path.extname = '.js';
 		}))
@@ -95,7 +95,7 @@ function startKarmaServer(done, singleRun) {
 }
 
 exports.dev = gulp.series(
-	build_js,
+	compile,
 	less,
 	bundle,
 	dev
@@ -105,12 +105,12 @@ function dev(done) {
 }
 
 exports['dev:example'] = gulp.series(
-	build_js,
+	compile,
 	less,
 	bundle,
-	dev_example
+	devExample
 );
-function dev_example(done) {
+function devExample(done) {
 	startKarmaServer(done);
 
 	gulp.watch('./src/**/*.less', less);
