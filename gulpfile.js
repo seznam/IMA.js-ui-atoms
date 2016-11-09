@@ -74,7 +74,7 @@ function less() {
 
 function copy() {
 	return gulp
-		.src('./src/**/*.less')
+		.src(['./src/**/*.less', './package.json', './README.md'])
 		.pipe(gulp.dest('./dist'));
 }
 
