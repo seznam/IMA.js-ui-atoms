@@ -2,6 +2,7 @@ require('babel-core/register.js')({
 	presets: [require('babel-preset-es2015'), require('babel-preset-react')]
 });
 
+let del = require('del');
 let gulp = require('gulp');
 let babel = require('gulp-babel');
 let rename = require('gulp-rename');
@@ -12,28 +13,25 @@ let babelify = require('babelify');
 let fs = require('fs');
 let cache = require('gulp-cached');
 let remember = require('gulp-remember');
-let less = require('gulp-less');
-
+let gulpLess = require('gulp-less');
 
 let gulpConfig = {
-	onTerminate: () => {
-		setTimeout(() => {
-			process.exit();
-		});
+	onTerminate() {
+		setTimeout(() => process.exit());
 	}
 };
 
-function startKarmaServer(done, singleRun) {
-	new karma.Server({
-		configFile: path.resolve('./karma.conf.js'),
-		singleRun: singleRun
-	}, done).start();
-}
+exports.build = gulp.series(
+	clean,
+	gulp.parallel(
+		build_js,
+		copy
+	)
+);
 
-// build module
-gulp.task('build', () => {
-	return (
-		gulp.src('./src/**/*.{js,jsx}')
+function build_js() {
+	return gulp
+		.src('./src/**/*.{js,jsx}')
 		.pipe(cache('build'))
 		.pipe(babel({
 			moduleIds: true,
@@ -44,13 +42,16 @@ gulp.task('build', () => {
 		.pipe(rename((path) => {
 			path.extname = '.js';
 		}))
-		.pipe(gulp.dest('./dist'))
-	);
-});
+		.pipe(gulp.dest('./dist'));
+}
 
-
-gulp.task('bundle', function() {
-	var options = { debug: false, insertGlobals : false, paths: ['./', './src'], extensions: ['.jsx'] };
+function bundle() {
+	let options = {
+		debug: false,
+		insertGlobals: false,
+		paths: ['./', './src'],
+		extensions: ['.jsx']
+	};
 
 	return (
 		browserify(['./example/main.js'], options)
@@ -60,40 +61,61 @@ gulp.task('bundle', function() {
 			.bundle()
 			.pipe(fs.createWriteStream('./example/dist/bundle.js'))
 	);
-});
+}
 
-gulp.task('less', function() {
-	return (
-		gulp.src('./src/**/*.less')
-			.pipe(less({
-				paths: [path.join(__dirname, 'less', 'includes')]
-			}))
-			.pipe(gulp.dest('./example/dist/'))
-	);
-});
+function less() {
+	return gulp
+		.src('./src/**/*.less')
+		.pipe(gulpLess({
+			paths: [path.join(__dirname, 'less', 'includes')]
+		}))
+		.pipe(gulp.dest('./example/dist/'));
+}
 
-gulp.task('copy', function() {
-	return (
-		gulp.src('./src/**/*.less')
-			.pipe(gulp.dest('./dist'))
-	);
-});
+function copy() {
+	return gulp
+		.src('./src/**/*.less')
+		.pipe(gulp.dest('./dist'));
+}
 
-gulp.task('test', function(done) {
+function clean() {
+	return del(['./dist']);
+}
+
+exports.test = test;
+function test(done) {
 	startKarmaServer(done, true);
-});
+}
 
-// -------------------------------------PRIVATE HELPER TASKS
-gulp.task('dev', ['build', 'bundle', 'less'], (done) => {
+function startKarmaServer(done, singleRun) {
+	new karma.Server({
+		configFile: path.resolve('./karma.conf.js'),
+		singleRun: singleRun
+	}, done).start();
+}
+
+exports.dev = gulp.series(
+	build_js,
+	less,
+	bundle,
+	dev
+);
+function dev(done) {
 	startKarmaServer(done);
-});
+}
 
-gulp.task('dev:example', ['build', 'bundle', 'less'], (done) => {
+exports['dev:example'] = gulp.series(
+	build_js,
+	less,
+	bundle,
+	dev_example
+);
+function dev_example(done) {
 	startKarmaServer(done);
 
-	gulp.watch('./src/**/*.less', ['less']);
-	gulp.watch('./example/**/*.{js,jsx}', ['bundle']);
-});
+	gulp.watch('./src/**/*.less', less);
+	gulp.watch('./example/**/*.{js,jsx}', bundle);
+}
 
 if (gulpConfig.onTerminate) {
 	process.on('SIGINT', gulpConfig.onTerminate.bind(null, 'SIGINT'));
