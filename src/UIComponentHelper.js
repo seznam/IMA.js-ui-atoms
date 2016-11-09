@@ -44,7 +44,7 @@ export default class UIComponentHelper {
 
 		try {
 			amp = !!this._router.getCurrentRouteInfo().params.amp;
-		} catch (e) {
+		} catch (error) {
 			amp = false;
 		}
 
