@@ -112,4 +112,17 @@ describe('UIComponentHelper', () => {
 
 	});
 
+	describe('cssClasses', () => {
+
+		it('should compose CSS class names', () => {
+			expect(uiComponentHelper.cssClasses('stuff another-foo', {
+				foo: true,
+				bar: false,
+				another: false,
+				'more-things': true
+			}, 'things')).toBe('stuff another-foo foo more-things things');
+		});
+
+	});
+
 });

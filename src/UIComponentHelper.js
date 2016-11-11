@@ -1,3 +1,5 @@
+import classnames from 'classnames';
+
 /**
  * UI component helper.
  *
@@ -214,29 +216,6 @@ export default class UIComponentHelper {
 	 *         to {@code true}.
 	 */
 	cssClasses(...classRuleGroups) {
-		classRuleGroups = classRuleGroups
-			.filter(group => !!group)
-			.map((classRules) => {
-				if (typeof classRules === 'string') {
-					var  separatedClassNames = classRules.split(/\s+/);
-					classRules = {};
-
-					for (var className of separatedClassNames) {
-						classRules[className] = true;
-					}
-				}
-				if (!(classRules instanceof Object)) {
-					throw new Error('The class rules must be specified as a ' +
-							`plain object or a string, ${classRules} provided`);
-				}
-
-				return classRules;
-			});
-
-		return classRuleGroups.map(
-			group => Object.keys(group).filter(className => group[className])
-		).map(
-			classNames => classNames.join(' ')
-		).join(' ');
+		return classnames(...classRuleGroups);
 	}
 }
