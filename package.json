@@ -36,7 +36,6 @@
 		"babel-preset-react": "6.16.0",
 		"babelify": "7.3.0",
 		"browserify": "13.1.1",
-		"classnames": "2.2.5",
 		"del": "2.2.2",
 		"enzyme": "2.5.1",
 		"eslint": "3.9.1",
@@ -68,5 +67,8 @@
 	},
 	"peerDependencies": {
 		"react": "15.x"
+	},
+	"dependencies": {
+		"classnames": "2.2.5"
 	}
 }
