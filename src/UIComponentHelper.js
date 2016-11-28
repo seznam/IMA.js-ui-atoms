@@ -218,4 +218,43 @@ export default class UIComponentHelper {
 	cssClasses(...classRuleGroups) {
 		return classnames(...classRuleGroups);
 	}
+
+	/**
+	 * It is cut down calling the event handler for defined interval.
+	 *
+	 * @method throttl
+	 * @param {function(...)} eventHandler
+	 * @param {number} interval
+	 * @param {Object?} context
+	 * @return {function(...)} The throttled event
+	 */
+	throttle(eventHandler, interval, context) {
+		let win = this._window.getWindow();
+		let callTime = Date.now() + interval;
+		let lastArguments = null;
+
+		if (context) {
+			eventHandler = eventHandler.bind(context);
+		}
+
+		if (!this._window.isClient()) {
+			return eventHandler;
+		}
+
+		return function throttle(...rest) {
+			lastArguments = rest;
+
+			if (!callTime) {
+				callTime = Date.now() + interval;
+			}
+
+			if (callTime <= Date.now()) {
+				callTime = 0;
+				eventHandler(...lastArguments);
+			} else {
+				win.requestAnimationFrame(throttle);
+			}
+		};
+
+	}
 }
