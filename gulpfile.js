@@ -114,7 +114,8 @@ function devExample(done) {
 	startKarmaServer(done);
 
 	gulp.watch('./src/**/*.less', less);
-	gulp.watch('./example/**/*.{js,jsx}', bundle);
+	gulp.watch(['./example/**/*.{js,jsx}', '!./example/dist/*.{js,css}'], bundle);
+	gulp.watch('./src/**/*.{js,jsx}', compile);
 }
 
 if (gulpConfig.onTerminate) {
