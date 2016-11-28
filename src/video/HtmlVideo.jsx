@@ -22,7 +22,7 @@ export default class HtmlVideo extends React.Component {
 			visibleInViewport: false
 		};
 
-		this._throttledCheckVisibility = context.$Utils.$Helper.throttle(
+		this._throttledCheckVisibility = context.$Utils.$UIComponentHelper.throttle(
 			this._checkVisibility,
 			100,
 			this

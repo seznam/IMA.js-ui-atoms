@@ -19,7 +19,13 @@ describe('UIComponentHelper', () => {
 	let uiComponentHelper = null;
 	let router = {};
 	let window = {
-		getWindow: () => { return { innerWidth: windowViewportRect.width, innerHeight: windowViewportRect.height }; },
+		getWindow: () => {
+			return {
+				innerWidth: windowViewportRect.width,
+				innerHeight: windowViewportRect.height,
+				requestAnimationFrame: function() {}
+			};
+		},
 		isClient: () => true
 	};
 
@@ -124,5 +130,4 @@ describe('UIComponentHelper', () => {
 		});
 
 	});
-
 });

@@ -24,7 +24,7 @@ export default class HtmlImage extends React.Component {
 		};
 
 		this._mounted = false;
-		this._throttledCheckVisibility = this.utils.$Helper.throttle(
+		this._throttledCheckVisibility = this.utils.$UIComponentHelper.throttle(
 			this._checkVisibility,
 			100,
 			this
