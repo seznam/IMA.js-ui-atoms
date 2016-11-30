@@ -29,7 +29,7 @@ var vendors = {
 };
 
 var less = [
-	'./node_modules/ima-ui-atoms/dist/*.less',
+	'./node_modules/ima-ui-atoms/*.less',
 ];
 
 /*
