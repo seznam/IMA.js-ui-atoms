@@ -253,7 +253,11 @@ export default class UIComponentHelper {
 				callTime = 0;
 				eventHandler(...lastArguments);
 			} else {
-				win.requestAnimationFrame(throttle);
+				if (win.requestAnimationFrame) {
+					win.requestAnimationFrame(throttle);
+				} else {
+					eventHandler(...lastArguments);
+				}
 			}
 		};
 
