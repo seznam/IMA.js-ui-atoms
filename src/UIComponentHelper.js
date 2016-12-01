@@ -224,12 +224,13 @@ export default class UIComponentHelper {
 	 *
 	 * @method throttl
 	 * @param {function(...)} eventHandler
-	 * @param {number} interval
+	 * @param {number?} interval
 	 * @param {Object?} context
 	 * @return {function(...)} The throttled event
 	 */
 	throttle(eventHandler, interval, context) {
 		let win = this._window.getWindow();
+		interval = interval || 0;
 		let callTime = Date.now() + interval;
 		let lastArguments = null;
 
