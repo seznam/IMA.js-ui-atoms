@@ -220,7 +220,9 @@ export default class UIComponentHelper {
 	}
 
 	/**
-	 * It is cut down calling the event handler for defined interval.
+	 * It cut down calling the event handler for defined interval. The throttle
+	 * method use requestAnimationFrame function which is called during page
+	 * scrolling.
 	 *
 	 * @method throttl
 	 * @param {function(...)} eventHandler
@@ -231,7 +233,7 @@ export default class UIComponentHelper {
 	throttle(eventHandler, interval, context) {
 		let win = this._window.getWindow();
 		interval = interval || 0;
-		let callTime = Date.now() + interval;
+		let callTime = 0;
 		let lastArguments = null;
 
 		if (context) {
@@ -242,24 +244,22 @@ export default class UIComponentHelper {
 			return eventHandler;
 		}
 
+		function suspendAction() {
+			if (callTime <= Date.now() || !win.requestAnimationFrame) {
+				callTime = 0;
+				eventHandler(...lastArguments);
+			} else {
+				win.requestAnimationFrame(requestAction);
+			}
+		}
+
 		return function throttle(...rest) {
 			lastArguments = rest;
 
 			if (!callTime) {
 				callTime = Date.now() + interval;
-			}
-
-			if (callTime <= Date.now()) {
-				callTime = 0;
-				eventHandler(...lastArguments);
-			} else {
-				if (win.requestAnimationFrame) {
-					win.requestAnimationFrame(throttle);
-				} else {
-					eventHandler(...lastArguments);
-				}
+				suspendAction();
 			}
 		};
-
 	}
 }
