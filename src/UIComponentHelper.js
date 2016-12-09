@@ -249,7 +249,7 @@ export default class UIComponentHelper {
 				callTime = 0;
 				eventHandler(...lastArguments);
 			} else {
-				win.requestAnimationFrame(requestAction);
+				win.requestAnimationFrame(suspendAction);
 			}
 		}
 
