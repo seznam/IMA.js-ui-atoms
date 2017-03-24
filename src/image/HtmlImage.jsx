@@ -51,7 +51,7 @@ export default class HtmlImage extends React.Component {
 	componentWillReceiveProps(nextProps) {
 		if (this.props.src !== nextProps.src || this.props.srcSet !== nextProps.srcSet) {
 			this.setState({
-				noloading: nextProps.noloading || false,
+				noloading: nextProps.noloading || this.props.noloading,
 				visibleInViewport: false
 			});
 			this._bindEventListeners();
