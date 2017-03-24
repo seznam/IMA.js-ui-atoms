@@ -59,7 +59,9 @@ export default class HtmlImage extends React.Component {
 	}
 
 	componentDidUpdate() {
-		this._checkVisibility();
+		if (!this.state.noloading) {
+			this._checkVisibility();
+		}
 	}
 
 	render() {
