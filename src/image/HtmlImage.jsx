@@ -48,6 +48,20 @@ export default class HtmlImage extends React.Component {
 		this._unbindEventListeners();
 	}
 
+	componentWillReceiveProps(nextProps) {
+		let srcChanged = this.props.src !== nextProps.src || this.props.srcSet !== nextProps.srcSet;
+		if (!nextProps.noloading && srcChanged) {
+			this.setState({
+				noloading: false,
+				visibleInViewport: false
+			});
+		}
+	}
+
+	componentDidUpdate() {
+		this._bindEventListeners();
+		this._checkVisibility();
+	}
 
 	render() {
 		let helper = this.utils.$UIComponentHelper;
