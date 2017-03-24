@@ -49,17 +49,16 @@ export default class HtmlImage extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		let srcChanged = this.props.src !== nextProps.src || this.props.srcSet !== nextProps.srcSet;
-		if (!nextProps.noloading && srcChanged) {
+		if (this.props.src !== nextProps.src || this.props.srcSet !== nextProps.srcSet) {
 			this.setState({
-				noloading: false,
+				noloading: nextProps.noloading || false,
 				visibleInViewport: false
 			});
+			this._bindEventListeners();
 		}
 	}
 
 	componentDidUpdate() {
-		this._bindEventListeners();
 		this._checkVisibility();
 	}
 
