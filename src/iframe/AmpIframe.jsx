@@ -13,6 +13,7 @@ let AmpIframe = (props, context) => {
 	let helper = context.$Utils.$UIComponentHelper;
 	let attributes = {
 		src: props.src,
+		srcDoc: props.srcDoc,
 		width: props.width,
 		height: props.height,
 		scrolling: props.scrolling,

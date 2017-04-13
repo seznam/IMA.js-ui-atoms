@@ -24,6 +24,7 @@ Iframe.contextTypes = {
 
 Iframe.propTypes = {
 	src: PropTypes.string,
+	srcDoc: PropTypes.string,
 	width: PropTypes.number,
 	height: PropTypes.number,
 	scrolling: PropTypes.string,
@@ -38,6 +39,7 @@ Iframe.propTypes = {
 
 Iframe.defaultProps = {
 	src: null,
+	srcDoc: null,
 	width: null,
 	height: null,
 	scrolling: 'no',
