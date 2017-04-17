@@ -125,9 +125,22 @@ export default class UIComponentHelper {
 	}
 
 	/**
+	 * Only Facade mehtod of ComponentPositions.convertToNumber function
+	 * for backward compatibility.
+	 *
+	 * @deprecated removed with next version
+	 * @param {string} string
+	 * @return {number}
+	 */
+	convertToNumber(string) {
+		return this._componentPositions.convertToNumber(string);
+	}
+
+	/**
 	 * Only Facade mehtod of ComponentPositions.getWindowViewportRect function
 	 * for backward compatibility.
 	 *
+	 * @deprecated removed with next version
 	 * @return {{top: number, left: number, width: number, height: number}}
 	 */
 	getWindowViewportRect() {
@@ -138,6 +151,7 @@ export default class UIComponentHelper {
 	 * Only Facade mehtod of ComponentPositions.getBoundingClientRect function
 	 * for backward compatibility.
 	 *
+	 * @deprecated removed with next version
 	 * @param {Element} element
 	 * @param {{width: number, height: number}} size
 	 * @param {number} extended
@@ -151,6 +165,7 @@ export default class UIComponentHelper {
 	 * Only Facade mehtod of ComponentPositions.getPercentOfVisibility function
 	 * for backward compatibility.
 	 *
+	 * @deprecated removed with next version
 	 * @param {{top: number, left: number, width: number, height: number}} elmRect
 	 * @return {number} The percent of visibility.
 	 */
@@ -181,6 +196,7 @@ export default class UIComponentHelper {
 	 * Only Facade mehtod of Visibility.throttle function
 	 * for backward compatibility.
 	 *
+	 * @deprecated removed with next version
 	 * @param {function(...)} eventHandler
 	 * @param {number?} interval
 	 * @param {Object?} context

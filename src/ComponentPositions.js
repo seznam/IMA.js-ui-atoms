@@ -25,6 +25,7 @@ export default class ComponentPositions {
 	/**
 	 * Convert string to number.
 	 *
+	 * @param {string} string
 	 * @return {number}
 	 */
 	convertToNumber(string) {

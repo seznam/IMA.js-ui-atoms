@@ -97,6 +97,18 @@ describe('UIComponentHelper', () => {
 
 	});
 
+	describe('convertToNumber method', () => {
+
+		it('should call ComponentPositions.convertToNumber method', () => {
+			spyOn(componentPositions, 'convertToNumber');
+
+			uiComponentHelper.convertToNumber('11');
+
+			expect(componentPositions.convertToNumber).toHaveBeenCalledWith('11');
+		});
+
+	});
+
 	describe('getPercentOfVisibility method', () => {
 
 		it('should call ComponentPositions.getPercentOfVisibility method', () => {
