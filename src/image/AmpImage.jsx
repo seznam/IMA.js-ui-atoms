@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 /**
@@ -9,7 +10,7 @@ import React from 'react';
  * @submodule ima.ui
  */
 
- let AmpImage = (props, context) => {
+let AmpImage = (props, context) => {
 	let helper = context.$Utils.$UIComponentHelper;
 
 	return (
@@ -26,7 +27,7 @@ import React from 'react';
 };
 
 AmpImage.contextTypes = {
-	$Utils: React.PropTypes.object
+	$Utils: PropTypes.object
 };
 
 export default AmpImage;

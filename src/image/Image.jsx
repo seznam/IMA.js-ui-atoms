@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import HtmlImage from './HtmlImage';
 import AmpImage from './AmpImage';
 
@@ -11,16 +12,16 @@ import AmpImage from './AmpImage';
  * @submodule app.component
  */
 
-let Image = (props, context) => {
+export default function Image(props, context) {
 	if (context.$Utils.$UIComponentHelper.isAmp()) {
 		return <AmpImage {...props}/>;
 	} else {
 		return <HtmlImage {...props}/>;
 	}
-};
+}
 
 Image.contextTypes = {
-	$Utils: React.PropTypes.object
+	$Utils: PropTypes.object
 };
 
 Image.propTypes = {
@@ -45,5 +46,3 @@ Image.defaultProps = {
 	className: '',
 	"data-e2e": null
 };
-
-export default Image;

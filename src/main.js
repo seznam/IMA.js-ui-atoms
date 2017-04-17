@@ -1,4 +1,6 @@
 import UIComponentHelper from './UIComponentHelper';
+import ComponentPositions from './ComponentPositions';
+import Visibility from './Visibility';
 
 import Headline from './headline/Headline';
 import Headline1 from './headline/Headline1';
@@ -27,7 +29,7 @@ import Sizer from './sizer/Sizer';
 
 import Video from './video/Video';
 
-let defaultDependencies = ['$Router', '$Window'];
+let defaultDependencies = ['$Router', ComponentPositions, Visibility];
 
 let $registerImaPlugin = (ns) => {
 	ns.namespace('ima.ui.atom');
@@ -83,15 +85,19 @@ let $registerImaPlugin = (ns) => {
 	ns.ima.ui.atom.video.Video = Video;
 
 	ns.ima.ui.atom.UIComponentHelper = UIComponentHelper;
+	ns.ima.ui.atom.Visibility = Visibility;
+	ns.ima.ui.atom.ComponentPositions = ComponentPositions;
 	ns.ima.ui.atom.defaultDependencies = defaultDependencies;
 };
 
 let initBind = (ns, oc, config) => {
-	oc.inject(UIComponentHelper, defaultDependencies);
+	//oc.inject(UIComponentHelper, defaultDependencies);
 };
 
 export {
 	UIComponentHelper,
+	Visibility,
+	ComponentPositions,
 	defaultDependencies,
 	Headline,
 	Headline1,

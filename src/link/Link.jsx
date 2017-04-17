@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 /**
  * Common link
@@ -29,7 +30,7 @@ let Link = (props, context) => {
 };
 
 Link.contextTypes = {
-	$Utils: React.PropTypes.object
+	$Utils: PropTypes.object
 };
 
 

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 /**
  * Common loader
@@ -19,18 +20,12 @@ let Loader = (props, context) => {
 					['atm-loader-' + props.mode]: props.mode,
 					['atm-loader-' + props.layout]: props.layout
 				}, props.className) }
-				{...helper.getDataProps(props)}>
-			<span/>
-			<span/>
-			<span/>
-			<span/>
-			<span/>
-		</div>
+				{...helper.getDataProps(props)} />
 	);
 };
 
 Loader.contextTypes = {
-	$Utils: React.PropTypes.object
+	$Utils: PropTypes.object
 };
 
 Loader.propTypes = {

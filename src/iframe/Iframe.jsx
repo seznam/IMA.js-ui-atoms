@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import HtmlIframe from './HtmlIframe';
 import AmpIframe from './AmpIframe';
 
@@ -10,16 +11,16 @@ import AmpIframe from './AmpIframe';
  * @module ima
  * @submodule ima.ui
  */
-let Iframe = (props, context) => {
+export default function Iframe(props, context) {
 	if (context.$Utils.$UIComponentHelper.isAmp()) {
 		return <AmpIframe {...props}/>;
 	} else {
 		return <HtmlIframe {...props}/>;
 	}
-};
+}
 
 Iframe.contextTypes = {
-	$Utils: React.PropTypes.object
+	$Utils: PropTypes.object
 };
 
 Iframe.propTypes = {
@@ -49,5 +50,3 @@ Iframe.defaultProps = {
 	className: '',
 	"data-e2e": null
 };
-
-export default Iframe;

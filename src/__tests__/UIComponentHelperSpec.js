@@ -1,13 +1,12 @@
+import toMock from 'to-mock';
+
+import ComponentPositions from '../ComponentPositions';
 import UIComponentHelper from '../UIComponentHelper';
+import Visibility from '../Visibility';
+
+import _router from '../mocks/router';
 
 describe('UIComponentHelper', () => {
-
-	let windowViewportRect = {
-		top: 0,
-		left: 0,
-		width: 1024,
-		height: 768
-	};
 
 	let elmRect = {
 		top: -70,
@@ -16,109 +15,49 @@ describe('UIComponentHelper', () => {
 		height: 100
 	};
 
+	let MockedVisibility = toMock(Visibility);
+	let MockedComponentPositions = toMock(ComponentPositions);
+
 	let uiComponentHelper = null;
-	let router = {};
-	let window = {
-		getWindow: () => {
-			return {
-				innerWidth: windowViewportRect.width,
-				innerHeight: windowViewportRect.height,
-				requestAnimationFrame: function() {}
-			};
-		},
-		isClient: () => true
-	};
+	let visibility = new MockedVisibility();
+	let componentPositions = new MockedComponentPositions();
 
 	beforeEach(() => {
-		uiComponentHelper = new UIComponentHelper(router, window);
+		uiComponentHelper = new UIComponentHelper(_router, componentPositions, visibility);
 	});
 
-	it('should return window viewport', () => {
-		let windowViewportRect = uiComponentHelper.getWindowViewportRect();
+	describe('isAmp mehtod', () => {
 
-		expect(windowViewportRect.top).toEqual(0);
-		expect(windowViewportRect.left).toEqual(0);
-		expect(typeof windowViewportRect.width).toEqual('number');
-		expect(typeof windowViewportRect.left).toEqual('number');
-	});
-
-	describe('getNumberFromRange method', function() {
-
-		it('should return number from defined range', function() {
-			expect(uiComponentHelper.getNumberFromRange(0, -1, 1)).toEqual(0);
-		});
-
-		it('should return defined min number from range', function() {
-			expect(uiComponentHelper.getNumberFromRange(-1, 0, 1)).toEqual(0);
-		});
-
-		it('should return defined max number from range', function() {
-			expect(uiComponentHelper.getNumberFromRange(2, 0, 1)).toEqual(1);
-		});
-
-	});
-
-	describe('getRectsIntersection method', () => {
-
-		it('should return penetration rect from two defined rects', () => {
-			let penetrationRect = uiComponentHelper.getRectsIntersection(windowViewportRect, elmRect);
-
-			expect(penetrationRect.top).toEqual(windowViewportRect.top);
-			expect(penetrationRect.left).toEqual(elmRect.left);
-			expect(penetrationRect.width).toEqual(100);
-			expect(penetrationRect.height).toEqual(30);
-		});
-
-	});
-
-	describe('getPercentOfVisibility method', () => {
-
-		it('should return percent of visibility on window viewport', () => {
-			spyOn(uiComponentHelper, 'getWindowViewportRect')
+		it('should return true if url query contains amp flag', () => {
+			spyOn(_router, 'getCurrentRouteInfo')
 				.and
-				.returnValue(windowViewportRect);
+				.returnValue({ params: { amp: true } });
 
-			let percentOfVisibility = uiComponentHelper.getPercentOfVisibility(elmRect);
+			expect(uiComponentHelper.isAmp()).toBeTruthy();
+		});
 
-			expect(percentOfVisibility).toEqual(30);
+		it('should return false if url query not contains amp flag', () => {
+			expect(uiComponentHelper.isAmp()).toBeFalsy();
 		});
 
 	});
 
-	describe('getBoundingClientRect method', () => {
+	describe('getDataProps mehtod', () => {
+		let dataProps = {
+			'data-e2e': 'something',
+			'data-key': 'key'
+		};
+		let props = Object.assign({ key: 'key' }, dataProps);
 
-		it('throw error for undefined element', () => {
-			expect(() => {
-				uiComponentHelper.getBoundingClientRect();
-			}).toThrow();
-		});
+		it('should return only attributes with name data-*', () => {
 
-		it('throw error for element without callable method getBoundingClientRect', () => {
-			expect(() => {
-				uiComponentHelper.getBoundingClientRect({});
-			}).toThrow();
-		});
-
-		it('should returns expanded size for element', () => {
-			let element = {
-				getBoundingClientRect: () => elmRect
-			};
-
-			expect(uiComponentHelper.getBoundingClientRect(element, {}, 300)).toEqual({
-				top: -370,
-				left: 162,
-				width: 700,
-				height: 700
-			});
-
-			expect(function() {
-				uiComponentHelper.getBoundingClientRect({});
-			}).toThrow();
+			expect(uiComponentHelper.getDataProps(props)).toEqual(dataProps);
 		});
 
 	});
 
-	describe('cssClasses', () => {
+
+	describe('cssClasses method', () => {
 
 		it('should compose CSS class names', () => {
 			expect(uiComponentHelper.cssClasses('stuff another-foo', {
@@ -130,4 +69,95 @@ describe('UIComponentHelper', () => {
 		});
 
 	});
+
+	describe('getWindowViewportRect method', () => {
+
+		it('should call ComponentPositions.getWindowViewportRect method', () => {
+			spyOn(componentPositions, 'getWindowViewportRect');
+
+			uiComponentHelper.getWindowViewportRect();
+
+			expect(componentPositions.getWindowViewportRect).toHaveBeenCalled();
+		});
+
+	});
+
+	describe('getBoundingClientRect method', () => {
+		let element = {};
+		let size = { width: 0, height: 0 };
+		let extendedPadding = 0;
+
+		it('should call ComponentPositions.getBoundingClientRect method', () => {
+			spyOn(componentPositions, 'getBoundingClientRect');
+
+			uiComponentHelper.getBoundingClientRect(element, size, extendedPadding);
+
+			expect(componentPositions.getBoundingClientRect).toHaveBeenCalledWith(element, size, extendedPadding);
+		});
+
+	});
+
+	describe('getPercentOfVisibility method', () => {
+
+		it('should call ComponentPositions.getPercentOfVisibility method', () => {
+			spyOn(componentPositions, 'getPercentOfVisibility');
+
+			uiComponentHelper.getPercentOfVisibility(elmRect);
+
+			expect(componentPositions.getPercentOfVisibility).toHaveBeenCalledWith(elmRect);
+		});
+
+	});
+
+	describe('getVisibilityReader method', () => {
+
+		it('return base visibility reader function', () => {
+			expect(typeof uiComponentHelper.getVisibilityReader() === 'function').toBeTruthy();
+		});
+
+	});
+
+	describe('throttle method', () => {
+		let handler = () => {};
+		let interval = 0;
+		let context = null;
+
+		it('should call Visibility.throttle method', () => {
+			spyOn(visibility, 'throttle');
+
+			uiComponentHelper.throttle(handler, interval, context);
+
+			expect(visibility.throttle).toHaveBeenCalledWith(handler, interval, context);
+		});
+
+	});
+
+	describe('registerComponentToVisbility method', () => {
+		let reader = () => {};
+		let writer = () => {};
+		let options = { visibilityInterval: 180 };
+
+		it('should call Visibility.register method', () => {
+			spyOn(visibility, 'register');
+
+			uiComponentHelper.registerComponentToVisbility(reader, writer, options);
+
+			expect(visibility.register).toHaveBeenCalledWith(reader, writer, options);
+		});
+
+	});
+
+	describe('unregisterComponentToVisbility method', () => {
+		let visibilityId = 0;
+
+		it('should call Visibility.unregister method', () => {
+			spyOn(visibility, 'unregister');
+
+			uiComponentHelper.unregisterComponentToVisbility(visibilityId);
+
+			expect(visibility.unregister).toHaveBeenCalledWith(visibilityId);
+		});
+
+	});
+
 });

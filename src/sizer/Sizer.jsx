@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 /**
  * Common sizer
@@ -9,7 +10,7 @@ import React, { PropTypes } from 'react';
  * @submodule ima.ui
  */
 
-let Sizer = (props, context) => {
+export default function Sizer(props, context) {
 	let helper = context.$Utils.$UIComponentHelper;
 	return (
 		<div
@@ -20,10 +21,10 @@ let Sizer = (props, context) => {
 				style = { { paddingTop: props.height / props.width * 100 + '%' } }
 				{...helper.getDataProps(props)}/>
 	);
-};
+}
 
 Sizer.contextTypes = {
-	$Utils: React.PropTypes.object
+	$Utils: PropTypes.object
 };
 
 Sizer.propTypes = {
@@ -39,5 +40,3 @@ Sizer.defaultProps = {
 	placeholder: false,
 	className: ''
 };
-
-export default Sizer;

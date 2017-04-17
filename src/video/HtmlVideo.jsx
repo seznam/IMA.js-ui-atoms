@@ -1,8 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import Loader from '../loader/Loader';
 import Sizer from '../sizer/Sizer';
 
-const EXTENDED_PADDING = 400;
+const EXTENDED_PADDING = 300;
 
 /**
  * HTML video player.
@@ -13,22 +13,27 @@ const EXTENDED_PADDING = 400;
  * @submodule ima.ui
  */
 
-export default class HtmlVideo extends React.Component {
+export default class HtmlVideo extends React.PureComponent {
+
+	static get contextTypes() {
+		return {
+			$Utils: PropTypes.object
+		};
+	}
+
 	constructor(props, context) {
 		super(props, context);
 
 		this.state = {
-			loaded: props.noloading || false,
-			visibleInViewport: false
+			noloading: props.noloading || false
 		};
 
-		this._throttledCheckVisibility = context.$Utils.$UIComponentHelper.throttle(
-			this._checkVisibility,
-			100,
-			this
-		);
-
 		this._mounted = false;
+		this._visibleInViewport = false;
+
+		this._registeredVisibilityId = null;
+
+		this._onVisbilityWriter = this.onVisibilityWriter.bind(this);
 	}
 
 	get utils() {
@@ -44,28 +49,28 @@ export default class HtmlVideo extends React.Component {
 					className = { helper.cssClasses({
 						'atm-video': true,
 						'atm-overflow': true,
-						'atm-placeholder': !this.state.loaded,
+						'atm-placeholder': !this.state.noloading,
 						'atm-responsive': this.props.layout === 'responsive',
 						'atm-fill': this.props.layout === 'fill'
 					}, this.props.className) }
 					style = {this.props.layout === 'responsive' ?
 						{}
 					:
-						{
-							width: this.props.width || 'auto',
-							height: this.props.height || 'auto'
-						}
+					{
+						width: this.props.width || 'auto',
+						height: this.props.height || 'auto'
+					}
 					}
 					{...helper.getDataProps(this.props)}>
 				{this.props.layout === 'responsive' ?
 					<Sizer
 							width = { this.props.width }
 							height = { this.props.height }
-							placeholder = { !this.state.loaded }/>
+							placeholder = { !this.state.noloading }/>
 				:
 					null
 				}
-				{this.state.loaded ?
+				{this.state.noloading ?
 					<video
 							src = { this.props.src }
 							poster = { this.props.poster }
@@ -77,13 +82,13 @@ export default class HtmlVideo extends React.Component {
 							height = { this.props.height }
 							className = { helper.cssClasses({
 								'atm-fill': true,
-								'atm-loaded': this.state.loaded && this.state.visibleInViewport
+								'atm-loaded': this.state.noloading && this._visibleInViewport
 							}) }>
 						<div placeholder=''/>
 						{ this.props.children }
 					</video>
 				:
-					<Loader mode = 'small' layout = 'center'/>
+					null
 				}
 				<noscript
 						dangerouslySetInnerHTML = {{
@@ -102,50 +107,51 @@ export default class HtmlVideo extends React.Component {
 
 	componentDidMount() {
 		this._mounted = true;
-		if (!this.state.loaded) {
-			this._bindEventListeners();
-			this._checkVisibility();
+
+		if (this.state.noloading === false) {
+			this._registerToCheckingVisibility();
 		}
 	}
 
 	componentWillUnmount() {
 		this._mounted = false;
-		this._unbindEventListeners();
+		this._unregisterToCheckingVisibility();
 	}
 
-	_bindEventListeners() {
-		this.context.$Utils.$Window.bindEventListener(window, 'resize', this._throttledCheckVisibility);
-		this.context.$Utils.$Window.bindEventListener(window, 'scroll', this._throttledCheckVisibility);
-	}
-
-	_unbindEventListeners() {
-		this.context.$Utils.$Window.unbindEventListener(window, 'resize', this._throttledCheckVisibility);
-		this.context.$Utils.$Window.unbindEventListener(window, 'scroll', this._throttledCheckVisibility);
-	}
-
-	_checkVisibility() {
-		if (this.state.visibleInViewport || !this._mounted) {
-			return;
+	onVisibilityWriter(visibility) {
+		if (this._visibleInViewport === false && visibility > 0) {
+			this._visibleInViewport = true;
+			this._unregisterToCheckingVisibility();
+			this._preLoadPosterImage();
 		}
+	}
 
-		let rootElement = this.refs.root;
-		let rootElementBounds = this.context.$Utils.$UIComponentHelper.getBoundingClientRect(
-			rootElement,
-			{ width: this.props.width, height: this.props.height },
+	_unregisterToCheckingVisibility() {
+		this.utils.$UIComponentHelper.unregisterComponentToVisbility(this._registeredVisibilityId);
+	}
+
+	_registerToCheckingVisibility() {
+		let extendedPadding = Math.max(
+			Math.round(this.utils.$UIComponentHelper.getWindowViewportRect().height / 2),
 			EXTENDED_PADDING
 		);
-		let visibility = this.context.$Utils.$UIComponentHelper.getPercentOfVisibility(rootElementBounds);
-		if (visibility > 0) {
-			this._preLoadPosterImage();
-			this._unbindEventListeners();
-			this.setState({ visibleInViewport: true });
-		}
+		this._registeredVisibilityId = this.utils.$UIComponentHelper.registerComponentToVisbility(
+			this.utils.$UIComponentHelper.getVisibilityReader(
+				this.refs.root,
+				{
+					extendedPadding,
+					width: this.props.width,
+					height: this.props.height
+				}
+			),
+			this._onVisbilityWriter
+		);
 	}
 
 	_preLoadPosterImage() {
 		if (!this.props.poster) {
 			this.setState({
-				loaded: true
+				noloading: true
 			});
 			return;
 		}
@@ -159,13 +165,9 @@ export default class HtmlVideo extends React.Component {
 		function onLoadingCompleted() {
 			if (componentInstance._mounted) {
 				componentInstance.setState({
-					loaded: true
+					noloading: true
 				});
 			}
 		}
 	}
 }
-
-HtmlVideo.contextTypes = {
-	$Utils: React.PropTypes.object
-};

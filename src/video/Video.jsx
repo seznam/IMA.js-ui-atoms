@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import AmpVideo from './AmpVideo';
 import HtmlVideo from './HtmlVideo';
 
@@ -13,14 +14,14 @@ import HtmlVideo from './HtmlVideo';
 
 export default function Video(props, context) {
 	if (context.$Utils.$UIComponentHelper.isAmp()) {
-		return <AmpVideo {...props}/>
+		return <AmpVideo {...props}/>;
 	} else {
-		return <HtmlVideo {...props}/>
+		return <HtmlVideo {...props}/>;
 	}
 }
 
 Video.contextTypes = {
-	$Utils: React.PropTypes.object
+	$Utils: PropTypes.object
 };
 
 Video.propTypes = {

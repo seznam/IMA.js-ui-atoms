@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 /**
@@ -33,7 +34,7 @@ let AmpIframe = (props, context) => {
 };
 
 AmpIframe.contextTypes = {
-	$Utils: React.PropTypes.object
+	$Utils: PropTypes.object
 };
 
 export default AmpIframe;

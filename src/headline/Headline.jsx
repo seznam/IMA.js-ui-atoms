@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 /**
  * Base headline
@@ -42,7 +43,7 @@ let Headline = (props, context) => {
 };
 
 Headline.contextTypes = {
-	$Utils: React.PropTypes.object
+	$Utils: PropTypes.object
 };
 
 Headline.propTypes = {

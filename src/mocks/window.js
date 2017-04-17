@@ -5,6 +5,8 @@ let _window = {
 			innerHeight: 768
 		};
 	},
+	bindEventListener: () => {},
+	unbindEventListener: () => {},
 	isClient: () => true
 };
 

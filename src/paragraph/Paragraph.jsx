@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 /**
  * Common paragraph
@@ -39,7 +40,7 @@ let Paragraph = (props, context) => {
 };
 
 Paragraph.contextTypes = {
-	$Utils: React.PropTypes.object
+	$Utils: PropTypes.object
 };
 
 Paragraph.propTypes = {

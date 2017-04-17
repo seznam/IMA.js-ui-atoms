@@ -1,7 +1,8 @@
 import { UIComponentHelper } from '../../dist/main.js';
-import _window from './windowMock';
+import componentPositions from './componentPositions';
 import _router from './routerMock';
+import visibility from './visibility';
 
-let uiComponentHelper = new UIComponentHelper(_router, _window);
+let uiComponentHelper = new UIComponentHelper(_router, componentPositions, visibility);
 
 export default uiComponentHelper;

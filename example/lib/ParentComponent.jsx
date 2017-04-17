@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import uiComponentHelper from './uiComponentHelper';
 import _window from './windowMock';
@@ -26,5 +27,5 @@ export default class Parent extends React.Component {
 }
 
 Parent.childContextTypes = {
-	$Utils: React.PropTypes.object
+	$Utils: PropTypes.object
 };

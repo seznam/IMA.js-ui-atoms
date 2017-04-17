@@ -6,7 +6,6 @@ let del = require('del');
 let gulp = require('gulp');
 let babel = require('gulp-babel');
 let rename = require('gulp-rename');
-let karma = require('karma');
 let path = require('path');
 let browserify = require('browserify');
 let babelify = require('babelify');
@@ -14,6 +13,7 @@ let fs = require('fs');
 let cache = require('gulp-cached');
 let remember = require('gulp-remember');
 let gulpLess = require('gulp-less');
+let jasmine = require('gulp-jasmine');
 
 let gulpConfig = {
 	onTerminate() {
@@ -56,7 +56,8 @@ function bundle() {
 	return (
 		browserify(['./example/main.js'], options)
 			.transform(babelify.configure({
-				presets: ['es2015', 'react']
+				presets: ['react'],
+				plugins: ['transform-es2015-modules-commonjs']
 			}))
 			.bundle()
 			.pipe(fs.createWriteStream('./example/dist/bundle.js'))
@@ -83,39 +84,43 @@ function clean() {
 }
 
 exports.test = test;
-function test(done) {
-	startKarmaServer(done, true);
+function test() {
+	return gulp
+		.src('./src/**/*Spec.js')
+		.pipe(jasmine({ includeStackTrace: true }));
 }
 
-function startKarmaServer(done, singleRun) {
-	new karma.Server({
-		configFile: path.resolve('./karma.conf.js'),
-		singleRun: singleRun
-	}, done).start();
+function testWithoutError() {
+	return test()
+		.on('error', function(error) {
+			console.error(error);
+
+			this.emit('end');
+		});
 }
 
 exports.dev = gulp.series(
+	test,
 	compile,
 	less,
 	bundle,
 	dev
 );
 function dev(done) {
-	startKarmaServer(done);
+	gulp.watch('./src/**/*.{js,jsx}', gulp.series(testWithoutError));
 }
 
 exports['dev:example'] = gulp.series(
+	test,
 	compile,
 	less,
 	bundle,
 	devExample
 );
 function devExample(done) {
-	startKarmaServer(done);
-
 	gulp.watch('./src/**/*.less', less);
-	gulp.watch(['./example/**/*.{js,jsx}', '!./example/dist/*.{js,css}'], bundle);
-	gulp.watch('./src/**/*.{js,jsx}', compile);
+	gulp.watch(['./example/main.js'], bundle);
+	gulp.watch('./src/**/*.{js,jsx}', gulp.series(testWithoutError, compile, bundle));
 }
 
 if (gulpConfig.onTerminate) {

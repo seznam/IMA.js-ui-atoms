@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 /**
  * Common list
@@ -28,7 +29,7 @@ import React, { PropTypes } from 'react';
 };
 
 List.contextTypes = {
-	$Utils: React.PropTypes.object
+	$Utils: PropTypes.object
 };
 
 List.propTypes = {

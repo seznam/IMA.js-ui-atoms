@@ -1,5 +1,5 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import Loader from '../loader/Loader';
 import Sizer from '../sizer/Sizer';
 
 const MIN_EXTENDED_PADDING = 500;
@@ -13,7 +13,13 @@ const MIN_EXTENDED_PADDING = 500;
  * @submodule app.component
  */
 
-export default class HtmlIframe extends React.Component {
+export default class HtmlIframe extends React.PureComponent {
+
+	static get contextTypes() {
+		return {
+			$Utils: PropTypes.object
+		};
+	}
 
 	constructor(props, context) {
 		super(props, context);
@@ -22,13 +28,9 @@ export default class HtmlIframe extends React.Component {
 			visibleInViewport: props.noloading || false
 		};
 
-		this._mounted = false;
+		this._registeredVisibilityId = null;
 
-		this._throttledCheckVisibility = this.utils.$Helper.throttle(
-			this._checkVisibility,
-			100,
-			this
-		);
+		this._onVisbilityWriter = this.onVisibilityWriter.bind(this);
 	}
 
 	get utils() {
@@ -36,18 +38,14 @@ export default class HtmlIframe extends React.Component {
 	}
 
 	componentDidMount() {
-		this._mounted = true;
 		if (this.state.visibleInViewport === false) {
-			this._bindEventListeners();
-			this._checkVisibility();
+			this._registerToCheckingVisibility();
 		}
 	}
 
 	componentWillUnmount() {
-		this._mounted = false;
-		this._unbindEventListeners();
+		this._unregisterToCheckingVisibility();
 	}
-
 
 	render() {
 		let helper = this.utils.$UIComponentHelper;
@@ -65,10 +63,10 @@ export default class HtmlIframe extends React.Component {
 					style = {this.props.layout === 'responsive' ?
 						{}
 					:
-						{
-							width: this.props.width || 'auto',
-							height: this.props.height || 'auto'
-						}
+					{
+						width: this.props.width || 'auto',
+						height: this.props.height || 'auto'
+					}
 					}
 					{...helper.getDataProps(this.props)}>
 				{
@@ -94,7 +92,7 @@ export default class HtmlIframe extends React.Component {
 									'atm-fill': true
 								}) }/>
 					:
-						<Loader mode = 'small' layout = 'center'/>
+						null
 				}
 				<noscript
 						className = 'atm-fill'
@@ -118,38 +116,33 @@ export default class HtmlIframe extends React.Component {
 		);
 	}
 
-	_unbindEventListeners() {
-		this.utils.$Window.unbindEventListener(window, 'resize', this._throttledCheckVisibility);
-		this.utils.$Window.unbindEventListener(window, 'scroll', this._throttledCheckVisibility);
-	}
-
-	_bindEventListeners() {
-		this.utils.$Window.bindEventListener(window, 'resize', this._throttledCheckVisibility);
-		this.utils.$Window.bindEventListener(window, 'scroll', this._throttledCheckVisibility);
-	}
-
-	_checkVisibility() {
-		if (this._mounted) {
-			let rootElement = this.refs.root;
-			let extendedPadding = Math.max(
-				this.utils.$UIComponentHelper.getWindowViewportRect().height,
-				MIN_EXTENDED_PADDING
-			);
-			let rootElementRect = this.utils.$UIComponentHelper.getBoundingClientRect(
-				rootElement,
-				{ width: this.props.width, height: this.props.height },
-				extendedPadding
-			);
-
-			if (this.state.visibleInViewport === false &&
-					this.utils.$UIComponentHelper.getPercentOfVisibility(rootElementRect) > 0) {
-				this._unbindEventListeners();
-				this.setState({ visibleInViewport: true });
-			}
+	onVisibilityWriter(visibility) {
+		if (this.state.visibleInViewport === false && visibility > 0) {
+			this._unregisterToCheckingVisibility();
+			this.setState({ visibleInViewport: true });
 		}
 	}
-}
 
-HtmlIframe.contextTypes = {
-	$Utils: React.PropTypes.object
-};
+	_unregisterToCheckingVisibility() {
+		this.utils.$UIComponentHelper.unregisterComponentToVisbility(this._registeredVisibilityId);
+	}
+
+	_registerToCheckingVisibility() {
+		let extendedPadding = Math.max(
+			this.utils.$UIComponentHelper.getWindowViewportRect().height / 2,
+			MIN_EXTENDED_PADDING
+		);
+
+		this._registeredVisibilityId = this.utils.$UIComponentHelper.registerComponentToVisbility(
+			this.utils.$UIComponentHelper.getVisibilityReader(
+				this.refs.root,
+				{
+					extendedPadding,
+					width: this.props.width,
+					height: this.props.height
+				}
+			),
+			this._onVisbilityWriter
+		);
+	}
+}

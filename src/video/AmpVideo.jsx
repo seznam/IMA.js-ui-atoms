@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 /**
@@ -32,5 +33,5 @@ export default function AmpVideo(props, context) {
 }
 
 AmpVideo.contextTypes = {
-	$Utils: React.PropTypes.object
+	$Utils: PropTypes.object
 };

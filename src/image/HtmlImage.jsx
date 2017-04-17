@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Loader from '../loader/Loader';
 import Sizer from '../sizer/Sizer';
@@ -13,22 +14,29 @@ const MIN_EXTENDED_PADDING = 300;
  * @submodule ima.ui
  */
 
-export default class HtmlImage extends React.Component {
+export default class HtmlImage extends React.PureComponent {
+
+	static get contextTypes() {
+		return {
+			$Utils: PropTypes.object
+		};
+	}
 
 	constructor(props, context) {
 		super(props, context);
 
 		this.state = {
 			noloading: props.noloading || false,
-			visibleInViewport: false
+			showLoader: false
 		};
 
 		this._mounted = false;
-		this._throttledCheckVisibility = this.utils.$UIComponentHelper.throttle(
-			this._checkVisibility,
-			100,
-			this
-		);
+		this._visibleInViewport = false;
+		this._loadIndicatorTimer = null;
+
+		this._registeredVisibilityId = null;
+
+		this._onVisbilityWriter = this.onVisibilityWriter.bind(this);
 	}
 
 	get utils() {
@@ -37,30 +45,27 @@ export default class HtmlImage extends React.Component {
 
 	componentDidMount() {
 		this._mounted = true;
+
 		if (this.state.noloading === false) {
-			this._bindEventListeners();
-			this._checkVisibility();
+			this._registerToCheckingVisibility();
 		}
 	}
 
 	componentWillUnmount() {
 		this._mounted = false;
-		this._unbindEventListeners();
+		this._unregisterToCheckingVisibility();
 	}
 
 	componentWillReceiveProps(nextProps) {
 		if (this.props.src !== nextProps.src || this.props.srcSet !== nextProps.srcSet) {
+			this._visibleInViewport = false;
 			this.setState({
-				noloading: nextProps.noloading || this.props.noloading,
-				visibleInViewport: false
+				noloading: nextProps.noloading || this.props.noloading
 			});
-			this._bindEventListeners();
-		}
-	}
 
-	componentDidUpdate() {
-		if (!this.state.noloading) {
-			this._checkVisibility();
+			if ((nextProps.noloading || this.props.noloading) === false) {
+				this._registerToCheckingVisibility();
+			}
 		}
 	}
 
@@ -77,14 +82,13 @@ export default class HtmlImage extends React.Component {
 						'atm-responsive': this.props.layout === 'responsive',
 						'atm-fill': this.props.layout === 'fill'
 					}, this.props.className) }
-					style = {
-						this.props.layout === 'responsive' ?
-							{}
-						:
-							{
-								width: this.props.width || 'auto',
-								height: this.props.height || 'auto'
-							}
+					style = {this.props.layout === 'responsive' ?
+						{}
+					:
+					{
+						width: this.props.width || 'auto',
+						height: this.props.height || 'auto'
+					}
 					}
 					{...helper.getDataProps(this.props)}>
 				{
@@ -104,10 +108,15 @@ export default class HtmlImage extends React.Component {
 								alt = { this.props.alt }
 								className = { this.utils.$UIComponentHelper.cssClasses({
 									'atm-fill': true,
-									'atm-loaded': this.state.noloading && this.state.visibleInViewport
+									'atm-loaded': this.state.noloading && this._visibleInViewport
 								}) } />
 					:
-						<Loader mode = 'small' layout = 'center'/>
+						null
+				}
+				{this.state.showLoader && !this.state.noloading ?
+					<Loader mode = 'small' layout = 'center'/>
+				:
+					null
 				}
 				<noscript
 						dangerouslySetInnerHTML = { {
@@ -121,63 +130,62 @@ export default class HtmlImage extends React.Component {
 		);
 	}
 
-	_unbindEventListeners() {
-		this.utils.$Window.unbindEventListener(window, 'resize', this._throttledCheckVisibility);
-		this.utils.$Window.unbindEventListener(window, 'scroll', this._throttledCheckVisibility);
-	}
-
-	_bindEventListeners() {
-		this.utils.$Window.bindEventListener(window, 'resize', this._throttledCheckVisibility);
-		this.utils.$Window.bindEventListener(window, 'scroll', this._throttledCheckVisibility);
-	}
-
-	_checkVisibility() {
-		if (this._mounted) {
-			let rootElement = this.refs.root;
-			let extendedPadding = Math.max(
-				Math.round(this.utils.$UIComponentHelper.getWindowViewportRect().height / 2),
-				MIN_EXTENDED_PADDING
-			);
-			let rootElementRect = this.utils.$UIComponentHelper.getBoundingClientRect(
-				rootElement,
-				{ width: this.props.width, height: this.props.height },
-				extendedPadding
-			);
-
-			if (this.state.visibleInViewport === false &&
-					this.utils.$UIComponentHelper.getPercentOfVisibility(rootElementRect) > 0) {
-				this._preLoadImage();
-				this._unbindEventListeners();
-				this.setState({ visibleInViewport: true });
-			}
+	onVisibilityWriter(visibility) {
+		if (this._visibleInViewport === false && visibility > 0) {
+			this._visibleInViewport = true;
+			this._unregisterToCheckingVisibility();
+			this._preLoadImage();
 		}
 	}
 
-	_preLoadImage() {
-		let image = new Image();
+	_unregisterToCheckingVisibility() {
+		this.utils.$UIComponentHelper.unregisterComponentToVisbility(this._registeredVisibilityId);
+	}
 
+	_registerToCheckingVisibility() {
+		let extendedPadding = Math.max(
+			Math.round(this.utils.$UIComponentHelper.getWindowViewportRect().height * 2),
+			MIN_EXTENDED_PADDING
+		);
+
+		this._registeredVisibilityId = this.utils.$UIComponentHelper.registerComponentToVisbility(
+			this.utils.$UIComponentHelper.getVisibilityReader(
+				this.refs.root,
+				{
+					extendedPadding,
+					width: this.props.width,
+					height: this.props.height
+				}
+			),
+			this._onVisbilityWriter
+		);
+	}
+
+	_preLoadImage() {
+		this._loadIndicatorTimer = setTimeout(() => {
+			this.setState({ showLoader: true });
+		}, 1000);
+
+		let image = new Image();
 		image.onload = () => {
-			if (this._mounted) {
-				this.setState({ noloading: true });
-			}
+			this._imageIsLoaded();
 		};
 		image.onerror = () => {
-			if (this._mounted) {
-				this.setState({ noloading: true });
-			}
+			this._imageIsLoaded();
 		};
 
 		if (this.props.src) {
 			image.src = this.props.src;
 		} else {
+			this._imageIsLoaded();
+		}
+	}
 
-			if (this._mounted) {
-				this.setState({ noloading: true });
-			}
+	_imageIsLoaded() {
+		clearTimeout(this._loadIndicatorTimer);
+
+		if (this._mounted) {
+			this.setState({ noloading: true, showLoader: false });
 		}
 	}
 }
-
-HtmlImage.contextTypes = {
-	$Utils: React.PropTypes.object
-};
