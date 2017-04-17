@@ -82,6 +82,7 @@ export default class HtmlIframe extends React.PureComponent {
 					this.state.visibleInViewport ?
 						<iframe
 								src = { this.props.src }
+								srcDoc = { this.props.srcDoc }
 								width = { this.props.width }
 								height = { this.props.height }
 								scrolling = { this.props.scrolling }
@@ -104,6 +105,7 @@ export default class HtmlIframe extends React.PureComponent {
 						dangerouslySetInnerHTML = { {
 							__html: `<iframe
 								src="${this.props.src}"
+								srcdoc="${this.props.srcDoc}"
 								width="${this.props.width || 'auto'}"
 								height="${this.props.height || 'auto'}"
 								${ this.props.sandbox ? `sandbox="${this.props.sandbox}"` : '' }
