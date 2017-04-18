@@ -203,7 +203,7 @@ export default class UIComponentHelper {
 	 * @return {function(...)} The throttled event
 	 */
 	throttle(eventHandler, interval, context) {
-		this._visibility.throttle(eventHandler, interval, context);
+		return this._visibility.throttle(eventHandler, interval, context);
 	}
 
 	/**
