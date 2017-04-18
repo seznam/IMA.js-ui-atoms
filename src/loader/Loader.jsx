@@ -20,7 +20,9 @@ let Loader = (props, context) => {
 					['atm-loader-' + props.mode]: props.mode,
 					['atm-loader-' + props.layout]: props.layout
 				}, props.className) }
-				{...helper.getDataProps(props)} />
+				{...helper.getDataProps(props)}>
+			<div className = 'atm-loader-animation'/>
+		</div>
 	);
 };
 
