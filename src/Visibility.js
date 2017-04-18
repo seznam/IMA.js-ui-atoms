@@ -132,7 +132,7 @@ export default class Visibility {
 	_visibilityLoop() {
 		let lastLoopRunning = Date.now();
 
-		[...this._entries.values()].filter((loopEntry) => {
+		Array.from(this._entries.values()).filter((loopEntry) => {
 			return loopEntry.lastLoop + loopEntry.options.visibilityInterval <= Date.now();
 		}).map((loopEntry) => {
 			loopEntry.lastLoop = lastLoopRunning;
