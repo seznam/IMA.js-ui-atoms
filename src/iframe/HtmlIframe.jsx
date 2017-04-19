@@ -82,6 +82,7 @@ export default class HtmlIframe extends React.PureComponent {
 					this.state.visibleInViewport ?
 						<iframe
 								src = { this.props.src }
+								name = { this.props.src }
 								srcDoc = { this.props.srcDoc }
 								width = { this.props.width }
 								height = { this.props.height }
