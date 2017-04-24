@@ -1,4 +1,5 @@
 import toMock from 'to-mock';
+import classnames from 'classnames';
 
 import ComponentPositions from '../ComponentPositions';
 import UIComponentHelper from '../UIComponentHelper';
@@ -23,7 +24,7 @@ describe('UIComponentHelper', () => {
 	let componentPositions = new MockedComponentPositions();
 
 	beforeEach(() => {
-		uiComponentHelper = new UIComponentHelper(_router, componentPositions, visibility);
+		uiComponentHelper = new UIComponentHelper(_router, componentPositions, visibility, classnames);
 	});
 
 	describe('isAmp mehtod', () => {
