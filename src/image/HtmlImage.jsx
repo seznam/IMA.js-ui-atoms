@@ -85,10 +85,10 @@ export default class HtmlImage extends React.PureComponent {
 					style = {this.props.layout === 'responsive' ?
 						{}
 					:
-					{
-						width: this.props.width || 'auto',
-						height: this.props.height || 'auto'
-					}
+						{
+							width: this.props.width || 'auto',
+							height: this.props.height || 'auto'
+						}
 					}
 					{...helper.getDataProps(this.props)}>
 				{
@@ -106,7 +106,7 @@ export default class HtmlImage extends React.PureComponent {
 								src = { this.props.src }
 								srcSet = { this.props.srcSet }
 								alt = { this.props.alt }
-								className = { this.utils.$UIComponentHelper.cssClasses({
+								className = { helper.cssClasses({
 									'atm-fill': true,
 									'atm-loaded': this.state.noloading && this._visibleInViewport
 								}) } />
@@ -124,7 +124,7 @@ export default class HtmlImage extends React.PureComponent {
 								src="${this.props.src || ''}"
 								srcset="${this.props.srcSet || ''}"
 								alt="${this.props.alt || ''}"
-								class="atm-fill atm-loaded"/>`
+								class="${helper.cssClasses('atm-fill atm-loaded')}"/>`
 						} }/>
 			</div>
 		);
