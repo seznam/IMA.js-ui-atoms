@@ -1,5 +1,3 @@
-import classnames from 'classnames';
-
 import ComponentPositions from './ComponentPositions';
 import Visibility from './Visibility';
 
@@ -12,24 +10,23 @@ export default class UIComponentHelper {
 		return [
 			'$Router',
 			ComponentPositions,
-			Visibility
+			Visibility,
+			'$CssClasses'
 		];
 	}
 
 	/**
 	 * Initializes the helper.
 	 *
-	 * @constructor
-	 * @method constructor
 	 * @param {ima.router.Router} router
 	 * @param {ComponentPositions} componentPositions
 	 * @param {Visibility} visibility
+	 * @param {function(...?(boolean|string|React.Component|Object<string, boolean>)): string} cssClassNameProcessor
 	 */
-	constructor(router, componentPositions, visibility) {
+	constructor(router, componentPositions, visibility, cssClassNameProcessor) {
 		/**
 		 * IMA Router
 		 *
-		 * @property _router
 		 * @type {ima.router.Router}
 		 */
 		this._router = router;
@@ -37,18 +34,21 @@ export default class UIComponentHelper {
 		/**
 		 * Component position
 		 *
-		 * @property _componentPositions
 		 * @type {ComponentPosition}
 		 */
 		this._componentPositions = componentPositions;
 
 		/**
-		 *  Visibility helper
+		 * Visibility helper
 		 *
-		 * @property _visibility
 		 * @type {Visibility}
 		 */
 		this._visibility = visibility;
+
+		/**
+		 * @type {function(...?(boolean|string|React.Component|Object<string, boolean>)): string}
+		 */
+		this._cssClassNameProcessor = cssClassNameProcessor;
 	}
 
 	/**
@@ -72,7 +72,6 @@ export default class UIComponentHelper {
 	/**
 	 * Returns true if page may be rendered as amp page.
 	 *
-	 * @method isAmp
 	 * @return {boolean}
 	 */
 	isAmp() {
@@ -110,7 +109,6 @@ export default class UIComponentHelper {
 	 * Generate a string of CSS classes from the properties of the passed-in
 	 * object that resolve to true.
 	 *
-	 * @method cssClasses
 	 * @param {...?(string|Object<string, boolean>)} classRuleGroups CSS
 	 *        classes in a string separated by whitespace, or a map of CSS
 	 *        class names to boolean values. The CSS class name will be
@@ -121,7 +119,7 @@ export default class UIComponentHelper {
 	 *         to {@code true}.
 	 */
 	cssClasses(...classRuleGroups) {
-		return classnames(...classRuleGroups);
+		return this._cssClassNameProcessor(...classRuleGroups);
 	}
 
 	/**

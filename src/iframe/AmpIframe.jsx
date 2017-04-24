@@ -21,7 +21,7 @@ let AmpIframe = (props, context) => {
 		layout: props.layout,
 		sandbox: props.sandbox,
 		frameBorder: props.frameBorder,
-		class: props.className
+		class: helper.cssClasses(props.className)
 	};
 	if (props.allowFullScreen) {
 		attributes.allowFullScreen = '';

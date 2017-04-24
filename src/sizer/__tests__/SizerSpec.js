@@ -1,14 +1,17 @@
+import classnames from 'classnames';
 import React from 'react';
 import { shallow } from 'enzyme';
 import Sizer from '../Sizer';
 import UIComponentHelper from '../../UIComponentHelper';
+import Visibility from '../../Visibility';
 import dummyRouter from '../../mocks/router';
 import dummyWindow from '../../mocks/window';
 
 describe('Sizer component', () => {
 
 	let wrapper = null;
-	let uiComponentHelper = new UIComponentHelper(dummyRouter, dummyWindow);
+	let visibility = new Visibility(dummyWindow);
+	let uiComponentHelper = new UIComponentHelper(dummyRouter, dummyWindow, visibility, classnames);
 	let context = {
 		$Utils: {
 			$UIComponentHelper: uiComponentHelper

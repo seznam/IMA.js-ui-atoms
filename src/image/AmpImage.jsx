@@ -21,7 +21,7 @@ let AmpImage = (props, context) => {
 				height = { props.height }
 				layout = { props.layout }
 				alt = { props.alt }
-				class = { props.className }
+				class = { helper.cssClasses(props.className) }
 				{...helper.getDataProps(props)}/>
 	);
 };

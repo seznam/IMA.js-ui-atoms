@@ -53,13 +53,13 @@ export default class HtmlVideo extends React.PureComponent {
 						'atm-responsive': this.props.layout === 'responsive',
 						'atm-fill': this.props.layout === 'fill'
 					}, this.props.className) }
-					style = {this.props.layout === 'responsive' ?
+					style = { this.props.layout === 'responsive' ?
 						{}
 					:
-					{
-						width: this.props.width || 'auto',
-						height: this.props.height || 'auto'
-					}
+						{
+							width: this.props.width || 'auto',
+							height: this.props.height || 'auto'
+						}
 					}
 					{...helper.getDataProps(this.props)}>
 				{this.props.layout === 'responsive' ?
@@ -99,7 +99,7 @@ export default class HtmlVideo extends React.PureComponent {
 								${this.props.autoplay ? 'autoPlay' : ''}
 								${this.props.loop ? 'loop' : ''}
 								${this.props.muted ? 'muted' : ''}
-								class="atm-fill atm-loaded"></video>`
+								class="${helper.cssClasses('atm-fill atm-loaded')}"></video>`
 						}}/>
 			</div>
 		);

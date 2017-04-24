@@ -4,7 +4,7 @@
 	"description": "IMA.js UI React atoms",
 	"main": "main.js",
 	"scripts": {
-		"prepublish": "echo '====================================================================================================================================================\nUse \"npm run publish-package\" to publish this package, or \"npm install --ignore-scripts\" to install local dependencies. This will be fixed in npm 4.\n====================================================================================================================================================' && exit 1",
+		"prepublishOnly": "echo '====================================================================================================================================================\nUse \"npm run publish-package\" to publish this package.\n====================================================================================================================================================' && exit 1",
 		"publish-package": "npm run build && npm run test && npm publish dist --ignore-scripts",
 		"build": "node node_modules/gulp/bin/gulp.js build",
 		"test": "node node_modules/gulp/bin/gulp.js test",
@@ -36,6 +36,7 @@
 		"babel-preset-react": "6.24.1",
 		"babelify": "7.3.0",
 		"browserify": "14.3.0",
+		"classnames": "^2.2.5",
 		"del": "2.2.2",
 		"enzyme": "2.8.2",
 		"eslint": "3.19.0",
@@ -64,6 +65,8 @@
 		"react": "15.x"
 	},
 	"dependencies": {
-		"classnames": "2.2.5"
+	},
+	"engines": {
+		"npm": ">=4 <6"
 	}
 }

@@ -97,7 +97,7 @@ export default class HtmlIframe extends React.PureComponent {
 						null
 				}
 				<noscript
-						className = 'atm-fill'
+						className = { helper.cssClasses('atm-fill') }
 						style = { {
 							display: 'block',
 							width: this.props.width || 'auto',
@@ -113,7 +113,7 @@ export default class HtmlIframe extends React.PureComponent {
 								scrolling="${this.props.scrolling || 'no'}"
 								frameborder="${this.props.frameBorder || '0'}"
 								allowfullscreen="${this.props.allowFullScreen || '0'}"
-								class="atm-fill atm-loaded"></iframe>`
+								class="${helper.cssClasses('atm-fill atm-loaded')}"></iframe>`
 						} }/>
 			</div>
 		);

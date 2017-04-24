@@ -24,7 +24,7 @@ export default function AmpVideo(props, context) {
 				width = { props.width }
 				height = { props.height }
 				layout = { props.layout }
-				class = { props.className }
+				class = { helper.cssClasses(props.className) }
 				{...helper.getDataProps(props)}>
 			<div placeholder = ''/>
 			{props.children}
