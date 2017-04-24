@@ -64,6 +64,5 @@
 		"react": "15.x"
 	},
 	"dependencies": {
-		"classnames": "2.2.5"
 	}
 }
