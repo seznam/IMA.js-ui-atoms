@@ -10,7 +10,8 @@ export default class UIComponentHelper {
 		return [
 			'$Router',
 			ComponentPositions,
-			Visibility
+			Visibility,
+			'$CssClasses'
 		];
 	}
 
