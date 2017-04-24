@@ -1,6 +1,6 @@
 {
 	"name": "ima-ui-atoms",
-	"version": "0.9.6",
+	"version": "0.10.0",
 	"description": "IMA.js UI React atoms",
 	"main": "main.js",
 	"scripts": {
@@ -64,8 +64,7 @@
 		"prop-types": "15.x",
 		"react": "15.x"
 	},
-	"dependencies": {
-	},
+	"dependencies": {},
 	"engines": {
 		"npm": ">=4 <6"
 	}
