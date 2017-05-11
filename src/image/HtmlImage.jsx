@@ -4,6 +4,7 @@ import Loader from '../loader/Loader';
 import Sizer from '../sizer/Sizer';
 
 const MIN_EXTENDED_PADDING = 300;
+const TIME_TO_SHOW_LOADER = 3000;
 
 /**
  * Html image
@@ -164,7 +165,7 @@ export default class HtmlImage extends React.PureComponent {
 	_preLoadImage() {
 		this._loadIndicatorTimer = setTimeout(() => {
 			this.setState({ showLoader: true });
-		}, 1000);
+		}, TIME_TO_SHOW_LOADER);
 
 		let image = new Image();
 		image.onload = () => {
