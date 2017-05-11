@@ -5,7 +5,7 @@
 	"main": "main.js",
 	"scripts": {
 		"preversion": "npm run build && npm run test",
-		"version": "npm run copy && git push && git push --tags &&",
+		"version": "npm run copy && git push && git push --tags",
 		"postversion": "npm run publish-package",
 		"prepublishOnly": "echo '====================================================================================================================================================\nUse \"npm run publish-package\" to publish this package.\n====================================================================================================================================================' && exit 1",
 		"publish-package": "npm publish dist --ignore-scripts",
@@ -15,11 +15,11 @@
 		"dev:example": "node node_modules/gulp/bin/gulp.js dev:example"
 	},
 	"keywords": [
-		"React",
-		"UI",
-		"IMA",
-		"atoms"
-	],
+    "React",
+    "UI",
+    "IMA",
+    "atoms"
+  ],
 	"author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
 	"repository": {
 		"type": "git",
@@ -60,8 +60,8 @@
 	},
 	"browserify": {
 		"transform": [
-			"babelify"
-		]
+      "babelify"
+    ]
 	},
 	"peerDependencies": {
 		"prop-types": "15.x",
