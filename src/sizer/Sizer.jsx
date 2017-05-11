@@ -9,34 +9,43 @@ import React from 'react';
  * @module ima
  * @submodule ima.ui
  */
+export default class Sizer extends React.PureComponent {
 
-export default function Sizer(props, context) {
-	let helper = context.$Utils.$UIComponentHelper;
-	return (
-		<div
-				className = { helper.cssClasses({
-					'atm-sizer': true,
-					'atm-placeholder': props.placeholder
-				}, props.className) }
-				style = { { paddingTop: props.height / props.width * 100 + '%' } }
-				{...helper.getDataProps(props)}/>
-	);
+	static get contextTypes() {
+		return {
+			$Utils: PropTypes.object
+		};
+	}
+
+	static get PropTypes() {
+		return {
+			width:  PropTypes.number,
+			height:  PropTypes.number,
+			placeholder: PropTypes.bool,
+			className: PropTypes.string
+		};
+	}
+
+	static get defaultProps() {
+		return {
+			width: 0,
+			height: 0,
+			placeholder: false,
+			className: ''
+		};
+	}
+
+	render() {
+		let helper = this.context.$Utils.$UIComponentHelper;
+
+		return (
+			<div
+					className = { helper.cssClasses({
+						'atm-sizer': true,
+						'atm-placeholder': this.props.placeholder
+					}, this.props.className) }
+					style = { { paddingTop: this.props.height / this.props.width * 100 + '%' } }
+					{ ...helper.getDataProps(this.props) }/>
+		);
+	}
 }
-
-Sizer.contextTypes = {
-	$Utils: PropTypes.object
-};
-
-Sizer.propTypes = {
-	width:  PropTypes.number,
-	height:  PropTypes.number,
-	placeholder: PropTypes.bool,
-	className: PropTypes.string
-};
-
-Sizer.defaultProps = {
-	width: 0,
-	height: 0,
-	placeholder: false,
-	className: ''
-};
