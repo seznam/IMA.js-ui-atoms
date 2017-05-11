@@ -4,8 +4,11 @@
 	"description": "IMA.js UI React atoms",
 	"main": "main.js",
 	"scripts": {
+		"preversion": "npm run build && npm run test",
+		"version": "npm run copy && git push && git push --tags &&",
+		"postversion": "npm run publish-package",
 		"prepublishOnly": "echo '====================================================================================================================================================\nUse \"npm run publish-package\" to publish this package.\n====================================================================================================================================================' && exit 1",
-		"publish-package": "npm run build && npm run test && npm publish dist --ignore-scripts",
+		"publish-package": "npm publish dist --ignore-scripts",
 		"build": "node node_modules/gulp/bin/gulp.js build",
 		"test": "node node_modules/gulp/bin/gulp.js test",
 		"dev": "node node_modules/gulp/bin/gulp.js dev",

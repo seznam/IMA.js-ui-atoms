@@ -23,11 +23,9 @@ let gulpConfig = {
 
 exports.build = gulp.series(
 	clean,
-	gulp.parallel(
-		compile,
-		copy
-	)
+	compile
 );
+exports.copy = copy;
 
 function compile() {
 	return gulp
