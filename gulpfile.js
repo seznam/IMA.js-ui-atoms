@@ -9,11 +9,13 @@ let rename = require('gulp-rename');
 let path = require('path');
 let browserify = require('browserify');
 let babelify = require('babelify');
+let watchify = require('watchify');
 let fs = require('fs');
 let cache = require('gulp-cached');
 let remember = require('gulp-remember');
 let gulpLess = require('gulp-less');
 let jasmine = require('gulp-jasmine');
+let b = null;
 
 let gulpConfig = {
 	onTerminate() {
@@ -44,11 +46,22 @@ function compile() {
 }
 
 function bundle() {
+	if (!b) {
+		b = createBrowserifyInstance();
+	}
+
+	return b.bundle()
+		.pipe(fs.createWriteStream('./example/dist/bundle.js'));
+}
+
+function createBrowserifyInstance() {
 	let options = {
 		debug: false,
 		insertGlobals: false,
 		paths: ['./', './src'],
-		extensions: ['.jsx']
+		extensions: ['.jsx'],
+		cache: {},
+		packageCache: {}
 	};
 
 	return (
@@ -57,8 +70,7 @@ function bundle() {
 				presets: ['react'],
 				plugins: ['transform-es2015-modules-commonjs']
 			}))
-			.bundle()
-			.pipe(fs.createWriteStream('./example/dist/bundle.js'))
+			.plugin([watchify])
 	);
 }
 
@@ -117,7 +129,9 @@ exports['dev:example'] = gulp.series(
 );
 function devExample(done) {
 	gulp.watch('./src/**/*.less', less);
-	gulp.watch(['./example/main.js'], bundle);
+	gulp.watch('example/**/*.js', {
+		ignored: 'example/dist/*'
+	}, bundle);
 	gulp.watch('./src/**/*.{js,jsx}', gulp.series(testWithoutError, compile, bundle));
 }
 
