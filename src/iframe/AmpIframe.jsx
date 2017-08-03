@@ -32,7 +32,7 @@ export default class AmpIframe extends React.PureComponent {
 		};
 
 		if (allowFullScreen) {
-			attributes.allowFullScreen = '';
+			props.allowFullScreen = '';
 		}
 
 		return (
