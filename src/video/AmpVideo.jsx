@@ -4,32 +4,41 @@ import React from 'react';
 /**
  * Amp video player.
  *
- * @class AmpVideo
  * @namespace ima.ui.atom.video
- * @module ima
- * @submodule ima.ui
+ * @module ima.ui.atom
  */
 
-export default function AmpVideo(props, context) {
-	let helper = context.$Utils.$UIComponentHelper;
+export default class AmpVideo extends React.PureComponent {
 
-	return (
-		<amp-video
-				src = { props.src }
-				poster = { props.poster }
-				autoplay = { props.autoplay }
-				controls = { props.controls }
-				loop = { props.loop }
-				muted = { props.muted }
-				width = { props.width }
-				height = { props.height }
-				layout = { props.layout }
-				class = { helper.cssClasses(props.className) }
-				{...helper.getDataProps(props)}>
-			<div placeholder = ''/>
-			{props.children}
-		</amp-video>
-	);
+	static get contextTypes() {
+		return {
+			$Utils: PropTypes.object
+		};
+	}
+
+	render() {
+		let helper = this.context.$Utils.$UIComponentHelper;
+		let { src, poster, autoplay, controls, loop, muted, width, height,
+				layout, className, children } = this.props;
+
+		return (
+			<amp-video
+					src = { src }
+					poster = { poster }
+					autoplay = { autoplay }
+					controls = { controls }
+					loop = { loop }
+					muted = { muted }
+					width = { width }
+					height = { height }
+					layout = { layout }
+					class = { helper.cssClasses(className) }
+					{...helper.getDataProps(props)}>
+				<div placeholder = ''/>
+				{children}
+			</amp-video>
+		);
+	}
 }
 
 AmpVideo.contextTypes = {

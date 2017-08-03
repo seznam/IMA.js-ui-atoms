@@ -7,10 +7,8 @@ const EXTENDED_PADDING = 300;
 /**
  * HTML video player.
  *
- * @class HtmlVideo
  * @namespace ima.ui.atom.video
- * @module ima
- * @submodule ima.ui
+ * @module ima.ui.atom
  */
 
 export default class HtmlVideo extends React.PureComponent {
