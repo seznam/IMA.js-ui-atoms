@@ -35,7 +35,7 @@ export default class HtmlImage extends React.PureComponent {
 
 		this._registeredVisibilityId = null;
 
-		this._onVisbilityWriter = this.onVisibilityWriter.bind(this);
+		this._onVisibilityWriter = this.onVisibilityWriter.bind(this);
 	}
 
 	get utils() {
@@ -138,7 +138,7 @@ export default class HtmlImage extends React.PureComponent {
 	}
 
 	_unregisterToCheckingVisibility() {
-		this.utils.$UIComponentHelper.unregisterComponentToVisbility(this._registeredVisibilityId);
+		this.utils.$UIComponentHelper.unregisterComponentToVisibility(this._registeredVisibilityId);
 	}
 
 	_registerToCheckingVisibility() {
@@ -147,7 +147,7 @@ export default class HtmlImage extends React.PureComponent {
 			MIN_EXTENDED_PADDING
 		);
 
-		this._registeredVisibilityId = this.utils.$UIComponentHelper.registerComponentToVisbility(
+		this._registeredVisibilityId = this.utils.$UIComponentHelper.registerComponentToVisibility(
 			this.utils.$UIComponentHelper.getVisibilityReader(
 				this.refs.root,
 				{
@@ -156,7 +156,7 @@ export default class HtmlImage extends React.PureComponent {
 					height: this.props.height
 				}
 			),
-			this._onVisbilityWriter
+			this._onVisibilityWriter
 		);
 	}
 

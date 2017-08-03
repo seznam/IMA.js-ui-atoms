@@ -145,7 +145,7 @@ describe('UIComponentHelper', () => {
 
 	});
 
-	describe('registerComponentToVisbility method', () => {
+	describe('registerComponentToVisibility method', () => {
 		let reader = () => {};
 		let writer = () => {};
 		let options = { visibilityInterval: 180 };
@@ -153,20 +153,20 @@ describe('UIComponentHelper', () => {
 		it('should call Visibility.register method', () => {
 			spyOn(visibility, 'register');
 
-			uiComponentHelper.registerComponentToVisbility(reader, writer, options);
+			uiComponentHelper.registerComponentToVisibility(reader, writer, options);
 
 			expect(visibility.register).toHaveBeenCalledWith(reader, writer, options);
 		});
 
 	});
 
-	describe('unregisterComponentToVisbility method', () => {
+	describe('unregisterComponentToVisibility method', () => {
 		let visibilityId = 0;
 
 		it('should call Visibility.unregister method', () => {
 			spyOn(visibility, 'unregister');
 
-			uiComponentHelper.unregisterComponentToVisbility(visibilityId);
+			uiComponentHelper.unregisterComponentToVisibility(visibilityId);
 
 			expect(visibility.unregister).toHaveBeenCalledWith(visibilityId);
 		});
