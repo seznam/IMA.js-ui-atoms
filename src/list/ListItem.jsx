@@ -20,6 +20,7 @@ export default class ListItem extends React.PureComponent {
 		return {
 			text: PropTypes.string,
 			mode: PropTypes.string,
+			style: PropTypes.object,
 			className: PropTypes.string,
 			"data-e2e": PropTypes.string
 		};
@@ -29,6 +30,7 @@ export default class ListItem extends React.PureComponent {
 		return {
 			text: null,
 			mode: '',
+			style: null,
 			className: '',
 			"data-e2e": null
 		};
@@ -36,7 +38,7 @@ export default class ListItem extends React.PureComponent {
 
 	render() {
 		let helper = this.context.$Utils.$UIComponentHelper;
-		let { mode, className, children, text } = this.props;
+		let { mode, className, children, text, style } = this.props;
 		let listItem = null;
 		let componentClassName = helper.cssClasses({
 			'atm-li': true,
@@ -46,6 +48,7 @@ export default class ListItem extends React.PureComponent {
 		if (children) {
 			listItem = (
 				<li
+						style = { style }
 						className = { componentClassName }
 						{...helper.getDataProps(this.props)}>
 					{children}
@@ -54,6 +57,7 @@ export default class ListItem extends React.PureComponent {
 		} else {
 			listItem = (
 				<li
+						style = { style }
 						className = { componentClassName}
 						{...helper.getDataProps(this.props)}
 						dangerouslySetInnerHTML = { { __html: text } }/>

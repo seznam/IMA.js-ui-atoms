@@ -24,6 +24,7 @@ export default class Link extends React.PureComponent {
 			target: PropTypes.string,
 			onClick: PropTypes.func,
 			mode: PropTypes.string,
+			style: PropTypes.object,
 			className: PropTypes.string,
 			"data-e2e": PropTypes.string
 		};
@@ -33,6 +34,7 @@ export default class Link extends React.PureComponent {
 		return  {
 			text: null,
 			mode: '',
+			style: null,
 			className: '',
 			"data-e2e": null
 		};
@@ -40,13 +42,14 @@ export default class Link extends React.PureComponent {
 
 	render() {
 		let helper = this.context.$Utils.$UIComponentHelper;
-		let { href, title, target, mode, className, onClick, children, text } = this.props;
+		let { href, title, target, mode, className, onClick, children, text, style } = this.props;
 
 		return (
 			<a
 					href = { href }
 					title = { title }
 					target = { target }
+					style = { style }
 					className = { helper.cssClasses({
 						'atm-link': true,
 						['atm-link-' + mode]: mode

@@ -21,6 +21,7 @@ export default class Paragraph extends React.PureComponent {
 			className:  PropTypes.string,
 			text: PropTypes.string,
 			mode: PropTypes.string,
+			style: PropTypes.object,
 			"data-e2e": PropTypes.string
 		};
 	}
@@ -30,13 +31,14 @@ export default class Paragraph extends React.PureComponent {
 			className: '',
 			text: null,
 			mode: '',
+			style: null,
 			"data-e2e": null
 		};
 	}
 
 	render() {
 		let helper = this.context.$Utils.$UIComponentHelper;
-		let { mode, align, className, children, text } = this.props;
+		let { mode, align, className, children, text, style } = this.props;
 		let paragraph = null;
 		let componentClassName = helper.cssClasses({
 			'atm-paragraph': true,
@@ -47,6 +49,7 @@ export default class Paragraph extends React.PureComponent {
 		if (children) {
 			paragraph = (
 				<p
+						style = { style }
 						className = { componentClassName }
 						{...helper.getDataProps(this.props)}>
 					{ children }
@@ -55,6 +58,7 @@ export default class Paragraph extends React.PureComponent {
 		} else {
 			paragraph = (
 				<p
+						style = { style }
 						className = { componentClassName }
 						{...helper.getDataProps(this.props)}
 						dangerouslySetInnerHTML = { { __html: text } }/>

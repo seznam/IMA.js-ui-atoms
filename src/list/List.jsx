@@ -21,6 +21,7 @@ export default class List extends React.PureComponent {
 			className:  PropTypes.string,
 			mode: PropTypes.string,
 			type: PropTypes.string,
+			style: PropTypes.object,
 			"data-e2e": PropTypes.string
 		};
 	}
@@ -30,16 +31,18 @@ export default class List extends React.PureComponent {
 			className: '',
 			mode: '',
 			type: 'ul',
+			style: null,
 			"data-e2e": null
 		};
 	}
 
 	render() {
 		let helper = this.context.$Utils.$UIComponentHelper;
-		let { type: Type, mode, id, className, children } = this.props;
+		let { type: Type, mode, id, className, children, style } = this.props;
 
 		return (
 			<Type
+					style = { style }
 					className = { helper.cssClasses({
 						'atm-list': true,
 						['atm-list-' + mode]: mode,

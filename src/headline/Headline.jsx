@@ -22,6 +22,7 @@ export default class Headline extends React.PureComponent {
 			text: PropTypes.string,
 			type: PropTypes.string,
 			mode: PropTypes.string,
+			style: PropTypes.object,
 			"data-e2e": PropTypes.string
 		};
 	}
@@ -33,13 +34,14 @@ export default class Headline extends React.PureComponent {
 			text: null,
 			mode: null,
 			type: 'h1',
+			style: null,
 			"data-e2e": null
 		};
 	}
 
 	render() {
 		let headline = null;
-		let { Type, id, mode, text, className, children } = this.props;
+		let { type: Type, id, mode, text, className, children, style } = this.props;
 		let helper = this.context.$Utils.$UIComponentHelper;
 		let computedClassName = helper.cssClasses({
 			['atm-headline']: true,
@@ -51,6 +53,7 @@ export default class Headline extends React.PureComponent {
 			headline = (
 				<Type
 						id = { id }
+						style = { style }
 						className = { computedClassName }
 						{...helper.getDataProps(this.props)}>
 					{ children }
@@ -60,6 +63,7 @@ export default class Headline extends React.PureComponent {
 			headline = (
 				<Type
 						id = { id }
+						style = { style }
 						className = { computedClassName }
 						{...helper.getDataProps(this.props)}
 						dangerouslySetInnerHTML = { { __html: text } }/>
