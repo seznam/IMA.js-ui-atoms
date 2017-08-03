@@ -2,40 +2,43 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 /**
- * Amp iframe
- *
- * @class AmpIframe
- * @namespace ima.ui.atom.image
- * @module ima
- * @submodule ima.ui
- */
+* Amp iframe
+*
+* @namespace ima.ui.atom.image
+* @module ima.ui.atom
+*/
+export default class AmpIframe extends React.PureComponent {
 
-let AmpIframe = (props, context) => {
-	let helper = context.$Utils.$UIComponentHelper;
-	let attributes = {
-		src: props.src,
-		srcDoc: props.srcDoc,
-		width: props.width,
-		height: props.height,
-		scrolling: props.scrolling,
-		layout: props.layout,
-		sandbox: props.sandbox,
-		frameBorder: props.frameBorder,
-		class: helper.cssClasses(props.className)
-	};
-	if (props.allowFullScreen) {
-		attributes.allowFullScreen = '';
+	static get contextTypes() {
+		return {
+			$Utils: PropTypes.object
+		};
 	}
 
-	return (
-		<amp-iframe {...attributes} {...helper.getDataProps(props)}>
+	render() {
+		let helper = context.$Utils.$UIComponentHelper;
+		let { src, srcDoc, width, height, scrolling, layout, sandbox,
+				frameBorder, className,  allowFullScreen } = this.props;
+		let props = {
+			src,
+			srcDoc,
+			width,
+			height,
+			scrolling,
+			layout,
+			sandbox,
+			frameBorder,
+			class: helper.cssClasses(className)
+		};
+
+		if (allowFullScreen) {
+			attributes.allowFullScreen = '';
+		}
+
+		return (
+			<amp-iframe {...props} {...helper.getDataProps(this.props)}>
 			<div placeholder='' />
-		</amp-iframe>
-	);
-};
-
-AmpIframe.contextTypes = {
-	$Utils: PropTypes.object
-};
-
-export default AmpIframe;
+			</amp-iframe>
+		);
+	}
+}
