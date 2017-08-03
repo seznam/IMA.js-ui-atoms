@@ -4,10 +4,8 @@ import React from 'react';
 /**
  * Common loader
  *
- * @class Loader
  * @namespace ima.ui.atom.loader
- * @module ima
- * @submodule ima.ui
+ * @module ima.ui.atom
  */
 
 export default class Loader extends React.PureComponent {
