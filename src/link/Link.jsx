@@ -4,52 +4,57 @@ import React from 'react';
 /**
  * Common link
  *
- * @class Link
  * @namespace ima.ui.atom.link
- * @module ima
- * @submodule ima.ui
+ * @module ima.ui.atom
  */
 
-let Link = (props, context) => {
-	let helper = context.$Utils.$UIComponentHelper;
+export default class Link extends React.PureComponent {
 
-	return (
-		<a
-				href = { props.href }
-				title = { props.title }
-				target = { props.target }
-				className = { helper.cssClasses({
-					'atm-link': true,
-					['atm-link-' + props.mode]: props.mode
-				}, props.className) }
-				onClick = { props.onClick }
-				{...helper.getDataProps(props)}>
-			{ props.children || props.text }
-		</a>
-	);
-};
+	static get contextTypes() {
+		return {
+			$Utils: PropTypes.object
+		};
+	}
 
-Link.contextTypes = {
-	$Utils: PropTypes.object
-};
+	static get propTypes() {
+		return {
+			text: PropTypes.string,
+			href: PropTypes.string,
+			title: PropTypes.string,
+			target: PropTypes.string,
+			onClick: PropTypes.func,
+			mode: PropTypes.string,
+			className: PropTypes.string,
+			"data-e2e": PropTypes.string
+		};
+	}
 
+	static get defaultProps() {
+		return  {
+			text: null,
+			mode: '',
+			className: '',
+			"data-e2e": null
+		};
+	}
 
-Link.propTypes = {
-	text: PropTypes.string,
-	href: PropTypes.string,
-	title: PropTypes.string,
-	target: PropTypes.string,
-	onClick: PropTypes.func,
-	mode: PropTypes.string,
-	className: PropTypes.string,
-	"data-e2e": PropTypes.string
-};
+	render() {
+		let helper = this.context.$Utils.$UIComponentHelper;
+		let { href, title, target, mode, className, onClick, children, text } = this.props;
 
-Link.defaultProps = {
-	text: null,
-	mode: '',
-	className: '',
-	"data-e2e": null
-};
-
-export default Link;
+		return (
+			<a
+					href = { href }
+					title = { title }
+					target = { target }
+					className = { helper.cssClasses({
+						'atm-link': true,
+						['atm-link-' + mode]: mode
+					}, className) }
+					onClick = { onClick }
+					{...helper.getDataProps(props)}>
+				{ children || text }
+			</a>
+		);
+	}
+}
