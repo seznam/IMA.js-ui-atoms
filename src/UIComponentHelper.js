@@ -212,7 +212,7 @@ export default class UIComponentHelper {
 	 * @param {{ visibilityInterval: number }} options
 	 * @return {number} The registered id
 	 */
-	registerComponentToVisbility(reader, writer, options = { visibilityInterval: 180 }) {
+	registerComponentToVisibility(reader, writer, options = { visibilityInterval: 180 }) {
 		return this._visibility.register(reader, writer, options);
 	}
 
@@ -221,7 +221,7 @@ export default class UIComponentHelper {
 	 *
 	 * @param {number} visibilityId
 	 */
-	unregisterComponentToVisbility(visibilityId) {
+	unregisterComponentToVisibility(visibilityId) {
 		this._visibility.unregister(visibilityId);
 	}
 }
