@@ -4,14 +4,13 @@ import List from './List';
 /**
  * Common ordered HTML List
  *
- * @class OrderedList
  * @namespace ima.ui.atom.list
- * @module ima
- * @submodule ima.ui
+ * @module ima.ui.atom
  */
 
-let OrderedList = (props) => {
-	return <List {...props} type = 'ol'/>;
-};
+export default class OrderedList extends React.PureComponent {
 
-export default OrderedList;
+	render() {
+		return <List {...this.props} type = 'ol'/>;
+	}
+}
