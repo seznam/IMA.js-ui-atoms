@@ -4,57 +4,63 @@ import React from 'react';
 /**
  * Common paragraph
  *
- * @class Paragraph
  * @namespace ima.ui.atom.paragraph
- * @module ima
- * @submodule ima.ui
+ * @module ima.ui.atom
  */
 
-let Paragraph = (props, context) => {
-	let helper = context.$Utils.$UIComponentHelper;
-	let paragraph = null;
-	let className = helper.cssClasses({
-		'atm-paragraph': true,
-		['atm-paragraph-' + props.mode]: props.mode,
-		['atm-paragraph-align-' + props.align]: props.align
-	}, props.className);
+export default class Paragraph extends React.PureComponent {
 
-	if (props.children) {
-		paragraph = (
-			<p
-					className = { className }
-					{...helper.getDataProps(props)}>
-				{props.children}
-			</p>
-		);
-	} else {
-		paragraph = (
-			<p
-					className = { className}
-					{...helper.getDataProps(props)}
-					dangerouslySetInnerHTML = { { __html: props.text } }/>
-		);
+	static get contextTypes() {
+		return {
+			$Utils: PropTypes.object
+		};
 	}
 
-	return paragraph;
-};
+	static get propTypes() {
+		return {
+			className:  PropTypes.string,
+			text: PropTypes.string,
+			mode: PropTypes.string,
+			"data-e2e": PropTypes.string
+		};
+	}
 
-Paragraph.contextTypes = {
-	$Utils: PropTypes.object
-};
+	static get defaultProps() {
+		return {
+			className: '',
+			text: null,
+			mode: '',
+			"data-e2e": null
+		};
+	}
 
-Paragraph.propTypes = {
-	className:  PropTypes.string,
-	text: PropTypes.string,
-	mode: PropTypes.string,
-	"data-e2e": PropTypes.string
-};
+	render() {
+		let helper = this.context.$Utils.$UIComponentHelper;
+		let { mode, align, className, children, text } = this.props;
+		let paragraph = null;
+		let componentClassName = helper.cssClasses({
+			'atm-paragraph': true,
+			['atm-paragraph-' + mode]: mode,
+			['atm-paragraph-align-' + align]: align
+		}, className);
 
-Paragraph.defaultProps = {
-	className: '',
-	text: null,
-	mode: '',
-	"data-e2e": null
-};
+		if (children) {
+			paragraph = (
+				<p
+						className = { componentClassName }
+						{...helper.getDataProps(props)}>
+					{ children }
+				</p>
+			);
+		} else {
+			paragraph = (
+				<p
+						className = { componentClassName }
+						{...helper.getDataProps(props)}
+						dangerouslySetInnerHTML = { { __html: text } }/>
+			);
+		}
 
-export default Paragraph;
+		return paragraph;
+	}
+}
