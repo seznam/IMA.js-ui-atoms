@@ -1,11 +1,10 @@
 {
 	"name": "ima-ui-atoms",
-	"version": "0.11.3",
+	"version": "0.11.1",
 	"description": "IMA.js UI React atoms",
 	"main": "main.js",
 	"scripts": {
-		"preversion": "npm run build && npm run test",
-		"version": "npm run copy",
+		"preversion": "npm run build && npm run test && npm run copy",
 		"postversion": "git push && git push --tags && npm run publish-package",
 		"prepublishOnly": "echo '====================================================================================================================================================\nUse \"npm run publish-package\" to publish this package.\n====================================================================================================================================================' && exit 1",
 		"publish-package": "npm publish dist --ignore-scripts",
