@@ -4,64 +4,68 @@ import React from 'react';
 /**
  * Base headline
  *
- * @class Headline
  * @namespace ima.ui.atom.headline
- * @module ima
- * @submodule ima.ui
+ * @module ima.ui.atom
  */
+export default class Headline extends React.PureComponent {
 
-let Headline = (props, context) => {
-	let headline = null;
-	let Type = props.type;
-	let helper = context.$Utils.$UIComponentHelper;
-	let className = helper.cssClasses({
-		['atm-headline']: true,
-		['atm-' + props.mode]: props.mode,
-		['atm-' + Type]: Type
-	}, props.className);
-
-	if (props.children) {
-		headline = (
-			<Type
-					id = { props.id }
-					className = { className }
-					{...helper.getDataProps(props)}>
-				{props.children}
-			</Type>
-		);
-	} else {
-		headline = (
-			<Type
-					id = { props.id }
-					className = { className }
-					{...helper.getDataProps(props)}
-					dangerouslySetInnerHTML = { { __html: props.text } }/>
-		);
+	static get contextTypes() {
+		return {
+			$Utils: PropTypes.object
+		};
 	}
 
-	return headline;
-};
+	static get propTypes() {
+		return {
+			id:  PropTypes.string,
+			className:  PropTypes.string,
+			text: PropTypes.string,
+			type: PropTypes.string,
+			mode: PropTypes.string,
+			"data-e2e": PropTypes.string
+		};
+	}
 
-Headline.contextTypes = {
-	$Utils: PropTypes.object
-};
+	static get defaultProps() {
+		return {
+			id: null,
+			className: '',
+			text: null,
+			mode: null,
+			type: 'h1',
+			"data-e2e": null
+		};
+	}
 
-Headline.propTypes = {
-	id:  PropTypes.string,
-	className:  PropTypes.string,
-	text: PropTypes.string,
-	type: PropTypes.string,
-	mode: PropTypes.string,
-	"data-e2e": PropTypes.string
-};
+	render() {
+		let headline = null;
+		let { Type, id, mode, text, className, children } = this.props;
+		let helper = this.context.$Utils.$UIComponentHelper;
+		let computedClassName = helper.cssClasses({
+			['atm-headline']: true,
+			['atm-' + mode]: mode,
+			['atm-' + Type]: Type
+		}, className);
 
-Headline.defaultProps = {
-	id: null,
-	className: '',
-	text: null,
-	mode: null,
-	type: 'h1',
-	"data-e2e": null
-};
+		if (children) {
+			headline = (
+				<Type
+						id = { id }
+						className = { computedClassName }
+						{...helper.getDataProps(this.props)}>
+					{ children }
+				</Type>
+			);
+		} else {
+			headline = (
+				<Type
+						id = { id }
+						className = { computedClassName }
+						{...helper.getDataProps(this.props)}
+						dangerouslySetInnerHTML = { { __html: text } }/>
+			);
+		}
 
-export default Headline;
+		return headline;
+	}
+ }

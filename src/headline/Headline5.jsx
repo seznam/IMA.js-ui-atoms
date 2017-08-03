@@ -2,16 +2,14 @@ import React from 'react';
 import Headline from './Headline';
 
 /**
- * Common Headlien 5 title
+ * Common Headline 5 title
  *
- * @class Headlien5
  * @namespace ima.ui.atom.headline
- * @module ima
- * @submodule ima.ui
+ * @module ima.ui.atom
  */
+export default class Headline5 extends React.PureComponent {
 
-let Headlien5 = (props) => {
-	return <Headline {...props} type = 'h5'/>;
-};
-
-export default Headlien5;
+	render() {
+		return <Headline {...this.props} type = 'h5'/>;
+	}
+}

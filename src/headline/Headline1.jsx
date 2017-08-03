@@ -4,14 +4,12 @@ import Headline from './Headline';
 /**
  * Common Headline 1 title
  *
- * @class Headline1
  * @namespace ima.ui.atom.headline
- * @module ima
- * @submodule ima.ui
+ * @module ima.ui.atom
  */
+export default class Headline1 extends React.PureComponent {
 
-let Headline1 = (props) => {
-	return <Headline {...props} type = 'h1'/>;
-};
-
-export default Headline1;
+	render() {
+		return <Headline {...this.props} type = 'h1'/>;
+	}
+}
