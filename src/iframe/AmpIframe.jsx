@@ -16,7 +16,7 @@ export default class AmpIframe extends React.PureComponent {
 	}
 
 	render() {
-		let helper = context.$Utils.$UIComponentHelper;
+		let helper = this.context.$Utils.$UIComponentHelper;
 		let { src, srcDoc, width, height, scrolling, layout, sandbox,
 				frameBorder, className,  allowFullScreen } = this.props;
 		let props = {
