@@ -4,7 +4,7 @@ import React from 'react';
 /**
 * Amp iframe
 *
-* @namespace ima.ui.atom.image
+* @namespace ima.ui.atom.iframe
 * @module ima.ui.atom
 */
 export default class AmpIframe extends React.PureComponent {
@@ -37,7 +37,7 @@ export default class AmpIframe extends React.PureComponent {
 
 		return (
 			<amp-iframe {...props} {...helper.getDataProps(this.props)}>
-			<div placeholder='' />
+				<div placeholder='' />
 			</amp-iframe>
 		);
 	}

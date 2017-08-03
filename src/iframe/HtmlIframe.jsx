@@ -7,10 +7,8 @@ const MIN_EXTENDED_PADDING = 500;
 /**
  * Html classic iframe
  *
- * @class HtmlIframe
- * @namespace app.component.atom.iframe
- * @module app
- * @submodule app.component
+ * @namespace ima.ui.atom.iframe
+ * @module ima.ui.atom
  */
 
 export default class HtmlIframe extends React.PureComponent {
