@@ -52,9 +52,9 @@ export default class Video extends React.PureComponent {
 
 	render() {
 		if (this.context.$Utils.$UIComponentHelper.isAmp()) {
-			return <AmpVideo {...props}/>;
+			return <AmpVideo {...this.props}/>;
 		} else {
-			return <HtmlVideo {...props}/>;
+			return <HtmlVideo {...this.props}/>;
 		}
 	}
 }

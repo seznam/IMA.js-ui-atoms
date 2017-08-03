@@ -47,7 +47,7 @@ export default class ListItem extends React.PureComponent {
 			listItem = (
 				<li
 						className = { componentClassName }
-						{...helper.getDataProps(props)}>
+						{...helper.getDataProps(this.props)}>
 					{children}
 				</li>
 			);
@@ -55,7 +55,7 @@ export default class ListItem extends React.PureComponent {
 			listItem = (
 				<li
 						className = { componentClassName}
-						{...helper.getDataProps(props)}
+						{...helper.getDataProps(this.props)}
 						dangerouslySetInnerHTML = { { __html: text } }/>
 			);
 		}

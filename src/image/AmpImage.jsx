@@ -29,7 +29,7 @@ export default class AmpIframe extends React.PureComponent {
 					layout = { layout }
 					alt = { alt }
 					class = { helper.cssClasses(className) }
-					{...helper.getDataProps(props)}/>
+					{...helper.getDataProps(this.props)}/>
 		);
 	}
 }

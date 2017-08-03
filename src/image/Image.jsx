@@ -47,9 +47,9 @@ export default class Image extends React.PureComponent {
 
 	render() {
 		if (this.context.$Utils.$UIComponentHelper.isAmp()) {
-			return <AmpImage {...props}/>;
+			return <AmpImage {...this.props}/>;
 		} else {
-			return <HtmlImage {...props}/>;
+			return <HtmlImage {...this.props}/>;
 		}
 	}
 

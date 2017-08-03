@@ -48,7 +48,7 @@ export default class Paragraph extends React.PureComponent {
 			paragraph = (
 				<p
 						className = { componentClassName }
-						{...helper.getDataProps(props)}>
+						{...helper.getDataProps(this.props)}>
 					{ children }
 				</p>
 			);
@@ -56,7 +56,7 @@ export default class Paragraph extends React.PureComponent {
 			paragraph = (
 				<p
 						className = { componentClassName }
-						{...helper.getDataProps(props)}
+						{...helper.getDataProps(this.props)}
 						dangerouslySetInnerHTML = { { __html: text } }/>
 			);
 		}
