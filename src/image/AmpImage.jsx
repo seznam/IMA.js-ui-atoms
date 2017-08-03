@@ -4,30 +4,32 @@ import React from 'react';
 /**
  * Amp image
  *
- * @class AmpImage
  * @namespace ima.ui.atom.image
- * @module ima
- * @submodule ima.ui
+ * @module ima.ui.atom
  */
 
-let AmpImage = (props, context) => {
-	let helper = context.$Utils.$UIComponentHelper;
+export default class AmpIframe extends React.PureComponent {
 
-	return (
-		<amp-img
-				src = { props.src }
-				srcSet = { props.srcSet }
-				width = { props.width }
-				height = { props.height }
-				layout = { props.layout }
-				alt = { props.alt }
-				class = { helper.cssClasses(props.className) }
-				{...helper.getDataProps(props)}/>
-	);
-};
+	static get contextTypes() {
+		return {
+			$Utils: PropTypes.object
+		};
+	}
 
-AmpImage.contextTypes = {
-	$Utils: PropTypes.object
-};
+	render() {
+		let helper = this.context.$Utils.$UIComponentHelper;
+		let { src, srcSet, width, height, layout, alt, className } = this.props;
 
-export default AmpImage;
+		return (
+			<amp-img
+					src = { src }
+					srcSet = { srcSet }
+					width = { width }
+					height = { height }
+					layout = { layout }
+					alt = { alt }
+					class = { helper.cssClasses(className) }
+					{...helper.getDataProps(props)}/>
+		);
+	}
+}

@@ -9,10 +9,8 @@ const TIME_TO_SHOW_LOADER = 3000;
 /**
  * Html image
  *
- * @class HtmlImage
  * @namespace ima.ui.atom.image
- * @module ima
- * @submodule ima.ui
+ * @module ima.ui.atom
  */
 
 export default class HtmlImage extends React.PureComponent {
