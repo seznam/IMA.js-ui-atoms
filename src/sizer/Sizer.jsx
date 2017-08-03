@@ -4,10 +4,8 @@ import React from 'react';
 /**
  * Common sizer
  *
- * @class Sizer
  * @namespace ima.ui.atom.sizer
- * @module ima
- * @submodule ima.ui
+ * @module ima.ui.atom
  */
 export default class Sizer extends React.PureComponent {
 
