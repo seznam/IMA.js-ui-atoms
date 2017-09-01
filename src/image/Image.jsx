@@ -22,6 +22,7 @@ export default class Image extends React.PureComponent {
 		return {
 			src: PropTypes.string,
 			srcSet: PropTypes.string,
+			sizes: PropTypes.string,
 			width: PropTypes.number,
 			height: PropTypes.number,
 			layout: PropTypes.string,
@@ -35,6 +36,8 @@ export default class Image extends React.PureComponent {
 	static get defaultProps() {
 		return {
 			src: null,
+			srcSet: null,
+			sizes: null,
 			width: null,
 			height: null,
 			layout: null,
