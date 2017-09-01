@@ -56,7 +56,9 @@ export default class HtmlImage extends React.PureComponent {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (this.props.src !== nextProps.src || this.props.srcSet !== nextProps.srcSet) {
+		if (this.props.src !== nextProps.src ||
+				this.props.srcSet !== nextProps.srcSet ||
+				this.props.sizes !== nextProps.sizes) {
 			this._visibleInViewport = false;
 			this.setState({
 				noloading: nextProps.noloading || this.props.noloading
@@ -104,6 +106,7 @@ export default class HtmlImage extends React.PureComponent {
 						<img
 								src = { this.props.src }
 								srcSet = { this.props.srcSet }
+								sizes = { this.props.sizes }
 								alt = { this.props.alt }
 								className = { helper.cssClasses({
 									'atm-fill': true,
@@ -122,6 +125,7 @@ export default class HtmlImage extends React.PureComponent {
 							__html: `<img
 								src="${this.props.src || ''}"
 								srcset="${this.props.srcSet || ''}"
+								sizes="${this.props.sizes || ''}"
 								alt="${this.props.alt || ''}"
 								class="${helper.cssClasses('atm-fill atm-loaded')}"/>`
 						} }/>
@@ -172,16 +176,32 @@ export default class HtmlImage extends React.PureComponent {
 		image.onerror = () => {
 			this._imageIsLoaded();
 		};
+		let { src, srcSet, sizes } = this.props;
 
-		if (this.props.src) {
-			image.src = this.props.src;
-		} else {
+		if (sizes) {
+			image.sizes = sizes;
+		}
+
+		if (srcSet) {
+			image.srcset = srcSet;
+		}
+
+		if (src) {
+			image.src = src;
+		}
+
+		if (!srcSet && !src) {
 			this._imageIsLoaded();
 		}
 	}
 
 	_imageIsLoaded() {
+		if (!this._loadIndicatorTimer) {
+			return;
+		}
+
 		clearTimeout(this._loadIndicatorTimer);
+		this._loadIndicatorTimer = null;
 
 		if (this._mounted) {
 			this.setState({ noloading: true, showLoader: false });
