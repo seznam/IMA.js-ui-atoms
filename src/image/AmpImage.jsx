@@ -18,17 +18,11 @@ export default class AmpIframe extends React.PureComponent {
 
 	render() {
 		let helper = this.context.$Utils.$UIComponentHelper;
-		let { src, srcSet, sizes, width, height, layout, alt, className } = this.props;
-
-		if (!this.props.src && !this.props.srcSet) {
-			return null;
-		}
+		let { src, width, height, layout, alt, className } = this.props;
 
 		return (
 			<amp-img
 					src = { src }
-					srcSet = { srcSet }
-					sizes = { sizes }
 					width = { width }
 					height = { height }
 					layout = { layout }
