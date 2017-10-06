@@ -61,10 +61,10 @@ export default class HtmlIframe extends React.PureComponent {
 					style = {this.props.layout === 'responsive' ?
 						{}
 					:
-					{
-						width: this.props.width || 'auto',
-						height: this.props.height || 'auto'
-					}
+						{
+							width: this.props.width || 'auto',
+							height: this.props.height || 'auto'
+						}
 					}
 					{...helper.getDataProps(this.props)}>
 				{
