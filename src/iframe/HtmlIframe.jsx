@@ -61,10 +61,10 @@ export default class HtmlIframe extends React.PureComponent {
 					style = {this.props.layout === 'responsive' ?
 						{}
 					:
-					{
-						width: this.props.width || 'auto',
-						height: this.props.height || 'auto'
-					}
+						{
+							width: this.props.width || 'auto',
+							height: this.props.height || 'auto'
+						}
 					}
 					{...helper.getDataProps(this.props)}>
 				{
@@ -104,7 +104,7 @@ export default class HtmlIframe extends React.PureComponent {
 						dangerouslySetInnerHTML = { {
 							__html: `<iframe
 								src="${this.props.src}"
-								srcdoc="${this.props.srcDoc}"
+								${ this.props.srcDoc !== null ? `srcdoc="${this.props.srcDoc}"` : '' }
 								width="${this.props.width || 'auto'}"
 								height="${this.props.height || 'auto'}"
 								${ this.props.sandbox ? `sandbox="${this.props.sandbox}"` : '' }
