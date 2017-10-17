@@ -45,7 +45,7 @@ export default class Iframe extends React.PureComponent {
 			layout: null,
 			sandbox: null,
 			allowFullScreen: null,
-			resizable: null,
+			resizable: false,
 			frameBorder: '0',
 			noloading: false,
 			className: '',
