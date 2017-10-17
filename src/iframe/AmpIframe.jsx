@@ -41,8 +41,7 @@ export default class AmpIframe extends React.PureComponent {
 
 		return (
 			<amp-iframe {...props} {...helper.getDataProps(this.props)}>
-				<div placeholder='' />
-				{ this.props.children }
+				{ this.props.children || <div placeholder='' /> }
 			</amp-iframe>
 		);
 	}
