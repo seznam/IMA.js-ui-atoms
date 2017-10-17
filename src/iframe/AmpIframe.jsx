@@ -18,7 +18,7 @@ export default class AmpIframe extends React.PureComponent {
 	render() {
 		let helper = this.context.$Utils.$UIComponentHelper;
 		let { src, srcDoc, width, height, scrolling, layout, sandbox,
-				frameBorder, className,  allowFullScreen } = this.props;
+				frameBorder, className,  allowFullScreen, resizable } = this.props;
 		let props = {
 			src,
 			srcDoc,
@@ -35,9 +35,14 @@ export default class AmpIframe extends React.PureComponent {
 			props.allowFullScreen = '';
 		}
 
+		if (resizable) {
+			props.resizable = '';
+		}
+
 		return (
 			<amp-iframe {...props} {...helper.getDataProps(this.props)}>
 				<div placeholder='' />
+				{ this.props.children }
 			</amp-iframe>
 		);
 	}
