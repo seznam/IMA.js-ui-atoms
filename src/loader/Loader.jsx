@@ -16,7 +16,7 @@ export default class Loader extends React.PureComponent {
 		};
 	}
 
-	static get PropTypes() {
+	static get propTypes() {
 		return {
 			mode: PropTypes.string, //possible values: [small, big]
 			layout: PropTypes.string, //possible values: [center]
