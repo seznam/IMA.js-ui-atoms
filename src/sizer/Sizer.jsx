@@ -15,7 +15,7 @@ export default class Sizer extends React.PureComponent {
 		};
 	}
 
-	static get PropTypes() {
+	static get propTypes() {
 		return {
 			width:  PropTypes.number,
 			height:  PropTypes.number,
