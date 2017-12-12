@@ -75,13 +75,15 @@ export default class UIComponentHelper {
 	 * @return {boolean}
 	 */
 	isAmp() {
-		let ampParam = this._router.getCurrentRouteInfo().params.amp;
+		let ampParam = null;
 
-		if (ampParam === true || ampParam === '1') {
-			return true;
+		try {
+			ampParam = this._router.getCurrentRouteInfo().params.amp;
+		} catch (error) {
+			ampParam = false;
 		}
 
-		return false;
+		return ampParam === true || ampParam === '1';
 	}
 
 	/**

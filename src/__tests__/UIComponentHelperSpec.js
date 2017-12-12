@@ -27,9 +27,9 @@ describe('UIComponentHelper', () => {
 		uiComponentHelper = new UIComponentHelper(_router, componentPositions, visibility, classnames);
 	});
 
-	describe('isAmp mehtod', () => {
+	describe('isAmp method', () => {
 
-		it('should return true if url query contains amp flag', () => {
+		it('should return true if url query contains amp flag of value true', () => {
 			spyOn(_router, 'getCurrentRouteInfo')
 				.and
 				.returnValue({ params: { amp: true } });
@@ -37,13 +37,28 @@ describe('UIComponentHelper', () => {
 			expect(uiComponentHelper.isAmp()).toBeTruthy();
 		});
 
-		it('should return false if url query not contains amp flag', () => {
+		it('should return true if url query contains amp flag of value "1"', () => {
+			spyOn(_router, 'getCurrentRouteInfo')
+				.and
+				.returnValue({ params: { amp: '1' } });
+
+			expect(uiComponentHelper.isAmp()).toBeTruthy();
+		});
+
+		it('should return false if url query does not contain amp flag', () => {
+			spyOn(_router, 'getCurrentRouteInfo')
+				.and
+				.returnValue({ params: { amp: '0' } });
+
 			expect(uiComponentHelper.isAmp()).toBeFalsy();
 		});
 
+		it('should return false if url query not contains amp flag', () => {
+			expect(uiComponentHelper.isAmp()).toBeFalsy();
+		});
 	});
 
-	describe('getDataProps mehtod', () => {
+	describe('getDataProps method', () => {
 		let dataProps = {
 			'data-e2e': 'something',
 			'data-key': 'key'
