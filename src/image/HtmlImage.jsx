@@ -146,7 +146,7 @@ export default class HtmlImage extends React.PureComponent {
 	}
 
 	_registerToCheckingVisibility() {
-		let extendedPadding = Math.max(
+		let extendedPadding = this.props.extendedPadding || Math.max(
 			Math.round(this.utils.$UIComponentHelper.getWindowViewportRect().height * 2),
 			MIN_EXTENDED_PADDING
 		);
