@@ -27,7 +27,7 @@ export default class AmpIframe extends React.PureComponent {
 					height = { height }
 					layout = { layout }
 					alt = { alt }
-					noloading = { noloading || null }
+					noloading = { noloading ? '' : null }
 					class = { helper.cssClasses(className) }
 					{...helper.getDataProps(this.props)}/>
 		);
