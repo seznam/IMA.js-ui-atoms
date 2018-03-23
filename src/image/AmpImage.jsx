@@ -8,7 +8,7 @@ import React from 'react';
  * @module ima.ui.atom
  */
 
-export default class AmpIframe extends React.PureComponent {
+export default class AmpImage extends React.PureComponent {
 
 	static get contextTypes() {
 		return {
