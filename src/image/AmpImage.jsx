@@ -8,7 +8,7 @@ import React from 'react';
  * @module ima.ui.atom
  */
 
-export default class AmpIframe extends React.PureComponent {
+export default class AmpImage extends React.PureComponent {
 
 	static get contextTypes() {
 		return {
@@ -18,11 +18,13 @@ export default class AmpIframe extends React.PureComponent {
 
 	render() {
 		let helper = this.context.$Utils.$UIComponentHelper;
-		let { src, width, height, layout, alt, noloading, className } = this.props;
+		let { src, srcSet, sizes, width, height, layout, alt, noloading, className } = this.props;
 
 		return (
 			<amp-img
 					src = { src }
+					srcSet = { srcSet }
+					sizes = { sizes }
 					width = { width }
 					height = { height }
 					layout = { layout }
