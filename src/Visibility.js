@@ -1,6 +1,8 @@
 /**
  * Visibility helper.
  */
+const DEFAULT_VISIBILITY_INTERVAL = 180;
+
 export default class Visibility {
 
 	static get $dependencies() {
@@ -21,6 +23,24 @@ export default class Visibility {
 		 * @type {Map}
 		 */
 		this._entries = new Map();
+
+		/**
+	   * @property _forgottenEntries
+	   * @type {boolean}
+	   */
+			this._hasForgottenEntries = false;
+
+		/**
+	   * @property _forgottenEntriesMaxInterval
+	   * @type {number}
+	   */
+			this._forgottenEntriesMaxInterval = 0;
+
+		/**
+	   * @property _forgottenEntriesTimeout
+	   * @type {timer ID|null}
+	   */
+			this._forgottenEntriesTimeout = null;
 
 		/**
 		 * @property _uniquiId
@@ -53,7 +73,7 @@ export default class Visibility {
 	 * @param {{ visibilityInterval: number }} options
 	 * @return {number} The registered id
 	 */
-	register(reader, writer, options = { visibilityInterval: 180 }) {
+	register(reader, writer, options = { visibilityInterval: DEFAULT_VISIBILITY_INTERVAL }) {
 		let id = this._generateId();
 
 		this._entries.set(
@@ -85,7 +105,7 @@ export default class Visibility {
 	 * method use requestAnimationFrame function which is called during page
 	 * scrolling.
 	 *
-	 * @method throttl
+	 * @method throttle
 	 * @param {function(...)} eventHandler
 	 * @param {number?} interval
 	 * @param {Object?} context
@@ -96,6 +116,8 @@ export default class Visibility {
 		interval = interval || 0;
 		let callTime = 0;
 		let lastArguments = null;
+		
+		clearTimeout(this._forgottenEntriesTimeout);
 
 		if (context) {
 			eventHandler = eventHandler.bind(context);
@@ -131,9 +153,18 @@ export default class Visibility {
 	 */
 	_visibilityLoop() {
 		let lastLoopRunning = Date.now();
+		
+		this._hasForgottenEntries = false;
+		clearTimeout(this._forgottenEntriesTimeout);
 
 		Array.from(this._entries.values()).filter((loopEntry) => {
-			return loopEntry.lastLoop + loopEntry.options.visibilityInterval <= Date.now();
+			if (loopEntry.lastLoop + loopEntry.options.visibilityInterval <= Date.now()) {
+				return true;
+			}else{
+				this._hasForgottenEntries = true;
+				this._forgottenEntriesMaxInterval = Math.max(this._forgottenEntriesMaxInterval, loopEntry.options.visibilityInterval);
+				return false;
+			}
 		}).map((loopEntry) => {
 			loopEntry.lastLoop = lastLoopRunning;
 			let readedValue = typeof loopEntry.reader === 'function' ? loopEntry.reader() : null;
@@ -148,6 +179,12 @@ export default class Visibility {
 				loopEntry.writer(loopEntry.readedValue);
 			}
 		});
+
+		// Fires new loop in the end of the throttle if any entry.writer has left unhandled
+		if (this._hasForgottenEntries) {
+			const _this = this;
+			this._forgottenEntriesTimeout = setTimeout( () => { _this._visibilityLoop(); }, this._forgottenEntriesMaxInterval + 1 );
+		}
 	}
 
 	/**
