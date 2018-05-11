@@ -81,7 +81,8 @@ export default class HtmlVideo extends React.PureComponent {
 							className = { helper.cssClasses({
 								'atm-fill': true,
 								'atm-loaded': this.state.noloading && this._visibleInViewport
-							}) }>
+							}) }
+							{...helper.getAriaProps(this.props)}>
 						<div placeholder=''/>
 						{ this.props.children }
 					</video>

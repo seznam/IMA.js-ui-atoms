@@ -49,7 +49,8 @@ export default class List extends React.PureComponent {
 						['atm-list-' + Type]: Type
 					}, className) }
 					id = { id }
-					{...helper.getDataProps(this.props)}>
+					{...helper.getDataProps(this.props)}
+					{...helper.getAriaProps(this.props)}>
 				{children}
 			</Type>
 		);
