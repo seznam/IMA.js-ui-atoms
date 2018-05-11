@@ -55,7 +55,8 @@ export default class Headline extends React.PureComponent {
 						id = { id }
 						style = { style }
 						className = { computedClassName }
-						{...helper.getDataProps(this.props)}>
+						{...helper.getDataProps(this.props)}
+						{...helper.getAriaProps(this.props)}>
 					{ children }
 				</Type>
 			);
@@ -66,6 +67,7 @@ export default class Headline extends React.PureComponent {
 						style = { style }
 						className = { computedClassName }
 						{...helper.getDataProps(this.props)}
+						{...helper.getAriaProps(this.props)}
 						dangerouslySetInnerHTML = { { __html: text } }/>
 			);
 		}
