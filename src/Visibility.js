@@ -2,6 +2,7 @@
  * Visibility helper.
  */
 const DEFAULT_VISIBILITY_INTERVAL = 180;
+const DEFAULT_THROTTLE_INTERVAL = 60;
 
 export default class Visibility {
 
@@ -25,22 +26,16 @@ export default class Visibility {
 		this._entries = new Map();
 
 		/**
-	   * @property _forgottenEntries
-	   * @type {boolean}
-	   */
-			this._hasForgottenEntries = false;
-
-		/**
-	   * @property _forgottenEntriesMaxInterval
+	   * @property _nextLoopEntriesMaxInterval
 	   * @type {number}
 	   */
-			this._forgottenEntriesMaxInterval = 0;
+			this._nextLoopEntriesMaxInterval = 0;
 
 		/**
-	   * @property _forgottenEntriesTimeout
+	   * @property _nextLoopEntriesTimeout
 	   * @type {timer ID|null}
 	   */
-			this._forgottenEntriesTimeout = null;
+			this._nextLoopEntriesTimeout = null;
 
 		/**
 		 * @property _uniquiId
@@ -60,7 +55,7 @@ export default class Visibility {
 		 */
 		this._throttledVisibilityLoop = this.throttle(
 			this._visibilityLoop,
-			60,
+			DEFAULT_THROTTLE_INTERVAL,
 			this
 		);
 	}
@@ -117,7 +112,7 @@ export default class Visibility {
 		let callTime = 0;
 		let lastArguments = null;
 		
-		clearTimeout(this._forgottenEntriesTimeout);
+		clearTimeout(this._nextLoopEntriesTimeout);
 
 		if (context) {
 			eventHandler = eventHandler.bind(context);
@@ -154,15 +149,14 @@ export default class Visibility {
 	_visibilityLoop() {
 		let lastLoopRunning = Date.now();
 		
-		this._hasForgottenEntries = false;
-		clearTimeout(this._forgottenEntriesTimeout);
+		this._nextLoopEntriesMaxInterval = 0;
+		clearTimeout(this._nextLoopEntriesTimeout);
 
 		Array.from(this._entries.values()).filter((loopEntry) => {
-			if (loopEntry.lastLoop + loopEntry.options.visibilityInterval <= Date.now()) {
+			if ((loopEntry.lastLoop + loopEntry.options.visibilityInterval) <= Date.now()) {
 				return true;
-			}else{
-				this._hasForgottenEntries = true;
-				this._forgottenEntriesMaxInterval = Math.max(this._forgottenEntriesMaxInterval, loopEntry.options.visibilityInterval);
+			} else {
+				this._nextLoopEntriesMaxInterval = Math.max(this._nextLoopEntriesMaxInterval, loopEntry.options.visibilityInterval);
 				return false;
 			}
 		}).map((loopEntry) => {
@@ -181,9 +175,9 @@ export default class Visibility {
 		});
 
 		// Fires new loop in the end of the throttle if any entry.writer has left unhandled
-		if (this._hasForgottenEntries) {
+		if (this._nextLoopEntriesMaxInterval) {
 			const _this = this;
-			this._forgottenEntriesTimeout = setTimeout( () => { _this._visibilityLoop(); }, this._forgottenEntriesMaxInterval + 1 );
+			this._nextLoopEntriesTimeout = setTimeout( () => { _this._visibilityLoop(); }, this._nextLoopEntriesMaxInterval + 1 );
 		}
 	}
 
