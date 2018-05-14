@@ -128,8 +128,8 @@ export default class HtmlImage extends React.PureComponent {
 								srcset="${this.props.srcSet || ''}"
 								sizes="${this.props.sizes || ''}"
 								alt="${this.props.alt || ''}"
-								class="${helper.cssClasses('atm-fill atm-loaded')}
-								${...helper.getAriaProps(this.props)}"/>`
+								class="${helper.cssClasses('atm-fill atm-loaded')}"
+								${helper.getAriaProps(this.props)}/>`
 						} }/>
 			</div>
 		);

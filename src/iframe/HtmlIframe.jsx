@@ -112,8 +112,8 @@ export default class HtmlIframe extends React.PureComponent {
 								scrolling="${this.props.scrolling || 'no'}"
 								frameborder="${this.props.frameBorder || '0'}"
 								allowfullscreen="${this.props.allowFullScreen || '0'}"
-								class="${helper.cssClasses('atm-fill atm-loaded')}
-								${...helper.getAriaProps(this.props)}"></iframe>`
+								class="${helper.cssClasses('atm-fill atm-loaded')}"
+								${helper.getAriaProps(this.props)}></iframe>`
 						} }/>
 			</div>
 		);

@@ -40,7 +40,7 @@ export default class AmpIframe extends React.PureComponent {
 		}
 
 		return (
-			<amp-iframe {...props} {...helper.getDataProps(this.props)}>
+			<amp-iframe {...props} {...helper.getDataProps(this.props)} {...helper.getAriaProps(this.props)}>
 				{ this.props.children || <div placeholder='' /> }
 			</amp-iframe>
 		);
