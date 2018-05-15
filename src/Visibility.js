@@ -156,7 +156,7 @@ export default class Visibility {
 			if ((loopEntry.lastLoop + loopEntry.options.visibilityInterval) <= Date.now()) {
 				return true;
 			} else {
-				this._nextLoopEntriesMaxInterval = Math.max(this._nextLoopEntriesMaxInterval, loopEntry.options.visibilityInterval);
+				this._nextLoopEntriesMaxInterval = Math.max(this._nextLoopEntriesMaxInterval, loopEntry.options.visibilityInterval, DEFAULT_THROTTLE_INTERVAL + 1);
 				return false;
 			}
 		}).map((loopEntry) => {
