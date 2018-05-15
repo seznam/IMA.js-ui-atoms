@@ -111,7 +111,8 @@ export default class HtmlImage extends React.PureComponent {
 								className = { helper.cssClasses({
 									'atm-fill': true,
 									'atm-loaded': this.state.noloading && this._visibleInViewport
-								}) } />
+								}) }
+								{...helper.getAriaProps(this.props)} />
 					:
 						null
 				}
@@ -127,7 +128,8 @@ export default class HtmlImage extends React.PureComponent {
 								srcset="${this.props.srcSet || ''}"
 								sizes="${this.props.sizes || ''}"
 								alt="${this.props.alt || ''}"
-								class="${helper.cssClasses('atm-fill atm-loaded')}"/>`
+								class="${helper.cssClasses('atm-fill atm-loaded')}"
+								${helper.getAriaProps(this.props)}/>`
 						} }/>
 			</div>
 		);

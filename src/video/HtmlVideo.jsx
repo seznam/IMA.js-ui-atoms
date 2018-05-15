@@ -81,7 +81,8 @@ export default class HtmlVideo extends React.PureComponent {
 							className = { helper.cssClasses({
 								'atm-fill': true,
 								'atm-loaded': this.state.noloading && this._visibleInViewport
-							}) }>
+							}) }
+							{...helper.getAriaProps(this.props)}>
 						<div placeholder=''/>
 						{ this.props.children }
 					</video>
@@ -97,7 +98,8 @@ export default class HtmlVideo extends React.PureComponent {
 								${this.props.autoplay ? 'autoPlay' : ''}
 								${this.props.loop ? 'loop' : ''}
 								${this.props.muted ? 'muted' : ''}
-								class="${helper.cssClasses('atm-fill atm-loaded')}"></video>`
+								class="${helper.cssClasses('atm-fill atm-loaded')}"
+								${helper.getAriaProps(this.props)}></video>`
 						}}/>
 			</div>
 		);

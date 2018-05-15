@@ -72,6 +72,20 @@ describe('UIComponentHelper', () => {
 
 	});
 
+	describe('getAriaProps method', () => {
+		let ariaProps = {
+			'aria-label': 'something',
+			'aria-hidden': true
+		};
+		let props = Object.assign({ key: 'key' }, ariaProps);
+
+		it('should return only attributes with name aria-*', () => {
+
+			expect(uiComponentHelper.getAriaProps(props)).toEqual(ariaProps);
+		});
+
+	});
+
 
 	describe('cssClasses method', () => {
 

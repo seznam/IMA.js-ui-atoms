@@ -55,7 +55,8 @@ export default class Link extends React.PureComponent {
 						['atm-link-' + mode]: mode
 					}, className) }
 					onClick = { onClick }
-					{...helper.getDataProps(this.props)}>
+					{...helper.getDataProps(this.props)}
+					{...helper.getAriaProps(this.props)}>
 				{ children || text }
 			</a>
 		);

@@ -33,7 +33,8 @@ export default class AmpVideo extends React.PureComponent {
 					height = { height }
 					layout = { layout }
 					class = { helper.cssClasses(className) }
-					{...helper.getDataProps(this.props)}>
+					{...helper.getDataProps(this.props)}
+					{...helper.getAriaProps(this.props)}>
 				<div placeholder = ''/>
 				{children}
 			</amp-video>

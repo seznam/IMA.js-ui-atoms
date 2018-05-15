@@ -106,6 +106,25 @@ export default class UIComponentHelper {
 	}
 
 	/**
+	 * Filters the provided properties and returns only the properties which's
+	 * names start with the {@code aria-} prefix.
+	 *
+	 * @param {Object<string, *>} props
+	 * @return {Object<string, (number|string)>}
+	 */
+	getAriaProps(props) {
+		let ariaProps = {};
+
+		for (let propertyName of Object.keys(props)) {
+			if (/^aria-/.test(propertyName)) {
+				ariaProps[propertyName] = props[propertyName];
+			}
+		}
+
+		return ariaProps;
+	}
+
+	/**
 	 * Generate a string of CSS classes from the properties of the passed-in
 	 * object that resolve to true.
 	 *

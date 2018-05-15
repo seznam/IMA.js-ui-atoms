@@ -31,7 +31,8 @@ export default class AmpImage extends React.PureComponent {
 					alt = { alt }
 					noloading = { noloading ? '' : null }
 					class = { helper.cssClasses(className) }
-					{...helper.getDataProps(this.props)}/>
+					{...helper.getDataProps(this.props)}
+					{...helper.getAriaProps(this.props)}/>
 		);
 	}
 }
