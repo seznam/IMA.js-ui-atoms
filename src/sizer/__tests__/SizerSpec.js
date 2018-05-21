@@ -1,6 +1,8 @@
 import classnames from 'classnames';
 import React from 'react';
 import { shallow } from 'enzyme';
+import { Infinite } from 'infinite-circle';
+import { toMockedInstance } from 'to-mock';
 import Sizer from '../Sizer';
 import UIComponentHelper from '../../UIComponentHelper';
 import Visibility from '../../Visibility';
@@ -10,8 +12,9 @@ import dummyWindow from '../../mocks/window';
 describe('Sizer component', () => {
 
 	let wrapper = null;
-	let visibility = new Visibility(dummyWindow);
-	let uiComponentHelper = new UIComponentHelper(dummyRouter, dummyWindow, visibility, classnames);
+	let visibility = toMockedInstance(Visibility);
+    let infinite = toMockedInstance(Infinite);
+	let uiComponentHelper = new UIComponentHelper(dummyRouter, dummyWindow, visibility, infinite, classnames);
 	let context = {
 		$Utils: {
 			$UIComponentHelper: uiComponentHelper
@@ -22,7 +25,7 @@ describe('Sizer component', () => {
 		wrapper = shallow(<Sizer />, { context });
 	});
 
-	it('should set atm-sizer class', () => {
+	fit('should set atm-sizer class', () => {
 		expect(wrapper.hasClass('atm-sizer')).toBeTruthy();
 	});
 

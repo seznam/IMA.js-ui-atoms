@@ -15,8 +15,6 @@ let fs = require('fs');
 let cache = require('gulp-cached');
 let remember = require('gulp-remember');
 let gulpLess = require('gulp-less');
-let jasmine = require('gulp-jasmine');
-let debug = require('gulp-debug');
 let b = null;
 
 let gulpConfig = {
@@ -95,41 +93,13 @@ function clean() {
 	return del(['./dist']);
 }
 
-exports.test = test;
-function test() {
-	return gulp
-		.src('./src/__tests__/{ComponentPositions,main,UIComponentHelper,Visibility}Spec.js')
-		.pipe(jasmine({ includeStackTrace: true }));
-}
-
-function testWithoutError() {
-	return test()
-		.on('error', function(error) {
-			console.error(error);
-
-			this.emit('end');
-		});
-}
-
-exports.dev = gulp.series(
-	test,
+exports['dev'] = gulp.series(
 	compile,
 	less,
 	bundle,
 	dev
 );
 function dev(done) {
-	gulp.watch('./src/**/*.{js,jsx}', gulp.series(testWithoutError));
-}
-
-exports['dev:example'] = gulp.series(
-	test,
-	compile,
-	less,
-	bundle,
-	devExample
-);
-function devExample(done) {
 	gulp.watch('./src/**/*.less', less);
 	gulp.watch('example/**/*.js', {
 		ignored: 'example/dist/*'

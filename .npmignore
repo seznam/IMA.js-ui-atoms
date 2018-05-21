@@ -1,0 +1,10 @@
+/src
+/coverage
+.eslintrc.js
+.gitignore
+.npmignore
+.prettierignore
+.travis.yml
+README.md
+commitlint.config.js
+setupJest.js
