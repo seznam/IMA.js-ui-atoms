@@ -17,15 +17,7 @@ describe('Visibility', () => {
 	describe('register method', () => {
 
 		it('should return visibilityId', () => {
-			expect(visibility.register(reader, writer, options)).toEqual(1);
-		});
-
-		it('should the handlers must be called without scroll and resize events', () => {
-			spyOn(visibility, '_throttledVisibilityLoop');
-
-			visibility.register(reader, writer, options);
-
-			expect(visibility._throttledVisibilityLoop).toHaveBeenCalled();
+			expect(typeof visibility.register(reader, writer, options) === 'string').toEqual(true);
 		});
 
 		it('should start listening on scroll and resize events', () => {

@@ -1,3 +1,5 @@
+import { Circle } from 'infinite-circle';
+
 /**
  * Visibility helper.
  */
@@ -16,34 +18,24 @@ export default class Visibility {
 		 */
 		this._window = window;
 
-		/**
-		 * @property _entries
-		 * @type {Map}
+        /**
+		 * @property circle
+		 * @type {Circle}
 		 */
-		this._entries = new Map();
-
-		/**
-		 * @property _uniquiId
-		 * @type {number}
-		 */
-		this._uniquiId = 0;
-
-		/**
-		 * @property _runningLoop
-		 * @type {boolean}
-		 */
-		this._runningLoop = false;
-
-		/**
-		 * @property _throttledVisibilityLoop
-		 * @type {function}
-		 */
-		this._throttledVisibilityLoop = this.throttle(
-			this._visibilityLoop,
-			60,
-			this
-		);
+        this.circle = this._createVisibilityCircle();
 	}
+
+    /**
+     * Create visibility circle.
+     *
+     * @return {Circle} The circle instance
+     */
+    _createVisibilityCircle() {
+        return new Circle({
+            listen: (notify) => this._listenOnEvents(notify),
+            unlisten: (notify) => this._unlistenOnEvents(notify)
+        });
+    }
 
 	/**
 	 * Register handlers to visibility loop
@@ -53,18 +45,12 @@ export default class Visibility {
 	 * @param {{ visibilityInterval: number }} options
 	 * @return {number} The registered id
 	 */
-	register(reader, writer, options = { visibilityInterval: 180 }) {
-		let id = this._generateId();
-
-		this._entries.set(
-			id,
-			{ reader, writer, options, lastLoop: Date.now() - options.visibilityInterval - 1 }
-		);
-
-		this._listenOnEvents();
-		this._throttledVisibilityLoop();
-
-		return id;
+	register(read, write, options = { visibilityInterval: 180 }) {
+        return this.circle.register({
+            read,
+            write,
+            options: { interval: options.visibilityInterval }
+        });
 	}
 
 	/**
@@ -73,11 +59,7 @@ export default class Visibility {
 	 * @param {number} The registered id
 	 */
 	unregister(id) {
-		this._entries.delete(id);
-
-		if (this._entries.size === 0) {
-			this._unlistenOnEvents();
-		}
+		this.circle.unregister(id);
 	}
 
 	/**
@@ -125,66 +107,19 @@ export default class Visibility {
 	}
 
 	/**
-	 * The main visibility loop is constructed for purpose performance improvements.
-	 * The values are read at first and then the writer method is called with previous
-	 * recorded value.
-	 */
-	_visibilityLoop() {
-		let lastLoopRunning = Date.now();
-
-		Array.from(this._entries.values()).filter((loopEntry) => {
-			return loopEntry.lastLoop + loopEntry.options.visibilityInterval <= Date.now();
-		}).map((loopEntry) => {
-			loopEntry.lastLoop = lastLoopRunning;
-			let readedValue = typeof loopEntry.reader === 'function' ? loopEntry.reader() : null;
-
-			return {
-				readedValue,
-				reader: loopEntry.reader,
-				writer: loopEntry.writer
-			};
-		}).map((loopEntry) => {
-			if (typeof loopEntry.writer === 'function') {
-				loopEntry.writer(loopEntry.readedValue);
-			}
-		});
-	}
-
-	/**
-	 * Generate unique id.
-	 *
-	 * @return {number}
-	 */
-	_generateId() {
-		this._uniquiId += 1;
-
-		return this._uniquiId;
-	}
-
-	/**
 	 * The visibility helper start checking visibility of registered entries.
 	 */
-	_listenOnEvents() {
-		if (this._runningLoop) {
-			return;
-		}
-
-		this._runningLoop = true;
-		this._window.bindEventListener(this._window.getWindow(), 'resize', this._throttledVisibilityLoop);
-		this._window.bindEventListener(this._window.getWindow(), 'scroll', this._throttledVisibilityLoop);
+	_listenOnEvents(notify) {
+		this._window.bindEventListener(this._window.getWindow(), 'resize', notify);
+		this._window.bindEventListener(this._window.getWindow(), 'scroll', notify);
 	}
 
 	/**
 	 * The visibility helper stop checking visibility of registered entries.
 	 */
-	_unlistenOnEvents() {
-		if (!this._runningLoop) {
-			return;
-		}
-
-		this._runningLoop = false;
-		this._window.unbindEventListener(this._window.getWindow(), 'resize', this._throttledVisibilityLoop);
-		this._window.unbindEventListener(this._window.getWindow(), 'scroll', this._throttledVisibilityLoop);
+	_unlistenOnEvents(notify) {
+		this._window.unbindEventListener(this._window.getWindow(), 'resize', notify);
+		this._window.unbindEventListener(this._window.getWindow(), 'scroll', notify);
 	}
 
 }

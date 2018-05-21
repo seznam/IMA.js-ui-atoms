@@ -19,7 +19,7 @@ window.Atoms = Atoms;
 		width = {600}
 		height = {400}/>*/
 
-let imageUrl1 = 'https://static.pexels.com/photos/279315/pexels-photo-279315.jpeg';
+let imageUrl1 = 'http://oboinastol.net/katalog_kartinok/tom16/025/skachat_oboi_1600x900.jpg';
 let imageUrl2 = 'https://upload.wikimedia.org/wikipedia/commons/3/36/Hopetoun_falls.jpg';
 
 let { Image, Paragraph, H1, Link, List, ListItem } = Atoms;

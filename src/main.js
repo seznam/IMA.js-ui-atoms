@@ -1,3 +1,5 @@
+import  { Infinite, Circle, uuid } from 'infinite-circle';
+
 import UIComponentHelper from './UIComponentHelper';
 import ComponentPositions from './ComponentPositions';
 import Visibility from './Visibility';
@@ -94,6 +96,10 @@ let initBind = (ns, oc, config) => {
 	//oc.inject(UIComponentHelper, defaultDependencies);
 };
 
+let initServices = (ns, oc, config) => {
+    oc.get(UIComponentHelper).init();
+}
+
 export {
 	UIComponentHelper,
 	Visibility,
@@ -130,5 +136,9 @@ export {
 	Sizer,
 	Video,
 	initBind,
-	$registerImaPlugin
+    initServices,
+	$registerImaPlugin,
+    Circle,
+    Infinite,
+    uuid
 };

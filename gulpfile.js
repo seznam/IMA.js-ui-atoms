@@ -1,5 +1,6 @@
 require('babel-core/register.js')({
-	presets: [require('babel-preset-es2015'), require('babel-preset-react')]
+	presets: [require('babel-preset-react')],
+    plugins: [require('babel-plugin-transform-es2015-modules-commonjs')]
 });
 
 let del = require('del');
@@ -15,6 +16,7 @@ let cache = require('gulp-cached');
 let remember = require('gulp-remember');
 let gulpLess = require('gulp-less');
 let jasmine = require('gulp-jasmine');
+let debug = require('gulp-debug');
 let b = null;
 
 let gulpConfig = {
@@ -96,7 +98,7 @@ function clean() {
 exports.test = test;
 function test() {
 	return gulp
-		.src('./src/**/*Spec.js')
+		.src('./src/__tests__/{ComponentPositions,main,UIComponentHelper,Visibility}Spec.js')
 		.pipe(jasmine({ includeStackTrace: true }));
 }
 

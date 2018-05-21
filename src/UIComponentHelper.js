@@ -1,5 +1,6 @@
 import ComponentPositions from './ComponentPositions';
 import Visibility from './Visibility';
+import { Infinite } from 'infinite-circle';
 
 /**
  * UI component helper.
@@ -11,6 +12,7 @@ export default class UIComponentHelper {
 			'$Router',
 			ComponentPositions,
 			Visibility,
+            () => new Infinite(),
 			'$CssClasses'
 		];
 	}
@@ -21,9 +23,10 @@ export default class UIComponentHelper {
 	 * @param {ima.router.Router} router
 	 * @param {ComponentPositions} componentPositions
 	 * @param {Visibility} visibility
+     * @param {Infinite} infinite
 	 * @param {function(...?(boolean|string|React.Component|Object<string, boolean>)): string} cssClassNameProcessor
 	 */
-	constructor(router, componentPositions, visibility, cssClassNameProcessor) {
+	constructor(router, componentPositions, visibility, infinite, cssClassNameProcessor) {
 		/**
 		 * IMA Router
 		 *
@@ -45,11 +48,23 @@ export default class UIComponentHelper {
 		 */
 		this._visibility = visibility;
 
+        /**
+         * Infinite loop
+         *
+         * @type {Infinite}
+         */
+        this._infinite = infinite;
+
+
 		/**
 		 * @type {function(...?(boolean|string|React.Component|Object<string, boolean>)): string}
 		 */
 		this._cssClassNameProcessor = cssClassNameProcessor;
 	}
+
+    init() {
+        this._infinite.add(this._visibility.circle);
+    }
 
 	/**
 	 * The public getter for visibility helper.
@@ -58,6 +73,15 @@ export default class UIComponentHelper {
 	 */
 	get visibility() {
 		return this._visibility;
+	}
+
+    /**
+	 * The public getter for infinite loop.
+	 *
+	 * @return {Infinite}
+	 */
+	get infinite() {
+		return this._infinite;
 	}
 
 	/**
