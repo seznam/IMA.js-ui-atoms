@@ -1,6 +1,9 @@
 /**
  * Visibility helper.
  */
+const DEFAULT_VISIBILITY_INTERVAL = 180;
+const DEFAULT_THROTTLE_INTERVAL = 60;
+
 export default class Visibility {
 
 	static get $dependencies() {
@@ -23,6 +26,18 @@ export default class Visibility {
 		this._entries = new Map();
 
 		/**
+	   * @property _nextLoopEntriesMaxInterval
+	   * @type {number}
+	   */
+			this._nextLoopEntriesMaxInterval = 0;
+
+		/**
+	   * @property _nextLoopEntriesTimeout
+	   * @type {timer ID|null}
+	   */
+			this._nextLoopEntriesTimeout = null;
+
+		/**
 		 * @property _uniquiId
 		 * @type {number}
 		 */
@@ -40,7 +55,7 @@ export default class Visibility {
 		 */
 		this._throttledVisibilityLoop = this.throttle(
 			this._visibilityLoop,
-			60,
+			DEFAULT_THROTTLE_INTERVAL,
 			this
 		);
 	}
@@ -53,7 +68,7 @@ export default class Visibility {
 	 * @param {{ visibilityInterval: number }} options
 	 * @return {number} The registered id
 	 */
-	register(reader, writer, options = { visibilityInterval: 180 }) {
+	register(reader, writer, options = { visibilityInterval: DEFAULT_VISIBILITY_INTERVAL }) {
 		let id = this._generateId();
 
 		this._entries.set(
@@ -85,7 +100,7 @@ export default class Visibility {
 	 * method use requestAnimationFrame function which is called during page
 	 * scrolling.
 	 *
-	 * @method throttl
+	 * @method throttle
 	 * @param {function(...)} eventHandler
 	 * @param {number?} interval
 	 * @param {Object?} context
@@ -96,6 +111,8 @@ export default class Visibility {
 		interval = interval || 0;
 		let callTime = 0;
 		let lastArguments = null;
+		
+		clearTimeout(this._nextLoopEntriesTimeout);
 
 		if (context) {
 			eventHandler = eventHandler.bind(context);
@@ -131,9 +148,17 @@ export default class Visibility {
 	 */
 	_visibilityLoop() {
 		let lastLoopRunning = Date.now();
+		
+		this._nextLoopEntriesMaxInterval = 0;
+		clearTimeout(this._nextLoopEntriesTimeout);
 
 		Array.from(this._entries.values()).filter((loopEntry) => {
-			return loopEntry.lastLoop + loopEntry.options.visibilityInterval <= Date.now();
+			if ((loopEntry.lastLoop + loopEntry.options.visibilityInterval) <= Date.now()) {
+				return true;
+			} else {
+				this._nextLoopEntriesMaxInterval = Math.max(this._nextLoopEntriesMaxInterval, loopEntry.options.visibilityInterval, DEFAULT_THROTTLE_INTERVAL + 1);
+				return false;
+			}
 		}).map((loopEntry) => {
 			loopEntry.lastLoop = lastLoopRunning;
 			let readedValue = typeof loopEntry.reader === 'function' ? loopEntry.reader() : null;
@@ -148,6 +173,12 @@ export default class Visibility {
 				loopEntry.writer(loopEntry.readedValue);
 			}
 		});
+
+		// Fires new loop in the end of the throttle if any entry.writer has left unhandled
+		if (this._nextLoopEntriesMaxInterval) {
+			const _this = this;
+			this._nextLoopEntriesTimeout = setTimeout( () => { _this._visibilityLoop(); }, this._nextLoopEntriesMaxInterval + 1 );
+		}
 	}
 
 	/**
