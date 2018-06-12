@@ -1,13 +1,12 @@
-let _window = {
-	getWindow() {
-		return {
-			innerWidth: 1024,
-			innerHeight: 768
-		};
-	},
-	bindEventListener: () => {},
-	unbindEventListener: () => {},
-	isClient: () => true
-};
+import { toMockedInstance } from 'to-mock';
+import Window from 'ima/window/Window';
 
-export default _window;
+export default toMockedInstance(Window, {
+  getWindow() {
+    return {
+      innerWidth: 1024,
+      innerHeight: 768
+    };
+  },
+  isClient: () => true
+});

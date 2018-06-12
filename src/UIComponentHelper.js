@@ -6,246 +6,267 @@ import { Infinite } from 'infinite-circle';
  * UI component helper.
  */
 export default class UIComponentHelper {
+  static get $dependencies() {
+    return [
+      '$Router',
+      '$Window',
+      ComponentPositions,
+      Visibility,
+      Infinite,
+      '$CssClasses'
+    ];
+  }
 
-	static get $dependencies() {
-		return [
-			'$Router',
-			ComponentPositions,
-			Visibility,
-            () => new Infinite(),
-			'$CssClasses'
-		];
-	}
-
-	/**
-	 * Initializes the helper.
-	 *
-	 * @param {ima.router.Router} router
-	 * @param {ComponentPositions} componentPositions
-	 * @param {Visibility} visibility
-     * @param {Infinite} infinite
-	 * @param {function(...?(boolean|string|React.Component|Object<string, boolean>)): string} cssClassNameProcessor
-	 */
-	constructor(router, componentPositions, visibility, infinite, cssClassNameProcessor) {
-		/**
-		 * IMA Router
-		 *
-		 * @type {ima.router.Router}
-		 */
-		this._router = router;
-
-		/**
-		 * Component position
-		 *
-		 * @type {ComponentPosition}
-		 */
-		this._componentPositions = componentPositions;
-
-		/**
-		 * Visibility helper
-		 *
-		 * @type {Visibility}
-		 */
-		this._visibility = visibility;
-
-        /**
-         * Infinite loop
-         *
-         * @type {Infinite}
-         */
-        this._infinite = infinite;
-
-
-		/**
-		 * @type {function(...?(boolean|string|React.Component|Object<string, boolean>)): string}
-		 */
-		this._cssClassNameProcessor = cssClassNameProcessor;
-	}
-
-    init() {
-        this._infinite.add(this._visibility.circle);
-    }
-
-	/**
-	 * The public getter for visibility helper.
-	 *
-	 * @return {Visibility}
-	 */
-	get visibility() {
-		return this._visibility;
-	}
+  /**
+   * Initializes the helper.
+   *
+   * @param {ima.router.Router} router
+   * @param {ima.window.Window} window
+   * @param {ComponentPositions} componentPositions
+   * @param {Visibility} visibility
+   * @param {Infinite} infinite
+   * @param {function(...?(boolean|string|React.Component|Object<string, boolean>)): string} cssClassNameProcessor
+   */
+  constructor(
+    router,
+    window,
+    componentPositions,
+    visibility,
+    infinite,
+    cssClassNameProcessor
+  ) {
+    /**
+     * IMA Router
+     *
+     * @type {ima.router.Router}
+     */
+    this._router = router;
 
     /**
-	 * The public getter for infinite loop.
-	 *
-	 * @return {Infinite}
-	 */
-	get infinite() {
-		return this._infinite;
-	}
+     * IMA Window
+     *
+     * @type {ima.window.Window}
+     */
+    this._window = window;
 
-	/**
-	 * The public getter for component positions helper.
-	 *
-	 * @return {ComponentPositions}
-	 */
-	get componentPositions() {
-		return this._componentPositions;
-	}
+    /**
+     * Component position
+     *
+     * @type {ComponentPosition}
+     */
+    this._componentPositions = componentPositions;
 
-	/**
-	 * Returns true if page may be rendered as amp page.
-	 *
-	 * @return {boolean}
-	 */
-	isAmp() {
-		let ampParam = null;
+    /**
+     * Visibility helper
+     *
+     * @type {Visibility}
+     */
+    this._visibility = visibility;
 
-		try {
-			ampParam = this._router.getCurrentRouteInfo().params.amp;
-		} catch (error) {
-			ampParam = false;
-		}
+    /**
+     * Infinite loop
+     *
+     * @type {Infinite}
+     */
+    this._infinite = infinite;
 
-		return ampParam === true || ampParam === '1';
-	}
+    /**
+     * @type {function(...?(boolean|string|React.Component|Object<string, boolean>)): string}
+     */
+    this._cssClassNameProcessor = cssClassNameProcessor;
+  }
 
-	/**
-	 * Filters the provided properties and returns only the properties which's
-	 * names start with the {@code data-} prefix.
-	 *
-	 * @param {Object<string, *>} props
-	 * @return {Object<string, (number|string)>}
-	 */
-	getDataProps(props) {
-		let dataProps = {};
+  /**
+   * The public method which registers visibility circle to inifinite loop.
+   */
+  init() {
+    this._infinite.add(this._visibility.circle);
+  }
 
-		for (let propertyName of Object.keys(props)) {
-			if (/^data-/.test(propertyName)) {
-				dataProps[propertyName] = props[propertyName];
-			}
-		}
+  /**
+   * The public getter for visibility helper.
+   *
+   * @return {Visibility}
+   */
+  get visibility() {
+    return this._visibility;
+  }
 
-		return dataProps;
-	}
+  /**
+   * The public getter for infinite loop.
+   *
+   * @return {Infinite}
+   */
+  get infinite() {
+    return this._infinite;
+  }
 
-	/**
-	 * Generate a string of CSS classes from the properties of the passed-in
-	 * object that resolve to true.
-	 *
-	 * @param {...?(string|Object<string, boolean>)} classRuleGroups CSS
-	 *        classes in a string separated by whitespace, or a map of CSS
-	 *        class names to boolean values. The CSS class name will be
-	 *        included in the result only if the value is {@code true}.
-	 *        Declarations in the later class rule group will override the
-	 *        declarations in the previous group.
-	 * @return {string} String of CSS classes that had their property resolved
-	 *         to {@code true}.
-	 */
-	cssClasses(...classRuleGroups) {
-		return this._cssClassNameProcessor(...classRuleGroups);
-	}
+  /**
+   * The public getter for component positions helper.
+   *
+   * @return {ComponentPositions}
+   */
+  get componentPositions() {
+    return this._componentPositions;
+  }
 
-	/**
-	 * Only Facade mehtod of ComponentPositions.convertToNumber function
-	 * for backward compatibility.
-	 *
-	 * @deprecated removed with next version
-	 * @param {string} string
-	 * @return {number}
-	 */
-	convertToNumber(string) {
-		return this._componentPositions.convertToNumber(string);
-	}
+  /**
+   * Returns true if page may be rendered as amp page.
+   *
+   * @return {boolean}
+   */
+  isAmp() {
+    let ampParam = null;
 
-	/**
-	 * Only Facade mehtod of ComponentPositions.getWindowViewportRect function
-	 * for backward compatibility.
-	 *
-	 * @deprecated removed with next version
-	 * @return {{top: number, left: number, width: number, height: number}}
-	 */
-	getWindowViewportRect() {
-		return this._componentPositions.getWindowViewportRect();
-	}
+    try {
+      ampParam = this._router.getCurrentRouteInfo().params.amp;
+    } catch (error) {
+      ampParam = false;
+    }
 
-	/**
-	 * Only Facade mehtod of ComponentPositions.getBoundingClientRect function
-	 * for backward compatibility.
-	 *
-	 * @deprecated removed with next version
-	 * @param {Element} element
-	 * @param {{width: number, height: number}} size
-	 * @param {number} extended
-	 * @return {{top: number, left: number, width: number, height: number}}
-	 */
-	getBoundingClientRect(element, size, extended) {
-		return this._componentPositions.getBoundingClientRect(element, size, extended);
-	}
+    return ampParam === true || ampParam === '1';
+  }
 
-	/**
-	 * Only Facade mehtod of ComponentPositions.getPercentOfVisibility function
-	 * for backward compatibility.
-	 *
-	 * @deprecated removed with next version
-	 * @param {{top: number, left: number, width: number, height: number}} elmRect
-	 * @return {number} The percent of visibility.
-	 */
-	getPercentOfVisibility(elmRect) {
-		return this._componentPositions.getPercentOfVisibility(elmRect);
-	}
+  /**
+   * Filters the provided properties and returns only the properties which's
+   * names start with the {@code data-} prefix.
+   *
+   * @param {Object<string, *>} props
+   * @return {Object<string, (number|string)>}
+   */
+  getDataProps(props) {
+    let dataProps = {};
 
-	/**
-	 * @param {HTMLElement} element
-	 * @param {{ width: ?number, height: ?number, extendedPadding: ?number }} options
-	 * @return {function}
-	 */
-	getVisibilityReader(element, options) {
-		let self = this;
+    for (let propertyName of Object.keys(props)) {
+      if (/^data-/.test(propertyName)) {
+        dataProps[propertyName] = props[propertyName];
+      }
+    }
 
-		return function readVisibility() {
-			let elementRect = self._componentPositions.getBoundingClientRect(
-				element,
-				{ width: options.width, height: options.height },
-				options.extendedPadding
-			);
+    return dataProps;
+  }
 
-			return self._componentPositions.getPercentOfVisibility(elementRect);
-		};
-	}
+  /**
+   * Filters the provided properties and returns only the properties which's
+   * names start with the {@code aria-} prefix.
+   *
+   * @param {Object<string, *>} props
+   * @return {Object<string, (number|string)>}
+   */
+  getAriaProps(props) {
+    let ariaProps = {};
 
-	/**
-	 * Only Facade mehtod of Visibility.throttle function
-	 * for backward compatibility.
-	 *
-	 * @deprecated removed with next version
-	 * @param {function(...)} eventHandler
-	 * @param {number?} interval
-	 * @param {Object?} context
-	 * @return {function(...)} The throttled event
-	 */
-	throttle(eventHandler, interval, context) {
-		return this._visibility.throttle(eventHandler, interval, context);
-	}
+    for (let propertyName of Object.keys(props)) {
+      if (/^aria-/.test(propertyName)) {
+        ariaProps[propertyName] = props[propertyName];
+      }
+    }
 
-	/**
-	 * Register component to main visibility loop
-	 *
-	 * @param {function} reader
-	 * @param {function} writer
-	 * @param {{ visibilityInterval: number }} options
-	 * @return {number} The registered id
-	 */
-	registerComponentToVisibility(reader, writer, options = { visibilityInterval: 180 }) {
-		return this._visibility.register(reader, writer, options);
-	}
+    return ariaProps;
+  }
 
-	/**
-	 * Unregister component from main visibility loop
-	 *
-	 * @param {number} visibilityId
-	 */
-	unregisterComponentToVisibility(visibilityId) {
-		this._visibility.unregister(visibilityId);
-	}
+  /**
+   * Generate a string of CSS classes from the properties of the passed-in
+   * object that resolve to true.
+   *
+   * @param {...?(string|Object<string, boolean>)} classRuleGroups CSS
+   *        classes in a string separated by whitespace, or a map of CSS
+   *        class names to boolean values. The CSS class name will be
+   *        included in the result only if the value is {@code true}.
+   *        Declarations in the later class rule group will override the
+   *        declarations in the previous group.
+   * @return {string} String of CSS classes that had their property resolved
+   *         to {@code true}.
+   */
+  cssClasses(...classRuleGroups) {
+    return this._cssClassNameProcessor(...classRuleGroups);
+  }
+
+  /**
+   * @param {HTMLElement} element
+   * @param {{ width: ?number, height: ?number, extendedPadding: ?number, useIntersectionObserver: boolean, tresholds: number[] }} options
+   * @return {function}
+   */
+  getVisibilityReader(element, options) {
+    if (
+      options.useIntersectionObserver &&
+      this._window.isClient() &&
+      this._window.getWindow().IntersectionObserver
+    ) {
+      return this._getObserableReader(element, options);
+    } else {
+      return this._getReader(element, options);
+    }
+  }
+
+  /**
+   * @param {HTMLElement} element
+   * @param {{ width: ?number, height: ?number, extendedPadding: ?number, useIntersectionObserver: boolean, tresholds: number[] }} options
+   * @return {function}
+   */
+  _getReader(element, options) {
+    const self = this;
+
+    return function readVisibility() {
+      let elementRect = self._componentPositions.getBoundingClientRect(
+        element,
+        { width: options.width, height: options.height },
+        options.extendedPadding
+      );
+
+      return self._componentPositions.getPercentOfVisibility(elementRect);
+    };
+  }
+
+  /**
+   * @param {HTMLElement} element
+   * @param {{ width: ?number, height: ?number, extendedPadding: ?number, useIntersectionObserver: boolean, tresholds: number[] }} options
+   * @return {function}
+   */
+  _getObserableReader(element, options) {
+    const self = this;
+    const observerConfig = {
+      rootMargin: options.extendedPadding + 'px',
+      tresholds: options.tresholds || [0]
+    };
+    let intersectionObserverEntry = null;
+    let isFirstPositionCalculated = false;
+
+    let observer = new IntersectionObserver(entries => {
+      intersectionObserverEntry = entries[0];
+    }, observerConfig);
+    observer.observe(element);
+
+    return function readVisibility() {
+      if (!isFirstPositionCalculated) {
+        isFirstPositionCalculated = true;
+        return self._getReader(element, options)();
+      }
+
+      return { intersectionObserverEntry, observer };
+    };
+  }
+
+  /**
+   * @param {function} writer
+   * @return {function}
+   */
+  wrapVisibilityWriter(writer) {
+    return function parsePayload(circleEntry) {
+      let { payload } = circleEntry;
+
+      if (
+        typeof payload === 'object' &&
+        payload.observer &&
+        payload.intersectionObserverEntry
+      ) {
+        return writer(
+          payload.intersectionObserverEntry.intersectionRatio * 100,
+          payload.observer
+        );
+      } else {
+        return writer(payload);
+      }
+    };
+  }
 }

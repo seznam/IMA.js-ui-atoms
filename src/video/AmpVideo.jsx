@@ -1,42 +1,54 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+// @server-side class AmpVideo extends __VARIABLE__ {__CLEAR__}\nexports.default = AmpVideo;
+
 /**
  * Amp video player.
  *
  * @namespace ima.ui.atom.video
  * @module ima.ui.atom
  */
-
 export default class AmpVideo extends React.PureComponent {
+  static get contextTypes() {
+    return {
+      $Utils: PropTypes.object
+    };
+  }
 
-	static get contextTypes() {
-		return {
-			$Utils: PropTypes.object
-		};
-	}
+  render() {
+    let helper = this.context.$Utils.$UIComponentHelper;
+    let {
+      src,
+      poster,
+      autoplay,
+      controls,
+      loop,
+      muted,
+      width,
+      height,
+      layout,
+      className,
+      children
+    } = this.props;
 
-	render() {
-		let helper = this.context.$Utils.$UIComponentHelper;
-		let { src, poster, autoplay, controls, loop, muted, width, height,
-				layout, className, children } = this.props;
-
-		return (
-			<amp-video
-					src = { src }
-					poster = { poster }
-					autoplay = { autoplay }
-					controls = { controls }
-					loop = { loop }
-					muted = { muted }
-					width = { width }
-					height = { height }
-					layout = { layout }
-					class = { helper.cssClasses(className) }
-					{...helper.getDataProps(this.props)}>
-				<div placeholder = ''/>
-				{children}
-			</amp-video>
-		);
-	}
+    return (
+      <amp-video
+        src={src}
+        poster={poster}
+        autoplay={autoplay}
+        controls={controls}
+        loop={loop}
+        muted={muted}
+        width={width}
+        height={height}
+        layout={layout}
+        class={helper.cssClasses(className)}
+        {...helper.getDataProps(this.props)}
+        {...helper.getAriaProps(this.props)}>
+        <div placeholder="" />
+        {children}
+      </amp-video>
+    );
+  }
 }

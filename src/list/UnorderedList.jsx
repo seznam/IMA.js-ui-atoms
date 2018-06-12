@@ -9,8 +9,7 @@ import List from './List';
  */
 
 export default class UnorderedList extends React.PureComponent {
-
-	render() {
-		return <List {...this.props} type = 'ul'/>;
-	}
+  render() {
+    return <List {...this.props} type="ul" />;
+  }
 }

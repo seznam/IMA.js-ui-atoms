@@ -1,8 +1,3 @@
-require('babel-core/register.js')({
-	presets: [require('babel-preset-react')],
-    plugins: [require('babel-plugin-transform-es2015-modules-commonjs')]
-});
-
 let del = require('del');
 let gulp = require('gulp');
 let babel = require('gulp-babel');
@@ -51,12 +46,18 @@ function bundle() {
 	}
 
 	return b.bundle()
+    .on('error', function(err){
+      // print the error (can replace with gulp-util)
+      console.log(err.message);
+      // end this stream
+      this.emit('end');
+    })
 		.pipe(fs.createWriteStream('./example/dist/bundle.js'));
 }
 
 function createBrowserifyInstance() {
 	let options = {
-		debug: false,
+		debug: true,
 		insertGlobals: false,
 		paths: ['./', './src'],
 		extensions: ['.jsx'],
@@ -104,7 +105,7 @@ function dev(done) {
 	gulp.watch('example/**/*.js', {
 		ignored: 'example/dist/*'
 	}, bundle);
-	gulp.watch('./src/**/*.{js,jsx}', gulp.series(testWithoutError, compile, bundle));
+	gulp.watch('./src/**/*.{js,jsx}', gulp.series(compile, bundle));
 }
 
 if (gulpConfig.onTerminate) {

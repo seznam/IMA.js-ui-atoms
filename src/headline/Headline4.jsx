@@ -8,8 +8,7 @@ import Headline from './Headline';
  * @module ima.ui.atom
  */
 export default class Headline4 extends React.PureComponent {
-
-	render() {
-		return <Headline {...this.props} type = 'h4'/>;
-	}
+  render() {
+    return <Headline {...this.props} type="h4" />;
+  }
 }

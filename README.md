@@ -24,7 +24,8 @@ npm install ima-ui-atoms --save
 
 var vendors = {
     common: [
-        'ima-ui-atoms'
+        'ima-ui-atoms',
+        'infinite-circle'
     ]
 };
 

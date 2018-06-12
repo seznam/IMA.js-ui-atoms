@@ -1,4 +1,4 @@
-import  { Infinite, Circle, uuid } from 'infinite-circle';
+import { Infinite, Circle, uuid } from 'infinite-circle';
 
 import UIComponentHelper from './UIComponentHelper';
 import ComponentPositions from './ComponentPositions';
@@ -33,112 +33,113 @@ import Video from './video/Video';
 
 let defaultDependencies = ['$Router', ComponentPositions, Visibility];
 
-let $registerImaPlugin = (ns) => {
-	ns.namespace('ima.ui.atom');
-	ns.namespace('ima.ui.atom.headline');
-	ns.namespace('ima.ui.atom.iframe');
-	ns.namespace('ima.ui.atom.image');
-	ns.namespace('ima.ui.atom.link');
-	ns.namespace('ima.ui.atom.list');
-	ns.namespace('ima.ui.atom.loader');
-	ns.namespace('ima.ui.atom.paragraph');
-	ns.namespace('ima.ui.atom.sizer');
-	ns.namespace('ima.ui.atom.video');
+let $registerImaPlugin = ns => {
+  ns.namespace('ima.ui.atom');
+  ns.namespace('ima.ui.atom.headline');
+  ns.namespace('ima.ui.atom.iframe');
+  ns.namespace('ima.ui.atom.image');
+  ns.namespace('ima.ui.atom.link');
+  ns.namespace('ima.ui.atom.list');
+  ns.namespace('ima.ui.atom.loader');
+  ns.namespace('ima.ui.atom.paragraph');
+  ns.namespace('ima.ui.atom.sizer');
+  ns.namespace('ima.ui.atom.video');
 
-	let nsHeadline = ns.ima.ui.atom.headline;
-	nsHeadline.Headline = Headline;
-	nsHeadline.Headline1 = Headline1;
-	nsHeadline.Headline2 = Headline2;
-	nsHeadline.Headline3 = Headline3;
-	nsHeadline.Headline4 = Headline4;
-	nsHeadline.Headline5 = Headline5;
-	nsHeadline.Headline6 = Headline6;
-	nsHeadline.H1 = Headline1;
-	nsHeadline.H2 = Headline2;
-	nsHeadline.H3 = Headline3;
-	nsHeadline.H4 = Headline4;
-	nsHeadline.H5 = Headline5;
-	nsHeadline.H6 = Headline6;
+  let nsHeadline = ns.ima.ui.atom.headline;
+  nsHeadline.Headline = Headline;
+  nsHeadline.Headline1 = Headline1;
+  nsHeadline.Headline2 = Headline2;
+  nsHeadline.Headline3 = Headline3;
+  nsHeadline.Headline4 = Headline4;
+  nsHeadline.Headline5 = Headline5;
+  nsHeadline.Headline6 = Headline6;
+  nsHeadline.H1 = Headline1;
+  nsHeadline.H2 = Headline2;
+  nsHeadline.H3 = Headline3;
+  nsHeadline.H4 = Headline4;
+  nsHeadline.H5 = Headline5;
+  nsHeadline.H6 = Headline6;
 
-	ns.ima.ui.atom.iframe.Iframe = Iframe;
+  ns.ima.ui.atom.iframe.Iframe = Iframe;
 
-	ns.ima.ui.atom.image.Image = Image;
-	ns.ima.ui.atom.image.Img = Image;
+  ns.ima.ui.atom.image.Image = Image;
+  ns.ima.ui.atom.image.Img = Image;
 
-	ns.ima.ui.atom.link.Link = Link;
-	ns.ima.ui.atom.link.A = Link;
+  ns.ima.ui.atom.link.Link = Link;
+  ns.ima.ui.atom.link.A = Link;
 
-	let nsList = ns.ima.ui.atom.list;
-	nsList.List = List;
-	nsList.ListItem = ListItem;
-	nsList.OrderedList = OrderedList;
-	nsList.UnorderedList = UnorderedList;
-	nsList.Li = ListItem;
-	nsList.Ol = OrderedList;
-	nsList.Ul = UnorderedList;
+  let nsList = ns.ima.ui.atom.list;
+  nsList.List = List;
+  nsList.ListItem = ListItem;
+  nsList.OrderedList = OrderedList;
+  nsList.UnorderedList = UnorderedList;
+  nsList.Li = ListItem;
+  nsList.Ol = OrderedList;
+  nsList.Ul = UnorderedList;
 
-	ns.ima.ui.atom.loader.Loader = Loader;
+  ns.ima.ui.atom.loader.Loader = Loader;
 
-	ns.ima.ui.atom.paragraph.Paragraph = Paragraph;
-	ns.ima.ui.atom.paragraph.P = Paragraph;
+  ns.ima.ui.atom.paragraph.Paragraph = Paragraph;
+  ns.ima.ui.atom.paragraph.P = Paragraph;
 
-	ns.ima.ui.atom.sizer.Sizer = Sizer;
+  ns.ima.ui.atom.sizer.Sizer = Sizer;
 
-	ns.ima.ui.atom.video.Video = Video;
+  ns.ima.ui.atom.video.Video = Video;
 
-	ns.ima.ui.atom.UIComponentHelper = UIComponentHelper;
-	ns.ima.ui.atom.Visibility = Visibility;
-	ns.ima.ui.atom.ComponentPositions = ComponentPositions;
-	ns.ima.ui.atom.defaultDependencies = defaultDependencies;
+  ns.ima.ui.atom.UIComponentHelper = UIComponentHelper;
+  ns.ima.ui.atom.Visibility = Visibility;
+  ns.ima.ui.atom.ComponentPositions = ComponentPositions;
+  ns.ima.ui.atom.defaultDependencies = defaultDependencies;
 };
 
-let initBind = (ns, oc, config) => {
-	//oc.inject(UIComponentHelper, defaultDependencies);
+let initBind = (ns, oc) => {
+  oc.inject(Infinite, []);
+  //oc.inject(UIComponentHelper, defaultDependencies);
 };
 
-let initServices = (ns, oc, config) => {
-    oc.get(UIComponentHelper).init();
-}
+let initServices = (ns, oc) => {
+  oc.get(UIComponentHelper).init();
+};
 
 export {
-	UIComponentHelper,
-	Visibility,
-	ComponentPositions,
-	defaultDependencies,
-	Headline,
-	Headline1,
-	Headline2,
-	Headline3,
-	Headline4,
-	Headline5,
-	Headline6,
-	Headline1 as H1,
-	Headline2 as H2,
-	Headline3 as H3,
-	Headline4 as H4,
-	Headline5 as H5,
-	Headline6 as H6,
-	Iframe,
-	Image,
-	Image as Img,
-	Link,
-	Link as A,
-	List,
-	ListItem,
-	OrderedList,
-	UnorderedList,
-	ListItem as Li,
-	OrderedList as Ol,
-	UnorderedList as Ul,
-	Loader,
-	Paragraph,
-	Paragraph as P,
-	Sizer,
-	Video,
-	initBind,
-    initServices,
-	$registerImaPlugin,
-    Circle,
-    Infinite,
-    uuid
+  UIComponentHelper,
+  Visibility,
+  ComponentPositions,
+  defaultDependencies,
+  Headline,
+  Headline1,
+  Headline2,
+  Headline3,
+  Headline4,
+  Headline5,
+  Headline6,
+  Headline1 as H1,
+  Headline2 as H2,
+  Headline3 as H3,
+  Headline4 as H4,
+  Headline5 as H5,
+  Headline6 as H6,
+  Iframe,
+  Image,
+  Image as Img,
+  Link,
+  Link as A,
+  List,
+  ListItem,
+  OrderedList,
+  UnorderedList,
+  ListItem as Li,
+  OrderedList as Ol,
+  UnorderedList as Ul,
+  Loader,
+  Paragraph,
+  Paragraph as P,
+  Sizer,
+  Video,
+  initBind,
+  initServices,
+  $registerImaPlugin,
+  Circle,
+  Infinite,
+  uuid
 };

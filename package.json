@@ -2,18 +2,19 @@
     "name": "ima-ui-atoms",
     "version": "0.11.11",
     "description": "IMA.js UI React atoms",
-    "main": "main.js",
+    "main": "index.js",
     "scripts": {
         "preversion": "npm test && npm run lint && npm run build",
         "postversion": "npm run build && npm run changelog && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish",
-        "lint": "node_modules/.bin/eslint -c ./.eslintrc.js --fix './**/*.{js,jsx}' --ignore-path ./.prettierignore",
+        "lint": "node_modules/.bin/eslint -c ./.eslintrc.js --fix './src/**/*.{js,jsx}' './example/**/*.{js,jsx}' --ignore-path ./.prettierignore",
         "test": "node_modules/.bin/jest --no-watchman",
         "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1",
+        "precommit": "npm run lint",
+        "commitmsg": "node_modules/.bin/commitlint -e $GIT_PARAMS",
         "commit": "node_modules/.bin/git-cz",
-        "copy": "node node_modules/gulp/bin/gulp.js copy",
-        "build": "node node_modules/gulp/bin/gulp.js build",
-        "dev": "node node_modules/gulp/bin/gulp.js dev",
-        "dev:example": "node node_modules/gulp/bin/gulp.js dev:example"
+        "copy": "node_modules/.bin/gulp copy",
+        "build": "node_modules/.bin/gulp build",
+        "dev": "node_modules/.bin/gulp dev"
     },
     "keywords": [
         "React",
@@ -66,28 +67,32 @@
         "gulp-rename": "1.2.3",
         "husky": "^0.14.3",
         "ima": "^0.15.6",
+        "ima-clientify": "^0.1.2",
         "jest": "^22.4.3",
         "prettier": "^1.11.1",
         "prop-types": "15.6.1",
         "react": "16.3.2",
         "react-dom": "16.3.2",
-        "to-mock": "1.2.1",
+        "to-mock": "1.2.2",
         "watchify": "3.11.0"
     },
     "browserify": {
         "transform": [
+            "ima-clientify",
+            "loose-envify",
             "babelify"
         ]
     },
     "peerDependencies": {
         "prop-types": "15.x",
-        "react": "15.x"
+        "react": "15.x",
+        "ima": "0.15.x"
     },
     "engines": {
         "npm": ">=4 <6"
     },
     "dependencies": {
-        "infinite-circle": "0.0.4"
+        "infinite-circle": "0.2.0"
     },
     "config": {
         "commitizen": {
@@ -117,6 +122,6 @@
         "transform": {
             "\\.jsx?": "./preprocess.js"
         },
-        "testRegex": "(/__tests__/).*Spec\\.jsx?$"
+        "testRegex": "(/src/(.*/)?__tests__/).*Spec\\.jsx?$"
     }
 }

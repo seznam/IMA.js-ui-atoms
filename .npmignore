@@ -1,4 +1,5 @@
 /src
+/example
 /coverage
 .eslintrc.js
 .gitignore
@@ -8,3 +9,5 @@
 README.md
 commitlint.config.js
 setupJest.js
+preprocess.js
+gulpfile.js

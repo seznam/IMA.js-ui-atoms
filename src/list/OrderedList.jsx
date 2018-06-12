@@ -9,8 +9,7 @@ import List from './List';
  */
 
 export default class OrderedList extends React.PureComponent {
-
-	render() {
-		return <List {...this.props} type = 'ol'/>;
-	}
+  render() {
+    return <List {...this.props} type="ol" />;
+  }
 }

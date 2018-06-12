@@ -11,51 +11,49 @@ import AmpImage from './AmpImage';
  */
 
 export default class Image extends React.PureComponent {
+  static get contextTypes() {
+    return {
+      $Utils: PropTypes.object
+    };
+  }
 
-	static get contextTypes() {
-		return {
-			$Utils: PropTypes.object
-		};
-	}
+  static get propTypes() {
+    return {
+      src: PropTypes.string,
+      srcSet: PropTypes.string,
+      sizes: PropTypes.string,
+      width: PropTypes.number,
+      height: PropTypes.number,
+      layout: PropTypes.string,
+      alt: PropTypes.string,
+      noloading: PropTypes.bool,
+      className: PropTypes.string,
+      'data-e2e': PropTypes.string,
+      extendedPadding: PropTypes.number
+    };
+  }
 
-	static get propTypes() {
-		return {
-			src: PropTypes.string,
-			srcSet: PropTypes.string,
-			sizes: PropTypes.string,
-			width: PropTypes.number,
-			height: PropTypes.number,
-			layout: PropTypes.string,
-			alt: PropTypes.string,
-			noloading: PropTypes.bool,
-			className: PropTypes.string,
-			"data-e2e": PropTypes.string,
-			extendedPadding: PropTypes.number
-		};
-	}
+  static get defaultProps() {
+    return {
+      src: null,
+      srcSet: null,
+      sizes: null,
+      width: null,
+      height: null,
+      layout: null,
+      alt: null,
+      noloading: false,
+      className: '',
+      'data-e2e': null,
+      extendedPadding: 0
+    };
+  }
 
-	static get defaultProps() {
-		return {
-			src: null,
-			srcSet: null,
-			sizes: null,
-			width: null,
-			height: null,
-			layout: null,
-			alt: null,
-			noloading: false,
-			className: '',
-			"data-e2e": null,
-			extendedPadding: 0
-		};
-	}
-
-	render() {
-		if (this.context.$Utils.$UIComponentHelper.isAmp()) {
-			return <AmpImage {...this.props}/>;
-		} else {
-			return <HtmlImage {...this.props}/>;
-		}
-	}
-
+  render() {
+    if (this.context.$Utils.$UIComponentHelper.isAmp()) {
+      return <AmpImage {...this.props} />;
+    } else {
+      return <HtmlImage {...this.props} />;
+    }
+  }
 }

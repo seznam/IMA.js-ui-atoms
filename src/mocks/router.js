@@ -1,11 +1,12 @@
-let _router = {
-	getCurrentRouteInfo: () => {
-		return {
-			params: {
-				amp: false
-			}
-		};
-	}
-};
+import { toMockedInstance } from 'to-mock';
+import Window from 'ima/router/Router';
 
-export default _router;
+export default toMockedInstance(Window, {
+  getCurrentRouteInfo: () => {
+    return {
+      params: {
+        amp: false
+      }
+    };
+  }
+});

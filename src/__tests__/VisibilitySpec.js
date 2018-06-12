@@ -1,51 +1,48 @@
 import Visibility from '../Visibility';
 
 import _window from '../mocks/window';
+import _dispatcher from '../mocks/dispatcher';
 
 describe('Visibility', () => {
+  let reader = () => {};
+  let writer = () => {};
+  let options = { visibilityInterval: 180 };
 
-	let reader = () => {};
-	let writer = () => {};
-	let options = { visibilityInterval: 180 };
+  let visibility = null;
 
-	let visibility = null;
+  beforeEach(() => {
+    visibility = new Visibility(_window, _dispatcher);
+  });
 
-	beforeEach(() => {
-		visibility = new Visibility(_window);
-	});
+  describe('register method', () => {
+    it('should return visibilityId', () => {
+      expect(
+        typeof visibility.register(reader, writer, options) === 'string'
+      ).toEqual(true);
+    });
 
-	describe('register method', () => {
+    it('should start listening on scroll and resize events', () => {
+      spyOn(visibility, '_listenOnEvents');
 
-		it('should return visibilityId', () => {
-			expect(typeof visibility.register(reader, writer, options) === 'string').toEqual(true);
-		});
+      visibility.register(reader, writer, options);
 
-		it('should start listening on scroll and resize events', () => {
-			spyOn(visibility, '_listenOnEvents');
+      expect(visibility._listenOnEvents).toHaveBeenCalled();
+    });
+  });
 
-			visibility.register(reader, writer, options);
+  describe('unregister method', () => {
+    let visibilityId = null;
 
-			expect(visibility._listenOnEvents).toHaveBeenCalled();
-		});
+    beforeEach(() => {
+      visibilityId = visibility.register(reader, writer, options);
+    });
 
-	});
+    it('should stop listening on scroll and resize events', () => {
+      spyOn(visibility, '_unlistenOnEvents');
 
+      visibility.unregister(visibilityId);
 
-	describe('unregister method', () => {
-		let visibilityId = null;
-
-		beforeEach(() => {
-			visibilityId = visibility.register(reader, writer, options);
-		});
-
-		it('should stop listening on scroll and resize events', () => {
-			spyOn(visibility, '_unlistenOnEvents');
-
-			visibility.unregister(visibilityId);
-
-			expect(visibility._unlistenOnEvents).toHaveBeenCalled();
-		});
-
-	});
-
+      expect(visibility._unlistenOnEvents).toHaveBeenCalled();
+    });
+  });
 });
