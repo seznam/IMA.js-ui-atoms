@@ -1,6 +1,6 @@
 {
     "name": "ima-ui-atoms",
-    "version": "1.0.0",
+    "version": "0.11.11",
     "description": "IMA.js UI React atoms",
     "main": "index.js",
     "scripts": {
