@@ -60,6 +60,18 @@ oc.bind('GoogleAnalytic', GoogleAnalytic);
 
 ```
 
+## Contributing
+
+Contributing to this repository is done via [Pull-Requests](https://github.com/seznam/IMA.js-ui-atoms/pulls).
+Any commit that you make must follow simple rules that are automatically validated upon committing.
+1. type of change (`build`, `ci`, `chore`, `docs`, `feat`, `fix`, `perf`, `refactor`, `revert`, `style`, `test`)
+2. scope of change in brackets `( ... )`. This should be one-word description of what part of the repository you've changed.
+3. colon `:`
+4. message (lower-case)
+
+`fix(iframe): message`
+`feat(loader): message`
+
 ## IMA.js
 
 The [IMA.js](https://imajs.io) is an application development stack for developing
