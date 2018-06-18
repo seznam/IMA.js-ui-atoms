@@ -36,23 +36,24 @@ export default class Loader extends React.PureComponent {
   }
 
   render() {
-    let helper = this.context.$Utils.$UIComponentHelper;
+    const helper = this.context.$Utils.$UIComponentHelper;
+    const { className, mode, layout, color = 'black' } = this.props;
 
     return (
       <div
         className={helper.cssClasses(
           {
             'atm-loader': true,
-            ['atm-loader-' + this.props.mode]: this.props.mode,
-            ['atm-loader-' + this.props.layout]: this.props.layout
+            ['atm-loader-' + mode]: mode,
+            ['atm-loader-' + layout]: layout
           },
-          this.props.className
+          className
         )}
         {...helper.getDataProps(this.props)}>
         <div
           className={helper.cssClasses({
             'atm-loader-animation': true,
-            ['atm-loader-animation-' + this.props.color]: this.props.color
+            ['atm-loader-animation-' + color]: color
           })}
         />
       </div>
