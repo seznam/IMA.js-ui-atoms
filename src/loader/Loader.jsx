@@ -19,6 +19,7 @@ export default class Loader extends React.PureComponent {
     return {
       mode: PropTypes.string, //possible values: [small, big]
       layout: PropTypes.string, //possible values: [center]
+      color: PropTypes.oneOf(['black', 'white']),
       className: PropTypes.string,
       'data-e2e': PropTypes.string
     };
@@ -28,6 +29,7 @@ export default class Loader extends React.PureComponent {
     return {
       mode: '',
       layout: '',
+      color: 'black',
       className: '',
       'data-e2e': null
     };
@@ -47,7 +49,12 @@ export default class Loader extends React.PureComponent {
           this.props.className
         )}
         {...helper.getDataProps(this.props)}>
-        <div className={helper.cssClasses('atm-loader-animation')} />
+        <div
+          className={helper.cssClasses({
+            'atm-loader-animation': true,
+            ['atm-loader-animation-' + this.props.color]: this.props.color
+          })}
+        />
       </div>
     );
   }
