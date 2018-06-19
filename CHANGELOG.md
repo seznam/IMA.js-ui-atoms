@@ -1,3 +1,13 @@
+<a name="1.1.1"></a>
+## [1.1.1](https://github.com/seznam/IMA.js-ui-atoms/compare/1.1.0...1.1.1) (2018-06-19)
+
+
+### Bug Fixes
+
+* **less:** added missing less files in published module ([4ce31e3](https://github.com/seznam/IMA.js-ui-atoms/commit/4ce31e3))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/seznam/IMA.js-ui-atoms/compare/1.0.0...1.1.0) (2018-06-19)
 
