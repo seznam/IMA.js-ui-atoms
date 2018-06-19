@@ -88,6 +88,7 @@ export default class HtmlIframe extends React.PureComponent {
             scrolling={this.props.scrolling}
             sandbox={this.props.sandbox}
             frameBorder={this.props.frameBorder}
+            allow={this.props.allow}
             allowFullScreen={this.props.allowFullScreen}
             className={helper.cssClasses({
               'atm-fill': true
@@ -111,6 +112,11 @@ export default class HtmlIframe extends React.PureComponent {
 								${this.props.sandbox ? `sandbox="${this.props.sandbox}"` : ''}
 								scrolling="${this.props.scrolling || 'no'}"
 								frameborder="${this.props.frameBorder || '0'}"
+                                ${
+                                  this.props.allow
+                                    ? `allow="${this.props.allow}"`
+                                    : ''
+                                }
 								allowfullscreen="${this.props.allowFullScreen || '0'}"
 								class="${helper.cssClasses('atm-fill atm-loaded')}"
 								${helper.getAriaProps(this.props)}></iframe>`
