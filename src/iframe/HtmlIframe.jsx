@@ -119,7 +119,7 @@ export default class HtmlIframe extends React.PureComponent {
                                 }
 								allowfullscreen="${this.props.allowFullScreen || '0'}"
 								class="${helper.cssClasses('atm-fill atm-loaded')}"
-								${helper.getAriaProps(this.props)}></iframe>`
+								${helper.serializeObjectToNoScript(helper.getAriaProps(this.props))}></iframe>`
           }}
         />
       </div>

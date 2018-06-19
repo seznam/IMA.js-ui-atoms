@@ -100,7 +100,7 @@ export default class HtmlVideo extends React.PureComponent {
 								${this.props.loop ? 'loop' : ''}
 								${this.props.muted ? 'muted' : ''}
 								class="${helper.cssClasses('atm-fill atm-loaded')}"
-								${helper.getAriaProps(this.props)}></video>`
+								${helper.serializeObjectToNoScript(helper.getAriaProps(this.props))}></video>`
           }}
         />
       </div>

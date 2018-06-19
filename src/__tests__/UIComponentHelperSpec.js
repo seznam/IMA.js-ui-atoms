@@ -26,7 +26,7 @@ describe('UIComponentHelper', () => {
     );
   });
 
-  xdescribe('isAmp method', () => {
+  describe('isAmp method', () => {
     it('should return true if url query contains amp flag of value true', () => {
       spyOn(_router, 'getCurrentRouteInfo').and.returnValue({
         params: { amp: true }
@@ -77,6 +77,19 @@ describe('UIComponentHelper', () => {
 
     it('should return only attributes with name aria-*', () => {
       expect(uiComponentHelper.getAriaProps(props)).toEqual(ariaProps);
+    });
+  });
+
+  describe('serializeObjectToNoScript method', () => {
+    let ariaProps = {
+      'aria-label': 'something',
+      'aria-hidden': true
+    };
+
+    it('should return serialized object to string for noscript tag', () => {
+      expect(
+        uiComponentHelper.serializeObjectToNoScript(ariaProps)
+      ).toMatchSnapshot();
     });
   });
 

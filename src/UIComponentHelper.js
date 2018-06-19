@@ -166,6 +166,18 @@ export default class UIComponentHelper {
   }
 
   /**
+   * Serialize object as key and value pairs for using in noscript tag.
+   *
+   * @param {Object<string, *>} object
+   * @return {string}
+   */
+  serializeObjectToNoScript(object = {}) {
+    return Object.keys(object).reduce((string, key) => {
+      return string + ` ${key}="${object[key]}"`;
+    }, '');
+  }
+
+  /**
    * Generate a string of CSS classes from the properties of the passed-in
    * object that resolve to true.
    *

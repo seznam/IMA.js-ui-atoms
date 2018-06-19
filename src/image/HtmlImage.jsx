@@ -139,7 +139,7 @@ export default class HtmlImage extends React.PureComponent {
 								sizes="${this.props.sizes || ''}"
 								alt="${this.props.alt || ''}"
 								class="${helper.cssClasses('atm-fill atm-loaded')}"
-								${helper.getAriaProps(this.props)}/>`
+								${helper.serializeObjectToNoScript(helper.getAriaProps(this.props))}/>`
           }}
         />
       </div>
