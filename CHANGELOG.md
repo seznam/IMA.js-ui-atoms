@@ -1,3 +1,20 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/seznam/IMA.js-ui-atoms/compare/1.0.0...1.1.0) (2018-06-19)
+
+
+### Bug Fixes
+
+* **noscript:** serialize arai-* attributes for noscript tag ([7329966](https://github.com/seznam/IMA.js-ui-atoms/commit/7329966))
+
+
+### Features
+
+* **iframe:** added new prop allow ([11c9a74](https://github.com/seznam/IMA.js-ui-atoms/commit/11c9a74))
+* **loader:** default color for the loader ([c358ff0](https://github.com/seznam/IMA.js-ui-atoms/commit/c358ff0))
+* **loader:** option to render loader in white version ([7cc7b35](https://github.com/seznam/IMA.js-ui-atoms/commit/7cc7b35))
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/seznam/IMA.js-ui-atoms/compare/0.11.11...1.0.0) (2018-06-12)
 
