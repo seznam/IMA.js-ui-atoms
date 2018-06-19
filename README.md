@@ -70,7 +70,10 @@ Any commit that you make must follow simple rules that are automatically validat
 4. message (lower-case)
 
 `fix(iframe): message`
+
 `feat(loader): message`
+
+To simplify this process you can use `npm run commit` command that will interactively prompt for details and will also run linter before you commit. For more information see [commitizen/cz-cli](https://github.com/commitizen/cz-cli) repository.
 
 ## IMA.js
 
