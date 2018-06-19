@@ -20,7 +20,8 @@ let gulpConfig = {
 
 exports.build = gulp.series(
 	clean,
-	compile
+	compile,
+    copy
 );
 exports.copy = copy;
 
@@ -86,7 +87,7 @@ function less() {
 
 function copy() {
 	return gulp
-		.src(['./src/**/*.less', './package.json', './README.md'])
+		.src(['./src/**/*.less'])
 		.pipe(gulp.dest('./dist'));
 }
 
