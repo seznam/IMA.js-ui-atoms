@@ -23,3 +23,5 @@
 * **UIComponentHelper:** removed deprecated methods convertToNumber, getWindowViewportRect, getBoundingClientRect, getPercentOfVisibility and throttle. Use instead of that UIComponentHelper.componentPositions.(convertToNumber|getWindowViewportRect|getBoundingClientRect|getPercentOfVisibility) and UIComponentHelper.visibility.throttle.
 
 * **Visibility:** Visibility writer function receive full circle entry object with payload as argument. The payload are set from visibility reader. For parsing payload you can use [UIComponentHelper.wrapVisibilityWriter](https://github.com/seznam/IMA.js-ui-atoms/blob/master/src/UIComponentHelper.js#L254).
+
+* **Less:** Less files are in dist folder. You must update your app/build.js file from `./node_modules/ima-ui-atoms/*.less` to `./node_modules/ima-ui-atoms/dist/*.less`.
