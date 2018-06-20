@@ -1,3 +1,13 @@
+<a name="1.1.2"></a>
+## [1.1.2](https://github.com/seznam/IMA.js-ui-atoms/compare/1.1.1...1.1.2) (2018-06-20)
+
+
+### Bug Fixes
+
+* **htmlimage:** returning value from getDerivedStateFromProps ([113daa3](https://github.com/seznam/IMA.js-ui-atoms/commit/113daa3))
+
+
+
 <a name="1.1.1"></a>
 ## [1.1.1](https://github.com/seznam/IMA.js-ui-atoms/compare/1.1.0...1.1.1) (2018-06-19)
 
