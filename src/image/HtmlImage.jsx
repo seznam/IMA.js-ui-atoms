@@ -34,6 +34,8 @@ export default class HtmlImage extends React.PureComponent {
         noloading: nextProps.noloading || prevState.noloading || false
       };
     }
+
+    return null;
   }
 
   constructor(props, context) {
