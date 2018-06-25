@@ -1,3 +1,13 @@
+<a name="1.1.3"></a>
+## [1.1.3](https://github.com/seznam/IMA.js-ui-atoms/compare/1.1.2...1.1.3) (2018-06-25)
+
+
+### Bug Fixes
+
+* **htmlimage:** use src if srcset not supported ([9d47983](https://github.com/seznam/IMA.js-ui-atoms/commit/9d47983)), closes [#43](https://github.com/seznam/IMA.js-ui-atoms/issues/43)
+
+
+
 <a name="1.1.2"></a>
 ## [1.1.2](https://github.com/seznam/IMA.js-ui-atoms/compare/1.1.1...1.1.2) (2018-06-20)
 
