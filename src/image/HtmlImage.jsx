@@ -200,7 +200,7 @@ export default class HtmlImage extends React.PureComponent {
     };
     let { src, srcSet, sizes } = this.props;
 
-    if (srcSet && this._areResponsiveImagesSupported()) {
+    if (srcSet && this._areResponsiveImagesSupported(image)) {
       if (sizes) {
         image.sizes = sizes;
       }
@@ -228,9 +228,7 @@ export default class HtmlImage extends React.PureComponent {
     }
   }
 
-  _areResponsiveImagesSupported() {
-    const img = new Image();
-
-    return 'srcset' in img && 'sizes' in img;
+  _areResponsiveImagesSupported(image) {
+    return 'srcset' in image && 'sizes' in image;
   }
 }
