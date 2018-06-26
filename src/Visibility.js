@@ -2,6 +2,12 @@ import { Circle } from 'infinite-circle';
 import RouterEvents from 'ima/router/Events';
 
 /**
+ * @callback notifyCallback
+ * @param {Object} payload
+ * @param {string} payload.type
+ */
+
+/**
  * Visibility helper.
  */
 export default class Visibility {
@@ -112,6 +118,8 @@ export default class Visibility {
 
   /**
    * The visibility helper start checking visibility of registered entries.
+   *
+   * @param {notifyCallback}
    */
   _listenOnEvents(notify) {
     this._dispatcher.listen(RouterEvents.AFTER_HANDLE_ROUTE, notify);
@@ -121,6 +129,8 @@ export default class Visibility {
 
   /**
    * The visibility helper stop checking visibility of registered entries.
+   *
+   * @param {notifyCallback}
    */
   _unlistenOnEvents(notify) {
     this._dispatcher.unlisten(RouterEvents.AFTER_HANDLE_ROUTE, notify);
