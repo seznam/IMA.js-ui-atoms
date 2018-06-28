@@ -24,11 +24,13 @@ export default class Image extends React.PureComponent {
       sizes: PropTypes.string,
       width: PropTypes.number,
       height: PropTypes.number,
-      layout: PropTypes.string,
       alt: PropTypes.string,
-      noloading: PropTypes.bool,
+      onLoad: PropTypes.func,
+      onError: PropTypes.func,
       className: PropTypes.string,
       'data-e2e': PropTypes.string,
+      layout: PropTypes.string,
+      noloading: PropTypes.bool,
       extendedPadding: PropTypes.number
     };
   }
@@ -40,11 +42,11 @@ export default class Image extends React.PureComponent {
       sizes: null,
       width: null,
       height: null,
-      layout: null,
       alt: null,
-      noloading: false,
       className: '',
       'data-e2e': null,
+      layout: null,
+      noloading: false,
       extendedPadding: 0
     };
   }

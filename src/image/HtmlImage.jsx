@@ -123,6 +123,8 @@ export default class HtmlImage extends React.PureComponent {
             srcSet={this.props.srcSet}
             sizes={this.props.sizes}
             alt={this.props.alt}
+            onLoad={this.props.onLoad}
+            onError={this.props.onError}
             className={helper.cssClasses({
               'atm-fill': true,
               'atm-loaded': this.state.noloading && this._visibleInViewport
