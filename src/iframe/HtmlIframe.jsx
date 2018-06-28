@@ -90,6 +90,7 @@ export default class HtmlIframe extends React.PureComponent {
             frameBorder={this.props.frameBorder}
             allow={this.props.allow}
             allowFullScreen={this.props.allowFullScreen}
+            onLoad={this.props.onLoad}
             className={helper.cssClasses({
               'atm-fill': true
             })}

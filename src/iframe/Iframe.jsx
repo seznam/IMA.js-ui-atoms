@@ -31,6 +31,7 @@ export default class Iframe extends React.PureComponent {
       frameBorder: PropTypes.string,
       noloading: PropTypes.bool,
       className: PropTypes.string,
+      onLoad: PropTypes.function,
       'data-e2e': PropTypes.string
     };
   }
@@ -50,6 +51,7 @@ export default class Iframe extends React.PureComponent {
       frameBorder: '0',
       noloading: false,
       className: '',
+      onLoad: null,
       'data-e2e': null
     };
   }
