@@ -246,6 +246,7 @@ export default class UIComponentHelper {
 
     let observer = new IntersectionObserver(entries => {
       intersectionObserverEntry = entries[0];
+      this._visibility.circle.notify({ type: 'intersectionobserver', entries });
     }, observerConfig);
     observer.observe(element);
 

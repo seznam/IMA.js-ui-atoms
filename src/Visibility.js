@@ -2,9 +2,14 @@ import { Circle } from 'infinite-circle';
 import RouterEvents from 'ima/router/Events';
 
 /**
+  @typedef notifyPayload
+  @type {object}
+  @property {string} type - event type
+ /
+
+/**
  * @callback notifyCallback
- * @param {Object} payload
- * @param {string} payload.type
+ * @param {notifyPayload} payload
  */
 
 /**
@@ -117,12 +122,25 @@ export default class Visibility {
   }
 
   /**
+   * The method add circle instance to be running in the next infinite loop.
+   *
+   * @param {notifyPayload}
+   */
+  notify(...rest) {
+    this.circle.notify(...rest);
+  }
+
+  /**
    * The visibility helper start checking visibility of registered entries.
    *
    * @param {notifyCallback}
    */
   _listenOnEvents(notify) {
-    this._dispatcher.listen(RouterEvents.AFTER_HANDLE_ROUTE, notify);
+    this._dispatcher.listen(
+      RouterEvents.AFTER_HANDLE_ROUTE,
+      this._afterHandleRoute,
+      this
+    );
     this._window.bindEventListener(this._window.getWindow(), 'resize', notify);
     this._window.bindEventListener(this._window.getWindow(), 'scroll', notify);
   }
@@ -133,7 +151,11 @@ export default class Visibility {
    * @param {notifyCallback}
    */
   _unlistenOnEvents(notify) {
-    this._dispatcher.unlisten(RouterEvents.AFTER_HANDLE_ROUTE, notify);
+    this._dispatcher.unlisten(
+      RouterEvents.AFTER_HANDLE_ROUTE,
+      this._afterHandleRoute,
+      this
+    );
     this._window.unbindEventListener(
       this._window.getWindow(),
       'resize',
@@ -144,5 +166,19 @@ export default class Visibility {
       'scroll',
       notify
     );
+  }
+
+  /**
+   * The method normalize routeInfo to {@notifyPayload}.
+   *
+   * @param {Object} routeInfo
+   */
+  _afterHandleRoute(routeInfo) {
+    const payload = Object.assign(
+      { type: RouterEvents.AFTER_HANDLE_ROUTE },
+      routeInfo
+    );
+
+    this.notify(payload);
   }
 }
