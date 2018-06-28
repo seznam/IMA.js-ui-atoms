@@ -1,3 +1,21 @@
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/seznam/IMA.js-ui-atoms/compare/1.1.3...1.2.0) (2018-06-28)
+
+
+### Bug Fixes
+
+* **htmliframe:** fixed PropTypes ([6447e8f](https://github.com/seznam/IMA.js-ui-atoms/commit/6447e8f)), closes [#46](https://github.com/seznam/IMA.js-ui-atoms/issues/46)
+* **loader:** name of the animation keyframes scrambles correctly ([1fe7c2b](https://github.com/seznam/IMA.js-ui-atoms/commit/1fe7c2b))
+
+
+### Features
+
+* **htmliframe:** added onload property ([2633253](https://github.com/seznam/IMA.js-ui-atoms/commit/2633253)), closes [#46](https://github.com/seznam/IMA.js-ui-atoms/issues/46)
+* **htmlimage:** added onload and onerror properties ([f7f6b45](https://github.com/seznam/IMA.js-ui-atoms/commit/f7f6b45))
+* **visibility:** added notify method and unify event structure ([7b4047a](https://github.com/seznam/IMA.js-ui-atoms/commit/7b4047a))
+
+
+
 <a name="1.1.3"></a>
 ## [1.1.3](https://github.com/seznam/IMA.js-ui-atoms/compare/1.1.2...1.1.3) (2018-06-25)
 
