@@ -92,7 +92,7 @@
         "npm": ">=4 <6"
     },
     "dependencies": {
-        "infinite-circle": "0.2.0"
+        "infinite-circle": "^0.2.1"
     },
     "config": {
         "commitizen": {
