@@ -50,6 +50,7 @@ export default class HtmlImage extends React.PureComponent {
     this._registeredVisibilityId = null;
 
     this._onVisibilityWriter = this.onVisibilityWriter.bind(this);
+    this._visibilityWriterRegistered = false;
 
     this._rootElement = React.createRef();
   }
@@ -160,9 +161,12 @@ export default class HtmlImage extends React.PureComponent {
   }
 
   _unregisterToCheckingVisibility() {
-    this.utils.$UIComponentHelper.visibility.unregister(
-      this._registeredVisibilityId
-    );
+    if (this._visibilityWriterRegistered) {
+      this.utils.$UIComponentHelper.visibility.unregister(
+        this._registeredVisibilityId
+      );
+      this._visibilityWriterRegistered = false;
+    }
   }
 
   _registerToCheckingVisibility() {
@@ -186,6 +190,7 @@ export default class HtmlImage extends React.PureComponent {
       }),
       $UIComponentHelper.wrapVisibilityWriter(this._onVisibilityWriter)
     );
+    this._visibilityWriterRegistered = true;    
   }
 
   _preLoadImage() {
