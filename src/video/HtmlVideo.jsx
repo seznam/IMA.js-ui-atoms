@@ -31,7 +31,6 @@ export default class HtmlVideo extends React.PureComponent {
     this._registeredVisibilityId = null;
 
     this._onVisibilityWriter = this.onVisibilityWriter.bind(this);
-    this._visibilityWriterRegistered = false;
 
     this._rootElement = React.createRef();
   }
@@ -131,11 +130,11 @@ export default class HtmlVideo extends React.PureComponent {
   }
 
   _unregisterToCheckingVisibility() {
-    if (this._visibilityWriterRegistered) {
+    if (this._registeredVisibilityId) {
       this.utils.$UIComponentHelper.visibility.unregister(
         this._registeredVisibilityId
       );
-      this._visibilityWriterRegistered = false;
+      this._registeredVisibilityId = null;
     }
   }
 
@@ -156,7 +155,6 @@ export default class HtmlVideo extends React.PureComponent {
       }),
       $UIComponentHelper.wrapVisibilityWriter(this._onVisibilityWriter)
     );
-    this._visibilityWriterRegistered = true;
   }
 
   _preLoadPosterImage() {
