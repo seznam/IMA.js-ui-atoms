@@ -1,3 +1,13 @@
+<a name="1.2.2"></a>
+## [1.2.2](https://github.com/seznam/IMA.js-ui-atoms/compare/1.2.1...1.2.2) (2018-08-02)
+
+
+### Bug Fixes
+
+* visibility helper - unregister only registered listeners ([01d911c](https://github.com/seznam/IMA.js-ui-atoms/commit/01d911c))
+
+
+
 <a name="1.2.1"></a>
 ## [1.2.1](https://github.com/seznam/IMA.js-ui-atoms/compare/1.2.0...1.2.1) (2018-07-05)
 
