@@ -136,9 +136,12 @@ export default class HtmlIframe extends React.PureComponent {
   }
 
   _unregisterToCheckingVisibility() {
-    this.utils.$UIComponentHelper.visibility.unregister(
-      this._registeredVisibilityId
-    );
+    if (this._registeredVisibilityId) {
+      this.utils.$UIComponentHelper.visibility.unregister(
+        this._registeredVisibilityId
+      );
+      this._registeredVisibilityId = null;
+    }
   }
 
   _registerToCheckingVisibility() {
