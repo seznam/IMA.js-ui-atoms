@@ -148,7 +148,7 @@ export default class UIComponentHelper {
 
   /**
    * Filters the provided properties and returns only the properties which's
-   * names start with the {@code aria-} prefix.
+   * names start with the {@code aria-} prefix or role property.
    *
    * @param {Object<string, *>} props
    * @return {Object<string, (number|string)>}
@@ -157,7 +157,7 @@ export default class UIComponentHelper {
     let ariaProps = {};
 
     for (let propertyName of Object.keys(props)) {
-      if (/^aria-/.test(propertyName)) {
+      if (/^(aria-|role)/.test(propertyName)) {
         ariaProps[propertyName] = props[propertyName];
       }
     }
