@@ -1,3 +1,13 @@
+<a name="1.2.3"></a>
+## [1.2.3](https://github.com/seznam/IMA.js-ui-atoms/compare/1.2.2...1.2.3) (2018-08-07)
+
+
+### Bug Fixes
+
+* allow attribure "role" for component aria props ([1b75ba3](https://github.com/seznam/IMA.js-ui-atoms/commit/1b75ba3))
+
+
+
 <a name="1.2.2"></a>
 ## [1.2.2](https://github.com/seznam/IMA.js-ui-atoms/compare/1.2.1...1.2.2) (2018-08-02)
 
