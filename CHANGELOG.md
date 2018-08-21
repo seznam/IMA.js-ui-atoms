@@ -1,3 +1,13 @@
+<a name="1.2.4"></a>
+## [1.2.4](https://github.com/seznam/IMA.js-ui-atoms/compare/1.2.3...1.2.4) (2018-08-21)
+
+
+### Bug Fixes
+
+* **uicomponenthelper:** ratio of 0 fixed ([1dfa870](https://github.com/seznam/IMA.js-ui-atoms/commit/1dfa870)), closes [#50](https://github.com/seznam/IMA.js-ui-atoms/issues/50)
+
+
+
 <a name="1.2.3"></a>
 ## [1.2.3](https://github.com/seznam/IMA.js-ui-atoms/compare/1.2.2...1.2.3) (2018-08-07)
 
