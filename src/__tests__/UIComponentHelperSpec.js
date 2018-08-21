@@ -117,4 +117,61 @@ describe('UIComponentHelper', () => {
       ).toBeTruthy();
     });
   });
+
+  describe('wrapVisibilityWriter method', () => {
+    function writer(...args) {
+      return `writer value: ${args.join(',')}`;
+    }
+
+    function wrapWriterTest(payload) {
+      const entry = { payload };
+      const parse = uiComponentHelper.wrapVisibilityWriter(writer);
+
+      return parse(entry);
+    }
+
+    const OBSERVER = {};
+    const PAYLOAD = 42;
+    const PAYLOAD_OBJECT = {
+      observer: OBSERVER,
+      intersectionObserverEntry: {
+        intersectionRatio: 0.3,
+        isIntersecting: true
+      }
+    };
+    const NONINTERSECTED_PAYLOAD_OBJECT = {
+      observer: OBSERVER,
+      intersectionObserverEntry: {
+        intersectionRatio: 0,
+        isIntersecting: false
+      }
+    };
+    const BUGGED_PAYLOAD_OBJECT = {
+      observer: OBSERVER,
+      intersectionObserverEntry: {
+        intersectionRatio: 0,
+        isIntersecting: true
+      }
+    };
+
+    it('should return a return value of writer(PAYLOAD)', () => {
+      const result = wrapWriterTest(PAYLOAD);
+      expect(result).toBe(writer(PAYLOAD));
+    });
+
+    it('should return a return value of writer(30, OBSERVER)', () => {
+      const result = wrapWriterTest(PAYLOAD_OBJECT);
+      expect(result).toBe(writer(30, OBSERVER));
+    });
+
+    it('should return a return value of writer(0, OBSERVER)', () => {
+      const result = wrapWriterTest(NONINTERSECTED_PAYLOAD_OBJECT);
+      expect(result).toBe(writer(0, OBSERVER));
+    });
+
+    it('should return a return value of writer(100, OBSERVER)', () => {
+      const result = wrapWriterTest(BUGGED_PAYLOAD_OBJECT);
+      expect(result).toBe(writer(100, OBSERVER));
+    });
+  });
 });
