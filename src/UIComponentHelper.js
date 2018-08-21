@@ -273,9 +273,13 @@ export default class UIComponentHelper {
         payload.observer &&
         payload.intersectionObserverEntry
       ) {
+        const { intersectionObserverEntry: entry, observer } = payload;
+        const isIntersectionBugged =
+          entry.intersectionRatio === 0 && entry.isIntersecting;
+
         return writer(
-          payload.intersectionObserverEntry.intersectionRatio * 100,
-          payload.observer
+          !isIntersectionBugged ? entry.intersectionRatio * 100 : 100,
+          observer
         );
       } else {
         return writer(payload);
