@@ -173,7 +173,9 @@ export default class HtmlImage extends React.PureComponent {
     let extendedPadding =
       this.props.extendedPadding ||
       Math.max(
-        Math.round($UIComponentHelper.componentPositions.getWindowViewportRect().height),
+        Math.round(
+          $UIComponentHelper.componentPositions.getWindowViewportRect().height
+        ),
         MIN_EXTENDED_PADDING
       );
 
