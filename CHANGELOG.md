@@ -1,3 +1,13 @@
+<a name="1.2.5"></a>
+## [1.2.5](https://github.com/seznam/IMA.js-ui-atoms/compare/1.2.4...1.2.5) (2018-08-31)
+
+
+### Bug Fixes
+
+* **htmlimage:** reduced amount of imageObserver padding ([9ca44a5](https://github.com/seznam/IMA.js-ui-atoms/commit/9ca44a5))
+
+
+
 <a name="1.2.4"></a>
 ## [1.2.4](https://github.com/seznam/IMA.js-ui-atoms/compare/1.2.3...1.2.4) (2018-08-21)
 
