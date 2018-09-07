@@ -1,3 +1,13 @@
+<a name="1.2.6"></a>
+## [1.2.6](https://github.com/seznam/IMA.js-ui-atoms/compare/1.2.5...1.2.6) (2018-09-07)
+
+
+### Bug Fixes
+
+* **iframe:** allow updating noloading props after mounting ([1003262](https://github.com/seznam/IMA.js-ui-atoms/commit/1003262))
+
+
+
 <a name="1.2.5"></a>
 ## [1.2.5](https://github.com/seznam/IMA.js-ui-atoms/compare/1.2.4...1.2.5) (2018-08-31)
 
