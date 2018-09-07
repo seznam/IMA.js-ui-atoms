@@ -18,12 +18,17 @@ export default class HtmlIframe extends React.PureComponent {
     };
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return {
+      visibleInViewport:
+        nextProps.noloading || prevState.visibleInViewport || false
+    };
+  }
+
   constructor(props, context) {
     super(props, context);
 
-    this.state = {
-      visibleInViewport: props.noloading || false
-    };
+    this.state = {};
 
     this._registeredVisibilityId = null;
 
@@ -128,10 +133,13 @@ export default class HtmlIframe extends React.PureComponent {
   }
 
   onVisibilityWriter(visibility, observer) {
-    if (this.state.visibleInViewport === false && visibility > 0) {
+    if (visibility > 0) {
       observer && observer.disconnect();
       this._unregisterToCheckingVisibility();
-      this.setState({ visibleInViewport: true });
+
+      if (this.state.visibleInViewport === false) {
+        this.setState({ visibleInViewport: true });
+      }
     }
   }
 
