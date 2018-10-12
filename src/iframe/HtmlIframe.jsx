@@ -41,6 +41,17 @@ export default class HtmlIframe extends React.PureComponent {
     return this.context.$Utils || this.props.$Utils;
   }
 
+  get useIntersectionObserver() {
+    return !(
+      this.utils.$Settings &&
+      this.utils.$Settings.plugin &&
+      this.utils.$Settings.plugin.imaUiAtoms &&
+      this.utils.$Settings.plugin.imaUiAtoms.useIntersectionObserver &&
+      this.utils.$Settings.plugin.imaUiAtoms.useIntersectionObserver.iframes ===
+        false
+    );
+  }
+
   componentDidMount() {
     if (this.state.visibleInViewport === false) {
       this._registerToCheckingVisibility();
@@ -161,7 +172,7 @@ export default class HtmlIframe extends React.PureComponent {
 
     this._registeredVisibilityId = $UIComponentHelper.visibility.register(
       $UIComponentHelper.getVisibilityReader(this._rootElement.current, {
-        useIntersectionObserver: true,
+        useIntersectionObserver: this.useIntersectionObserver,
         extendedPadding,
         width: this.props.width,
         height: this.props.height

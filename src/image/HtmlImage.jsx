@@ -58,6 +58,17 @@ export default class HtmlImage extends React.PureComponent {
     return this.context.$Utils || this.props.$Utils;
   }
 
+  get useIntersectionObserver() {
+    return !(
+      this.utils.$Settings &&
+      this.utils.$Settings.plugin &&
+      this.utils.$Settings.plugin.imaUiAtoms &&
+      this.utils.$Settings.plugin.imaUiAtoms.useIntersectionObserver &&
+      this.utils.$Settings.plugin.imaUiAtoms.useIntersectionObserver.images ===
+        false
+    );
+  }
+
   componentDidMount() {
     this._mounted = true;
 
@@ -182,7 +193,7 @@ export default class HtmlImage extends React.PureComponent {
     this._registeredVisibilityId = $UIComponentHelper.visibility.register(
       $UIComponentHelper.getVisibilityReader(this._rootElement.current, {
         extendedPadding,
-        useIntersectionObserver: true,
+        useIntersectionObserver: this.useIntersectionObserver,
         width: this.props.width,
         height: this.props.height
       }),
