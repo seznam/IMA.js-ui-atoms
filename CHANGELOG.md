@@ -1,3 +1,18 @@
+<a name="1.2.7"></a>
+## [1.2.7](https://github.com/seznam/IMA.js-ui-atoms/compare/1.2.6...1.2.7) (2018-10-12)
+
+
+### Bug Fixes
+
+* **uicomponenthelper:** unregister observer even after the first position calculation ([edb88f9](https://github.com/seznam/IMA.js-ui-atoms/commit/edb88f9))
+
+
+### Features
+
+* **htmlimage,htmliframe,htmlvideo:** usage of the intersection observer is adjustable in Settings ([fc12718](https://github.com/seznam/IMA.js-ui-atoms/commit/fc12718))
+
+
+
 <a name="1.2.6"></a>
 ## [1.2.6](https://github.com/seznam/IMA.js-ui-atoms/compare/1.2.5...1.2.6) (2018-09-07)
 
