@@ -253,7 +253,7 @@ export default class UIComponentHelper {
     return function readVisibility() {
       if (!isFirstPositionCalculated) {
         isFirstPositionCalculated = true;
-        return self._getReader(element, options)();
+        return { visibility: self._getReader(element, options)(), observer };
       }
 
       return { intersectionObserverEntry, observer };
@@ -281,6 +281,12 @@ export default class UIComponentHelper {
           !isIntersectionBugged ? entry.intersectionRatio * 100 : 100,
           observer
         );
+      } else if (
+        typeof payload === 'object' &&
+        payload.observer &&
+        payload.visibility
+      ) {
+        return writer(payload.visibility, payload.observer);
       } else {
         return writer(payload);
       }
