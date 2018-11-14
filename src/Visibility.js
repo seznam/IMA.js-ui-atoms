@@ -82,7 +82,7 @@ export default class Visibility {
    * method use requestAnimationFrame function which is called during page
    * scrolling.
    *
-   * @method throttl
+   * @method throttle
    * @param {function(...)} eventHandler
    * @param {number?} interval
    * @param {Object?} context
