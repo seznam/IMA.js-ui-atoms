@@ -29,7 +29,9 @@ export default class AmpIframe extends React.PureComponent {
       frameBorder,
       className,
       allowFullScreen,
-      resizable
+      resizable,
+      marginWidth,
+      marginHeight
     } = this.props;
     let props = {
       src,
@@ -40,6 +42,8 @@ export default class AmpIframe extends React.PureComponent {
       layout,
       sandbox,
       frameBorder,
+      marginWidth,
+      marginHeight,
       class: helper.cssClasses(className)
     };
 
