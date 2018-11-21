@@ -1,3 +1,13 @@
+<a name="1.2.8"></a>
+## [1.2.8](https://github.com/seznam/IMA.js-ui-atoms/compare/1.2.7...1.2.8) (2018-11-21)
+
+
+### Features
+
+* **iframe:** added marginWidth, marginHeight properties ([056a05f](https://github.com/seznam/IMA.js-ui-atoms/commit/056a05f))
+
+
+
 <a name="1.2.7"></a>
 ## [1.2.7](https://github.com/seznam/IMA.js-ui-atoms/compare/1.2.6...1.2.7) (2018-10-12)
 
