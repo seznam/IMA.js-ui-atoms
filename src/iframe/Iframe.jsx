@@ -32,7 +32,9 @@ export default class Iframe extends React.PureComponent {
       noloading: PropTypes.bool,
       className: PropTypes.string,
       onLoad: PropTypes.func,
-      'data-e2e': PropTypes.string
+      'data-e2e': PropTypes.string,
+      marginWidth: PropTypes.number,
+      marginHeight: PropTypes.number
     };
   }
 
@@ -52,7 +54,9 @@ export default class Iframe extends React.PureComponent {
       noloading: false,
       className: '',
       onLoad: null,
-      'data-e2e': null
+      'data-e2e': null,
+      marginWidth: null,
+      marginHeight: null
     };
   }
 

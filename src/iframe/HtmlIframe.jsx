@@ -107,6 +107,8 @@ export default class HtmlIframe extends React.PureComponent {
             allow={this.props.allow}
             allowFullScreen={this.props.allowFullScreen}
             onLoad={this.props.onLoad}
+            marginWidth={this.props.marginWidth}
+            marginHeight={this.props.marginHeight}
             className={helper.cssClasses({
               'atm-fill': true
             })}
@@ -135,6 +137,16 @@ export default class HtmlIframe extends React.PureComponent {
                                     : ''
                                 }
 								allowfullscreen="${this.props.allowFullScreen || '0'}"
+								${
+                  Number.isInteger(this.props.marginWidth)
+                    ? `marginwidth="${this.props.marginWidth}"`
+                    : ''
+                }
+								${
+                  Number.isInteger(this.props.marginHeight)
+                    ? `marginheight="${this.props.marginHeight}"`
+                    : ''
+                }
 								class="${helper.cssClasses('atm-fill atm-loaded')}"
 								${helper.serializeObjectToNoScript(helper.getAriaProps(this.props))}></iframe>`
           }}
