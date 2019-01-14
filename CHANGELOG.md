@@ -1,3 +1,8 @@
+<a name="1.2.9"></a>
+## [1.2.9](https://github.com/seznam/IMA.js-ui-atoms/compare/1.2.8...1.2.9) (2019-01-14)
+
+
+
 <a name="1.2.8"></a>
 ## [1.2.8](https://github.com/seznam/IMA.js-ui-atoms/compare/1.2.7...1.2.8) (2018-11-21)
 
