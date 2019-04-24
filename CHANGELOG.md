@@ -1,3 +1,13 @@
+<a name="1.2.10"></a>
+## [1.2.10](https://github.com/seznam/IMA.js-ui-atoms/compare/1.2.9...1.2.10) (2019-04-24)
+
+
+### Bug Fixes
+
+* **componentpositions:** fixed returning size for invisible element ([3d00a9c](https://github.com/seznam/IMA.js-ui-atoms/commit/3d00a9c))
+
+
+
 <a name="1.2.9"></a>
 ## [1.2.9](https://github.com/seznam/IMA.js-ui-atoms/compare/1.2.8...1.2.9) (2019-01-14)
 
