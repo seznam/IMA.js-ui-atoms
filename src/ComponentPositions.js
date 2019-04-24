@@ -162,14 +162,24 @@ export default class ComponentPositions {
       );
     }
 
-    let clientRect = element.getBoundingClientRect();
+    const clientRect = element.getBoundingClientRect();
+    const isInvisibleElement =
+      clientRect.top === 0 &&
+      clientRect.left === 0 &&
+      clientRect.width === 0 &&
+      clientRect.height === 0;
+
+    if (isInvisibleElement) {
+      const { top, left, width, height } = clientRect;
+
+      return { top, left, width, height };
+    }
+
     let elmRectStyle = {
       top: clientRect.top - extended,
       left: clientRect.left - extended,
       width: clientRect.width + 2 * extended,
-      height:
-        (clientRect.height || height || 0 / width || 0 * clientRect.width) +
-        2 * extended
+      height: (clientRect.height || height || 0 / width || 0) + 2 * extended
     };
 
     return elmRectStyle;

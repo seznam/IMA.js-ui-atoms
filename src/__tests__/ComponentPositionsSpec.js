@@ -87,7 +87,7 @@ describe('ComponentPositions', () => {
       }).toThrow();
     });
 
-    it('should returns expanded size for element', () => {
+    it('should return expanded size for element', () => {
       let element = {
         getBoundingClientRect: () => elmRect
       };
@@ -100,10 +100,27 @@ describe('ComponentPositions', () => {
         width: 700,
         height: 700
       });
+    });
 
-      expect(function() {
-        componentPositions.getBoundingClientRect({});
-      }).toThrow();
+    it('should return zero size for invisible element', () => {
+      let element = {
+        getBoundingClientRect: () => {
+          return { top: 0, left: 0, width: 0, height: 0 };
+        }
+      };
+
+      expect(
+        componentPositions.getBoundingClientRect(
+          element,
+          { width: 100, height: 100 },
+          300
+        )
+      ).toEqual({
+        top: 0,
+        left: 0,
+        width: 0,
+        height: 0
+      });
     });
   });
 });
