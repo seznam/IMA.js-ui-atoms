@@ -31,9 +31,9 @@ import Sizer from './sizer/Sizer';
 
 import Video from './video/Video';
 
-let defaultDependencies = ['$Router', ComponentPositions, Visibility];
+const defaultDependencies = ['$Router', ComponentPositions, Visibility];
 
-let $registerImaPlugin = ns => {
+const $registerImaPlugin = ns => {
   ns.namespace('ima.ui.atom');
   ns.namespace('ima.ui.atom.headline');
   ns.namespace('ima.ui.atom.iframe');
@@ -45,7 +45,7 @@ let $registerImaPlugin = ns => {
   ns.namespace('ima.ui.atom.sizer');
   ns.namespace('ima.ui.atom.video');
 
-  let nsHeadline = ns.ima.ui.atom.headline;
+  const nsHeadline = ns.ima.ui.atom.headline;
   nsHeadline.Headline = Headline;
   nsHeadline.Headline1 = Headline1;
   nsHeadline.Headline2 = Headline2;
@@ -68,7 +68,7 @@ let $registerImaPlugin = ns => {
   ns.ima.ui.atom.link.Link = Link;
   ns.ima.ui.atom.link.A = Link;
 
-  let nsList = ns.ima.ui.atom.list;
+  const nsList = ns.ima.ui.atom.list;
   nsList.List = List;
   nsList.ListItem = ListItem;
   nsList.OrderedList = OrderedList;
@@ -92,13 +92,34 @@ let $registerImaPlugin = ns => {
   ns.ima.ui.atom.defaultDependencies = defaultDependencies;
 };
 
-let initBind = (ns, oc) => {
+const initBind = (ns, oc) => {
   oc.inject(Infinite, []);
   //oc.inject(UIComponentHelper, defaultDependencies);
 };
 
-let initServices = (ns, oc) => {
+const initServices = (ns, oc) => {
   oc.get(UIComponentHelper).init();
+};
+
+const initSettings = () => {
+  return {
+    prod: {
+      plugin: {
+        imaUiAtoms: {
+          useIntersectionObserver: {
+            iframes: true,
+            images: true,
+            videos: true
+          },
+          disableNoScript: {
+            iframes: false,
+            images: false,
+            videos: false
+          }
+        }
+      }
+    }
+  };
 };
 
 export {
@@ -138,6 +159,7 @@ export {
   Video,
   initBind,
   initServices,
+  initSettings,
   $registerImaPlugin,
   Circle,
   Infinite,

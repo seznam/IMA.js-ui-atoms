@@ -35,6 +35,9 @@ export default class HtmlIframe extends React.PureComponent {
     this._onVisibilityWriter = this.onVisibilityWriter.bind(this);
 
     this._rootElement = React.createRef();
+
+    this._helper = this.utils.$UIComponentHelper;
+    this._settings = this.utils.$Settings;
   }
 
   get utils() {
@@ -42,14 +45,20 @@ export default class HtmlIframe extends React.PureComponent {
   }
 
   get useIntersectionObserver() {
-    return !(
-      this.utils.$Settings &&
-      this.utils.$Settings.plugin &&
-      this.utils.$Settings.plugin.imaUiAtoms &&
-      this.utils.$Settings.plugin.imaUiAtoms.useIntersectionObserver &&
-      this.utils.$Settings.plugin.imaUiAtoms.useIntersectionObserver.iframes ===
-        false
-    );
+    return this.props.useIntersectionObserver !== undefined
+      ? this.props.useIntersectionObserver
+      : this._settings.plugin.imaUiAtoms.useIntersectionObserver.iframes !==
+        undefined
+      ? this._settings.plugin.imaUiAtoms.useIntersectionObserver.iframes
+      : this._settings.plugin.imaUiAtoms.useIntersectionObserver;
+  }
+
+  get disableNoScript() {
+    return this.props.disableNoScript !== undefined
+      ? this.props.disableNoScript
+      : this._settings.plugin.imaUiAtoms.disableNoScript.iframes !== undefined
+      ? this._settings.plugin.imaUiAtoms.disableNoScript.iframes
+      : this._settings.plugin.imaUiAtoms.disableNoScript;
   }
 
   componentDidMount() {
@@ -63,12 +72,10 @@ export default class HtmlIframe extends React.PureComponent {
   }
 
   render() {
-    let helper = this.utils.$UIComponentHelper;
-
     return (
       <div
         ref={this._rootElement}
-        className={helper.cssClasses(
+        className={this._helper.cssClasses(
           {
             'atm-iframe': true,
             'atm-overflow': true,
@@ -86,7 +93,7 @@ export default class HtmlIframe extends React.PureComponent {
                 height: this.props.height || 'auto'
               }
         }
-        {...helper.getDataProps(this.props)}>
+        {...this._helper.getDataProps(this.props)}>
         {this.props.layout === 'responsive' ? (
           <Sizer
             width={this.props.width}
@@ -109,48 +116,56 @@ export default class HtmlIframe extends React.PureComponent {
             onLoad={this.props.onLoad}
             marginWidth={this.props.marginWidth}
             marginHeight={this.props.marginHeight}
-            className={helper.cssClasses({
+            className={this._helper.cssClasses({
               'atm-fill': true
             })}
-            {...helper.getAriaProps(this.props)}
+            {...this._helper.getAriaProps(this.props)}
           />
         ) : null}
-        <noscript
-          className={helper.cssClasses('atm-fill')}
-          style={{
-            display: 'block',
-            width: this.props.width || 'auto',
-            height: this.props.height || 'auto'
-          }}
-          dangerouslySetInnerHTML={{
-            __html: `<iframe
-								src="${this.props.src}"
-								${this.props.srcDoc !== null ? `srcdoc="${this.props.srcDoc}"` : ''}
-								width="${this.props.width || 'auto'}"
-								height="${this.props.height || 'auto'}"
-								${this.props.sandbox ? `sandbox="${this.props.sandbox}"` : ''}
-								scrolling="${this.props.scrolling || 'no'}"
-								frameborder="${this.props.frameBorder || '0'}"
-                                ${
-                                  this.props.allow
-                                    ? `allow="${this.props.allow}"`
-                                    : ''
-                                }
-								allowfullscreen="${this.props.allowFullScreen || '0'}"
-								${
-                  Number.isInteger(this.props.marginWidth)
-                    ? `marginwidth="${this.props.marginWidth}"`
-                    : ''
-                }
-								${
-                  Number.isInteger(this.props.marginHeight)
-                    ? `marginheight="${this.props.marginHeight}"`
-                    : ''
-                }
-								class="${helper.cssClasses('atm-fill atm-loaded')}"
-								${helper.serializeObjectToNoScript(helper.getAriaProps(this.props))}></iframe>`
-          }}
-        />
+        {!this.disableNoScript && (
+          <noscript
+            className={this._helper.cssClasses('atm-fill')}
+            style={{
+              display: 'block',
+              width: this.props.width || 'auto',
+              height: this.props.height || 'auto'
+            }}
+            dangerouslySetInnerHTML={{
+              __html: `<iframe
+                  src="${this.props.src}"
+                  ${
+                    this.props.srcDoc !== null
+                      ? `srcdoc="${this.props.srcDoc}"`
+                      : ''
+                  }
+                  width="${this.props.width || 'auto'}"
+                  height="${this.props.height || 'auto'}"
+                  ${this.props.sandbox ? `sandbox="${this.props.sandbox}"` : ''}
+                  scrolling="${this.props.scrolling || 'no'}"
+                  frameborder="${this.props.frameBorder || '0'}"
+                                  ${
+                                    this.props.allow
+                                      ? `allow="${this.props.allow}"`
+                                      : ''
+                                  }
+                  allowfullscreen="${this.props.allowFullScreen || '0'}"
+                  ${
+                    Number.isInteger(this.props.marginWidth)
+                      ? `marginwidth="${this.props.marginWidth}"`
+                      : ''
+                  }
+                  ${
+                    Number.isInteger(this.props.marginHeight)
+                      ? `marginheight="${this.props.marginHeight}"`
+                      : ''
+                  }
+                  class="${this._helper.cssClasses('atm-fill atm-loaded')}"
+                  ${this._helper.serializeObjectToNoScript(
+                    this._helper.getAriaProps(this.props)
+                  )}></iframe>`
+            }}
+          />
+        )}
       </div>
     );
   }
@@ -168,28 +183,25 @@ export default class HtmlIframe extends React.PureComponent {
 
   _unregisterToCheckingVisibility() {
     if (this._registeredVisibilityId) {
-      this.utils.$UIComponentHelper.visibility.unregister(
-        this._registeredVisibilityId
-      );
+      this._helper.visibility.unregister(this._registeredVisibilityId);
       this._registeredVisibilityId = null;
     }
   }
 
   _registerToCheckingVisibility() {
-    let { $UIComponentHelper } = this.utils;
     let extendedPadding = Math.max(
-      $UIComponentHelper.componentPositions.getWindowViewportRect().height / 2,
+      this._helper.componentPositions.getWindowViewportRect().height / 2,
       MIN_EXTENDED_PADDING
     );
 
-    this._registeredVisibilityId = $UIComponentHelper.visibility.register(
-      $UIComponentHelper.getVisibilityReader(this._rootElement.current, {
+    this._registeredVisibilityId = this._helper.visibility.register(
+      this._helper.getVisibilityReader(this._rootElement.current, {
         useIntersectionObserver: this.useIntersectionObserver,
         extendedPadding,
         width: this.props.width,
         height: this.props.height
       }),
-      $UIComponentHelper.wrapVisibilityWriter(this._onVisibilityWriter)
+      this._helper.wrapVisibilityWriter(this._onVisibilityWriter)
     );
   }
 }
