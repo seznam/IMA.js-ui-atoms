@@ -33,7 +33,7 @@ describe('Sizer component', () => {
     wrapper = shallow(<Sizer />, { context });
   });
 
-  fit('should set atm-sizer class', () => {
+  it('should set atm-sizer class', () => {
     expect(wrapper.hasClass('atm-sizer')).toBeTruthy();
   });
 
