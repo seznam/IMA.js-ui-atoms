@@ -33,6 +33,9 @@ export default class HtmlVideo extends React.PureComponent {
     this._onVisibilityWriter = this.onVisibilityWriter.bind(this);
 
     this._rootElement = React.createRef();
+
+    this._helper = this.utils.$UIComponentHelper;
+    this._settings = this.utils.$Settings;
   }
 
   get utils() {
@@ -40,23 +43,27 @@ export default class HtmlVideo extends React.PureComponent {
   }
 
   get useIntersectionObserver() {
-    return !(
-      this.utils.$Settings &&
-      this.utils.$Settings.plugin &&
-      this.utils.$Settings.plugin.imaUiAtoms &&
-      this.utils.$Settings.plugin.imaUiAtoms.useIntersectionObserver &&
-      this.utils.$Settings.plugin.imaUiAtoms.useIntersectionObserver.videos ===
-        false
-    );
+    return this.props.useIntersectionObserver !== undefined
+      ? this.props.useIntersectionObserver
+      : this._settings.plugin.imaUiAtoms.useIntersectionObserver.videos !==
+        undefined
+      ? this._settings.plugin.imaUiAtoms.useIntersectionObserver.videos
+      : this._settings.plugin.imaUiAtoms.useIntersectionObserver;
+  }
+
+  get disableNoScript() {
+    return this.props.disableNoScript !== undefined
+      ? this.props.disableNoScript
+      : this._settings.plugin.imaUiAtoms.disableNoScript.videos !== undefined
+      ? this._settings.plugin.imaUiAtoms.disableNoScript.videos
+      : this._settings.plugin.imaUiAtoms.disableNoScript;
   }
 
   render() {
-    let helper = this.utils.$UIComponentHelper;
-
     return (
       <div
         ref={this._rootElement}
-        className={helper.cssClasses(
+        className={this._helper.cssClasses(
           {
             'atm-video': true,
             'atm-overflow': true,
@@ -74,7 +81,7 @@ export default class HtmlVideo extends React.PureComponent {
                 height: this.props.height || 'auto'
               }
         }
-        {...helper.getDataProps(this.props)}>
+        {...this._helper.getDataProps(this.props)}>
         {this.props.layout === 'responsive' ? (
           <Sizer
             width={this.props.width}
@@ -92,28 +99,32 @@ export default class HtmlVideo extends React.PureComponent {
             muted={this.props.muted}
             width={this.props.width}
             height={this.props.height}
-            className={helper.cssClasses({
+            className={this._helper.cssClasses({
               'atm-fill': true,
               'atm-loaded': this.state.noloading && this._visibleInViewport
             })}
-            {...helper.getAriaProps(this.props)}>
+            {...this._helper.getAriaProps(this.props)}>
             <div placeholder="" />
             {this.props.children}
           </video>
         ) : null}
-        <noscript
-          dangerouslySetInnerHTML={{
-            __html: `<video
+        {!this.disableNoScript && (
+          <noscript
+            dangerouslySetInnerHTML={{
+              __html: `<video
 								src="${this.props.src || ''}"
 								poster="${this.props.alt || ''}"
 								controls
 								${this.props.autoplay ? 'autoPlay' : ''}
 								${this.props.loop ? 'loop' : ''}
 								${this.props.muted ? 'muted' : ''}
-								class="${helper.cssClasses('atm-fill atm-loaded')}"
-								${helper.serializeObjectToNoScript(helper.getAriaProps(this.props))}></video>`
-          }}
-        />
+								class="${this._helper.cssClasses('atm-fill atm-loaded')}"
+								${this._helper.serializeObjectToNoScript(
+                  this._helper.getAriaProps(this.props)
+                )}></video>`
+            }}
+          />
+        )}
       </div>
     );
   }
@@ -142,29 +153,26 @@ export default class HtmlVideo extends React.PureComponent {
 
   _unregisterToCheckingVisibility() {
     if (this._registeredVisibilityId) {
-      this.utils.$UIComponentHelper.visibility.unregister(
-        this._registeredVisibilityId
-      );
+      this._helper.visibility.unregister(this._registeredVisibilityId);
       this._registeredVisibilityId = null;
     }
   }
 
   _registerToCheckingVisibility() {
-    let { $UIComponentHelper } = this.utils;
     let extendedPadding = Math.max(
       Math.round(
-        $UIComponentHelper.componentPositions.getWindowViewportRect().height / 2
+        this._helper.componentPositions.getWindowViewportRect().height / 2
       ),
       EXTENDED_PADDING
     );
-    this._registeredVisibilityId = $UIComponentHelper.visibility.register(
-      $UIComponentHelper.getVisibilityReader(this._rootElement.current, {
+    this._registeredVisibilityId = this._helper.visibility.register(
+      this._helper.getVisibilityReader(this._rootElement.current, {
         useIntersectionObserver: this.useIntersectionObserver,
         extendedPadding,
         width: this.props.width,
         height: this.props.height
       }),
-      $UIComponentHelper.wrapVisibilityWriter(this._onVisibilityWriter)
+      this._helper.wrapVisibilityWriter(this._onVisibilityWriter)
     );
   }
 
