@@ -1,3 +1,13 @@
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/seznam/IMA.js-ui-atoms/compare/1.2.10...1.3.0) (2019-11-13)
+
+
+### Features
+
+* **noscript:** added option for disabling noScript rendering ([34fe2df](https://github.com/seznam/IMA.js-ui-atoms/commit/34fe2df))
+
+
+
 <a name="1.2.10"></a>
 ## [1.2.10](https://github.com/seznam/IMA.js-ui-atoms/compare/1.2.9...1.2.10) (2019-04-24)
 
