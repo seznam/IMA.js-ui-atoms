@@ -64,18 +64,13 @@ export default class HtmlImage extends React.PureComponent {
   get useIntersectionObserver() {
     return this.props.useIntersectionObserver !== undefined
       ? this.props.useIntersectionObserver
-      : this._settings.plugin.imaUiAtoms.useIntersectionObserver.images !==
-        undefined
-      ? this._settings.plugin.imaUiAtoms.useIntersectionObserver.images
-      : this._settings.plugin.imaUiAtoms.useIntersectionObserver;
+      : this._settings.plugin.uiAtoms.useIntersectionObserver.images;
   }
 
   get disableNoScript() {
     return this.props.disableNoScript !== undefined
       ? this.props.disableNoScript
-      : this._settings.plugin.imaUiAtoms.disableNoScript.images !== undefined
-      ? this._settings.plugin.imaUiAtoms.disableNoScript.images
-      : this._settings.plugin.imaUiAtoms.disableNoScript;
+      : this._settings.plugin.uiAtoms.disableNoScript.images;
   }
 
   componentDidMount() {

@@ -105,7 +105,7 @@ const initSettings = () => {
   return {
     prod: {
       plugin: {
-        imaUiAtoms: {
+        uiAtoms: {
           useIntersectionObserver: {
             iframes: true,
             images: true,

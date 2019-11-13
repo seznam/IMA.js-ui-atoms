@@ -143,7 +143,7 @@ describe('UIAtoms mount rendering', () => {
   describe('should render atoms without noscript tag - disabled by $Settings: ', () => {
     let mountOptions = getComponentOptions({
       plugin: {
-        imaUiAtoms: {
+        uiAtoms: {
           useIntersectionObserver: {
             iframes: true,
             images: true,
@@ -185,7 +185,7 @@ describe('UIAtoms mount rendering', () => {
   describe('should render atoms with noscript tag - disabled by $Settings, overriden by props: ', () => {
     let mountOptions = getComponentOptions({
       plugin: {
-        imaUiAtoms: {
+        uiAtoms: {
           useIntersectionObserver: {
             iframes: true,
             images: true,
@@ -237,7 +237,7 @@ describe('UIAtoms mount rendering', () => {
   describe('should render atoms without noscript tag - enabled by $Settings, overriden by props: ', () => {
     let mountOptions = getComponentOptions({
       plugin: {
-        imaUiAtoms: {
+        uiAtoms: {
           useIntersectionObserver: {
             iframes: true,
             images: true,

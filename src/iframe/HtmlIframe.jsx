@@ -47,18 +47,13 @@ export default class HtmlIframe extends React.PureComponent {
   get useIntersectionObserver() {
     return this.props.useIntersectionObserver !== undefined
       ? this.props.useIntersectionObserver
-      : this._settings.plugin.imaUiAtoms.useIntersectionObserver.iframes !==
-        undefined
-      ? this._settings.plugin.imaUiAtoms.useIntersectionObserver.iframes
-      : this._settings.plugin.imaUiAtoms.useIntersectionObserver;
+      : this._settings.plugin.uiAtoms.useIntersectionObserver.iframes;
   }
 
   get disableNoScript() {
     return this.props.disableNoScript !== undefined
       ? this.props.disableNoScript
-      : this._settings.plugin.imaUiAtoms.disableNoScript.iframes !== undefined
-      ? this._settings.plugin.imaUiAtoms.disableNoScript.iframes
-      : this._settings.plugin.imaUiAtoms.disableNoScript;
+      : this._settings.plugin.uiAtoms.disableNoScript.iframes;
   }
 
   componentDidMount() {

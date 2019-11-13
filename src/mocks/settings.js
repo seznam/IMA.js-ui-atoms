@@ -1,6 +1,6 @@
 const settings = {
   plugin: {
-    imaUiAtoms: {
+    uiAtoms: {
       useIntersectionObserver: {
         iframes: true,
         images: true,
