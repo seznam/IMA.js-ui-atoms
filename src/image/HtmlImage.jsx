@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PageContext, AbstractPureComponent } from '@ima/core';
 import React from 'react';
 import Loader from '../loader/Loader';
 import Sizer from '../sizer/Sizer';
@@ -13,11 +13,9 @@ const TIME_TO_SHOW_LOADER = 3000;
  * @module ima.ui.atom
  */
 
-export default class HtmlImage extends React.PureComponent {
-  static get contextTypes() {
-    return {
-      $Utils: PropTypes.object
-    };
+export default class HtmlImage extends AbstractPureComponent {
+  static get contextType() {
+    return PageContext;
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -55,10 +53,6 @@ export default class HtmlImage extends React.PureComponent {
 
     this._helper = this.utils.$UIComponentHelper;
     this._settings = this.utils.$Settings;
-  }
-
-  get utils() {
-    return this.context.$Utils || this.props.$Utils;
   }
 
   get useIntersectionObserver() {

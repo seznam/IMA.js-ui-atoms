@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PageContext, AbstractPureComponent } from '@ima/core';
 import React from 'react';
 
 /**
@@ -8,21 +8,9 @@ import React from 'react';
  * @module ima.ui.atom
  */
 
-export default class Loader extends React.PureComponent {
-  static get contextTypes() {
-    return {
-      $Utils: PropTypes.object
-    };
-  }
-
-  static get propTypes() {
-    return {
-      mode: PropTypes.string, //possible values: [small, big]
-      layout: PropTypes.string, //possible values: [center]
-      color: PropTypes.oneOf(['black', 'white']),
-      className: PropTypes.string,
-      'data-e2e': PropTypes.string
-    };
+export default class Loader extends AbstractPureComponent {
+  static get contextType() {
+    return PageContext;
   }
 
   static get defaultProps() {
@@ -36,7 +24,7 @@ export default class Loader extends React.PureComponent {
   }
 
   render() {
-    const helper = this.context.$Utils.$UIComponentHelper;
+    const helper = this.utils.$UIComponentHelper;
     const { className, mode, layout, color = 'black' } = this.props;
 
     return (

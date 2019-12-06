@@ -1,4 +1,4 @@
-# ima-ui-atoms
+# @ima/plugin-atoms
 
 The [IMA](https://imajs.io) UI atoms are elementary UI components based on
 the [Pattern Lab](http://patternlab.io/) design pattern for creating atomic design
@@ -15,7 +15,7 @@ All the atoms provided by this package are
 
 ```javascript
 
-npm install ima-ui-atoms --save
+npm install @ima/plugin-atoms --save
 
 ```
 
@@ -24,13 +24,13 @@ npm install ima-ui-atoms --save
 
 var vendors = {
     common: [
-        'ima-ui-atoms',
+        '@ima/plugin-atoms',
         'infinite-circle'
     ]
 };
 
 var less = [
-	'./node_modules/ima-ui-atoms/dist/*.less',
+	'./node_modules/@ima/plugin-atoms/dist/*.less',
 ];
 
 /*
@@ -40,13 +40,13 @@ ns.ima.ui.atom.headline.Headline1;
 ns.ima.ui.atom.paragraph.Paragraph;
 ...
 
-import { Headline1, Paragraph, Link, Image, Iframe, Video, ListItem, UnorderedList, Loader } from 'ima-ui-atoms';
+import { Headline1, Paragraph, Link, Image, Iframe, Video, ListItem, UnorderedList, Loader } from '@ima/plugin-atoms';
 */
 ```
 
 ```
 // /app/config/bind.js
-import { UIComponentHelper } from 'ima-ui-atoms';
+import { UIComponentHelper } from '@ima/plugin-atoms';
 
 // add helper to utils
 oc.constant('$Utils', {

@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PageContext, AbstractPureComponent } from '@ima/core';
 import React from 'react';
 
 /**
@@ -8,21 +8,9 @@ import React from 'react';
  * @module ima.ui.atom
  */
 
-export default class Paragraph extends React.PureComponent {
-  static get contextTypes() {
-    return {
-      $Utils: PropTypes.object
-    };
-  }
-
-  static get propTypes() {
-    return {
-      className: PropTypes.string,
-      text: PropTypes.string,
-      mode: PropTypes.string,
-      style: PropTypes.object,
-      'data-e2e': PropTypes.string
-    };
+export default class Paragraph extends AbstractPureComponent {
+  static get contextType() {
+    return PageContext;
   }
 
   static get defaultProps() {
@@ -36,7 +24,7 @@ export default class Paragraph extends React.PureComponent {
   }
 
   render() {
-    let helper = this.context.$Utils.$UIComponentHelper;
+    let helper = this.utils.$UIComponentHelper;
     let { mode, align, className, children, text, style } = this.props;
     let paragraph = null;
     let componentClassName = helper.cssClasses(

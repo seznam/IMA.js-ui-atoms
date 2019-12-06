@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PageContext, AbstractPureComponent } from '@ima/core';
 import React from 'react';
 
 // @server-side class AmpIframe extends __VARIABLE__ {__CLEAR__}\nexports.default = AmpIframe;
@@ -9,15 +9,13 @@ import React from 'react';
  * @namespace ima.ui.atom.iframe
  * @module ima.ui.atom
  */
-export default class AmpIframe extends React.PureComponent {
-  static get contextTypes() {
-    return {
-      $Utils: PropTypes.object
-    };
+export default class AmpIframe extends AbstractPureComponent {
+  static get contextType() {
+    return PageContext;
   }
 
   render() {
-    let helper = this.context.$Utils.$UIComponentHelper;
+    let helper = this.utils.$UIComponentHelper;
     let {
       src,
       srcDoc,
