@@ -1,12 +1,12 @@
 {
   "name": "@ima/plugin-atoms",
-  "version": "2.0.0",
+  "version": "1.3.0",
   "description": "IMA.js UI React atoms",
   "main": "index.server.cjs.js",
   "browser": "index.client.cjs.js",
   "module": "index.server.esm.js",
   "scripts": {
-    "preversion": "npm test && npm run lint && npm run build",
+    "preversion": "npm test && npm run lint && npm run build && npm run copy",
     "postversion": "npm run build && npm run changelog && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish",
     "lint": "node_modules/.bin/eslint -c ./.eslintrc.js --fix './src/**/*.{js,jsx}' './example/**/*.{js,jsx}' './*.js' --ignore-path ./.prettierignore",
     "test": "node_modules/.bin/jest --no-watchman",

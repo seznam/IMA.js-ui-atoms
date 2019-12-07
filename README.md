@@ -44,22 +44,6 @@ import { Headline1, Paragraph, Link, Image, Iframe, Video, ListItem, UnorderedLi
 */
 ```
 
-```
-// /app/config/bind.js
-import { UIComponentHelper } from '@ima/plugin-atoms';
-
-// add helper to utils
-oc.constant('$Utils', {
-	.
-	.
-	.
-	$UIComponentHelper: oc.get(UIComponentHelper)
-});
-
-oc.bind('GoogleAnalytic', GoogleAnalytic);
-
-```
-
 ## Contributing
 
 Contributing to this repository is done via [Pull-Requests](https://github.com/seznam/IMA.js-ui-atoms/pulls).
@@ -79,4 +63,4 @@ To simplify this process you can use `npm run commit` command that will interact
 
 The [IMA.js](https://imajs.io) is an application development stack for developing
 isomorphic applications written in pure JavaScript.
-You can find the [IMA.js](https://imajs.io) skeleton application at <https://github.com/seznam/IMA.js-skeleton>.
+You can find the [IMA.js](https://imajs.io) skeleton application at <https://github.com/seznam/ima>.
