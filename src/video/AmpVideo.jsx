@@ -1,4 +1,4 @@
-import { PageContext, AbstractPureComponent } from '@ima/core';
+import { PageContext } from '@ima/core';
 import React from 'react';
 
 // @server-side class AmpVideo extends __VARIABLE__ {__CLEAR__}\nexports.default = AmpVideo;
@@ -9,13 +9,14 @@ import React from 'react';
  * @namespace ima.ui.atom.video
  * @module ima.ui.atom
  */
-export default class AmpVideo extends AbstractPureComponent {
+export default class AmpVideo extends React.PureComponent {
+  //#if _SERVER
   static get contextType() {
     return PageContext;
   }
 
   render() {
-    let helper = this.utils.$UIComponentHelper;
+    let helper = this.context.$Utils.$UIComponentHelper;
     let {
       src,
       poster,
@@ -49,4 +50,5 @@ export default class AmpVideo extends AbstractPureComponent {
       </amp-video>
     );
   }
+  //#endif
 }

@@ -1,4 +1,4 @@
-import { PageContext, AbstractPureComponent } from '@ima/core';
+import { PageContext } from '@ima/core';
 import React from 'react';
 
 // @server-side class AmpImage extends __VARIABLE__ {__CLEAR__}\nexports.default = AmpImage;
@@ -9,13 +9,14 @@ import React from 'react';
  * @namespace ima.ui.atom.image
  * @module ima.ui.atom
  */
-export default class AmpImage extends AbstractPureComponent {
+export default class AmpImage extends React.PureComponent {
+  //#if _SERVER
   static get contextType() {
     return PageContext;
   }
 
   render() {
-    let helper = this.utils.$UIComponentHelper;
+    let helper = this.context.$Utils.$UIComponentHelper;
     let {
       src,
       srcSet,
@@ -44,4 +45,5 @@ export default class AmpImage extends AbstractPureComponent {
       />
     );
   }
+  //#endif
 }

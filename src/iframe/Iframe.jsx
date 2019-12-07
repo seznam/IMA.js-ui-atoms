@@ -1,4 +1,4 @@
-import { PageContext, AbstractPureComponent } from '@ima/core';
+import { PageContext } from '@ima/core';
 import React from 'react';
 import HtmlIframe from './HtmlIframe';
 import AmpIframe from './AmpIframe';
@@ -9,7 +9,7 @@ import AmpIframe from './AmpIframe';
  * @namespace ima.ui.atom.iframe
  * @module ima.ui.atom
  */
-export default class Iframe extends AbstractPureComponent {
+export default class Iframe extends React.PureComponent {
   static get contextType() {
     return PageContext;
   }
@@ -37,7 +37,7 @@ export default class Iframe extends AbstractPureComponent {
   }
 
   render() {
-    if (this.utils.$UIComponentHelper.isAmp()) {
+    if (this.context.$Utils.$UIComponentHelper.isAmp()) {
       return <AmpIframe {...this.props} />;
     } else {
       return <HtmlIframe {...this.props} />;

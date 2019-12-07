@@ -1,4 +1,4 @@
-import { PageContext, AbstractPureComponent } from '@ima/core';
+import { PageContext } from '@ima/core';
 import React from 'react';
 
 /**
@@ -7,7 +7,7 @@ import React from 'react';
  * @namespace ima.ui.atom.headline
  * @module ima.ui.atom
  */
-export default class Headline extends AbstractPureComponent {
+export default class Headline extends React.PureComponent {
   static get contextType() {
     return PageContext;
   }
@@ -27,7 +27,7 @@ export default class Headline extends AbstractPureComponent {
   render() {
     let headline = null;
     let { type: Type, id, mode, text, className, children, style } = this.props;
-    let helper = this.utils.$UIComponentHelper;
+    let helper = this.context.$Utils.$UIComponentHelper;
     let computedClassName = helper.cssClasses(
       {
         ['atm-headline']: true,

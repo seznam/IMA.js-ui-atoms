@@ -1,14 +1,9 @@
-let del = require('del');
 let gulp = require('gulp');
-let babel = require('gulp-babel');
-let rename = require('gulp-rename');
 let path = require('path');
 let browserify = require('browserify');
 let babelify = require('babelify');
 let watchify = require('watchify');
 let fs = require('fs');
-let cache = require('gulp-cached');
-let remember = require('gulp-remember');
 let gulpLess = require('gulp-less');
 let b = null;
 
@@ -18,28 +13,7 @@ let gulpConfig = {
   }
 };
 
-exports.build = gulp.series(clean, compile, copy);
 exports.copy = copy;
-
-function compile() {
-  return gulp
-    .src('./src/**/*.{js,jsx}')
-    .pipe(cache('compile'))
-    .pipe(
-      babel({
-        moduleIds: true,
-        presets: ['@babel/preset-react'],
-        plugins: ['@babel/plugin-transform-modules-commonjs']
-      })
-    )
-    .pipe(remember('compile'))
-    .pipe(
-      rename(path => {
-        path.extname = '.js';
-      })
-    )
-    .pipe(gulp.dest('./dist'));
-}
 
 function bundle() {
   if (!b) {
@@ -92,11 +66,7 @@ function copy() {
   return gulp.src(['./src/**/*.less']).pipe(gulp.dest('./dist'));
 }
 
-function clean() {
-  return del(['./dist']);
-}
-
-exports['dev'] = gulp.series(compile, less, bundle, dev);
+exports['dev'] = gulp.series(less, bundle, dev);
 function dev() {
   gulp.watch('./src/**/*.less', less);
   gulp.watch(
@@ -106,7 +76,7 @@ function dev() {
     },
     bundle
   );
-  gulp.watch('./src/**/*.{js,jsx}', gulp.series(compile, bundle));
+  gulp.watch('./src/**/*.{js,jsx}', gulp.series(bundle));
 }
 
 if (gulpConfig.onTerminate) {

@@ -1,4 +1,4 @@
-import { PageContext, AbstractPureComponent } from '@ima/core';
+import { PageContext } from '@ima/core';
 import React from 'react';
 
 /**
@@ -8,7 +8,7 @@ import React from 'react';
  * @module ima.ui.atom
  */
 
-export default class List extends AbstractPureComponent {
+export default class List extends React.PureComponent {
   static get contextType() {
     return PageContext;
   }
@@ -24,7 +24,7 @@ export default class List extends AbstractPureComponent {
   }
 
   render() {
-    let helper = this.utils.$UIComponentHelper;
+    let helper = this.context.$Utils.$UIComponentHelper;
     let { type: Type, mode, id, className, children, style } = this.props;
 
     return (

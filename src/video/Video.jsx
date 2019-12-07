@@ -1,4 +1,4 @@
-import { PageContext, AbstractPureComponent } from '@ima/core';
+import { PageContext } from '@ima/core';
 import React from 'react';
 import AmpVideo from './AmpVideo';
 import HtmlVideo from './HtmlVideo';
@@ -10,7 +10,7 @@ import HtmlVideo from './HtmlVideo';
  * @module ima.ui.atom
  */
 
-export default class Video extends AbstractPureComponent {
+export default class Video extends React.PureComponent {
   static get contextType() {
     return PageContext;
   }
@@ -32,7 +32,7 @@ export default class Video extends AbstractPureComponent {
   }
 
   render() {
-    if (this.utils.$UIComponentHelper.isAmp()) {
+    if (this.context.$Utils.$UIComponentHelper.isAmp()) {
       return <AmpVideo {...this.props} />;
     } else {
       return <HtmlVideo {...this.props} />;

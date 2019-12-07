@@ -1,4 +1,4 @@
-import { PageContext, AbstractPureComponent } from '@ima/core';
+import { PageContext } from '@ima/core';
 import React from 'react';
 import HtmlImage from './HtmlImage';
 import AmpImage from './AmpImage';
@@ -10,7 +10,7 @@ import AmpImage from './AmpImage';
  * @module ima.ui.atom
  */
 
-export default class Image extends AbstractPureComponent {
+export default class Image extends React.PureComponent {
   static get contextType() {
     return PageContext;
   }
@@ -32,7 +32,7 @@ export default class Image extends AbstractPureComponent {
   }
 
   render() {
-    if (this.utils.$UIComponentHelper.isAmp()) {
+    if (this.context.$Utils.$UIComponentHelper.isAmp()) {
       return <AmpImage {...this.props} />;
     } else {
       return <HtmlImage {...this.props} />;

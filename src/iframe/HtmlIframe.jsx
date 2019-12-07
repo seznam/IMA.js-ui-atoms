@@ -1,4 +1,4 @@
-import { PageContext, AbstractPureComponent } from '@ima/core';
+import { PageContext } from '@ima/core';
 import React from 'react';
 import Sizer from '../sizer/Sizer';
 
@@ -11,7 +11,7 @@ const MIN_EXTENDED_PADDING = 500;
  * @module ima.ui.atom
  */
 
-export default class HtmlIframe extends AbstractPureComponent {
+export default class HtmlIframe extends React.PureComponent {
   static get contextType() {
     return PageContext;
   }
@@ -34,8 +34,8 @@ export default class HtmlIframe extends AbstractPureComponent {
 
     this._rootElement = React.createRef();
 
-    this._helper = this.utils.$UIComponentHelper;
-    this._settings = this.utils.$Settings;
+    this._helper = this.context.$Utils.$UIComponentHelper;
+    this._settings = this.context.$Utils.$Settings;
   }
 
   get useIntersectionObserver() {

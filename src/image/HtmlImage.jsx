@@ -1,4 +1,4 @@
-import { PageContext, AbstractPureComponent } from '@ima/core';
+import { PageContext } from '@ima/core';
 import React from 'react';
 import Loader from '../loader/Loader';
 import Sizer from '../sizer/Sizer';
@@ -13,7 +13,7 @@ const TIME_TO_SHOW_LOADER = 3000;
  * @module ima.ui.atom
  */
 
-export default class HtmlImage extends AbstractPureComponent {
+export default class HtmlImage extends React.PureComponent {
   static get contextType() {
     return PageContext;
   }
@@ -51,8 +51,8 @@ export default class HtmlImage extends AbstractPureComponent {
 
     this._rootElement = React.createRef();
 
-    this._helper = this.utils.$UIComponentHelper;
-    this._settings = this.utils.$Settings;
+    this._helper = this.context.$Utils.$UIComponentHelper;
+    this._settings = this.context.$Utils.$Settings;
   }
 
   get useIntersectionObserver() {

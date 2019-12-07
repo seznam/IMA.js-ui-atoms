@@ -1,3 +1,4 @@
+import { ComponentUtils } from '@ima/core';
 import { Infinite, Circle, uuid } from 'infinite-circle';
 
 import UIComponentHelper from './UIComponentHelper';
@@ -99,6 +100,12 @@ const initBind = (ns, oc) => {
 
 const initServices = (ns, oc) => {
   oc.get(UIComponentHelper).init();
+
+  oc.get(ComponentUtils).register(
+    '$UIComponentHelper',
+    UIComponentHelper,
+    '@ima/plugin-atoms'
+  );
 };
 
 const initSettings = () => {

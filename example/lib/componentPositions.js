@@ -1,4 +1,4 @@
-import { ComponentPositions } from '../../dist/main.js';
+import { ComponentPositions } from '../../dist/atoms.client.cjs.js';
 import _window from './windowMock';
 
 let componentPositions = new ComponentPositions(_window);

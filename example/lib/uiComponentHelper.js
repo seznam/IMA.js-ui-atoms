@@ -1,4 +1,4 @@
-import { UIComponentHelper } from '../../dist/main.js';
+import { UIComponentHelper } from '../../dist/atoms.client.cjs.js';
 import componentPositions from './componentPositions';
 import _router from './routerMock';
 import _window from './windowMock';
