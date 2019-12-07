@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PageContext, AbstractPureComponent } from '@ima/core';
 import React from 'react';
 import HtmlImage from './HtmlImage';
 import AmpImage from './AmpImage';
@@ -10,29 +10,9 @@ import AmpImage from './AmpImage';
  * @module ima.ui.atom
  */
 
-export default class Image extends React.PureComponent {
-  static get contextTypes() {
-    return {
-      $Utils: PropTypes.object
-    };
-  }
-
-  static get propTypes() {
-    return {
-      src: PropTypes.string,
-      srcSet: PropTypes.string,
-      sizes: PropTypes.string,
-      width: PropTypes.number,
-      height: PropTypes.number,
-      alt: PropTypes.string,
-      onLoad: PropTypes.func,
-      onError: PropTypes.func,
-      className: PropTypes.string,
-      'data-e2e': PropTypes.string,
-      layout: PropTypes.string,
-      noloading: PropTypes.bool,
-      extendedPadding: PropTypes.number
-    };
+export default class Image extends AbstractPureComponent {
+  static get contextType() {
+    return PageContext;
   }
 
   static get defaultProps() {
@@ -52,7 +32,7 @@ export default class Image extends React.PureComponent {
   }
 
   render() {
-    if (this.context.$Utils.$UIComponentHelper.isAmp()) {
+    if (this.utils.$UIComponentHelper.isAmp()) {
       return <AmpImage {...this.props} />;
     } else {
       return <HtmlImage {...this.props} />;

@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PageContext, AbstractPureComponent } from '@ima/core';
 import React from 'react';
 
 /**
@@ -7,23 +7,9 @@ import React from 'react';
  * @namespace ima.ui.atom.headline
  * @module ima.ui.atom
  */
-export default class Headline extends React.PureComponent {
-  static get contextTypes() {
-    return {
-      $Utils: PropTypes.object
-    };
-  }
-
-  static get propTypes() {
-    return {
-      id: PropTypes.string,
-      className: PropTypes.string,
-      text: PropTypes.string,
-      type: PropTypes.string,
-      mode: PropTypes.string,
-      style: PropTypes.object,
-      'data-e2e': PropTypes.string
-    };
+export default class Headline extends AbstractPureComponent {
+  static get contextType() {
+    return PageContext;
   }
 
   static get defaultProps() {
@@ -41,7 +27,7 @@ export default class Headline extends React.PureComponent {
   render() {
     let headline = null;
     let { type: Type, id, mode, text, className, children, style } = this.props;
-    let helper = this.context.$Utils.$UIComponentHelper;
+    let helper = this.utils.$UIComponentHelper;
     let computedClassName = helper.cssClasses(
       {
         ['atm-headline']: true,

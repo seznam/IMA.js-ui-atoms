@@ -14,7 +14,6 @@ module.exports = {
             allow: ['warn', 'error']
         }],
 
-        'react/prop-types': 0,
         'react/wrap-multilines': 0
     },
     'plugins': [

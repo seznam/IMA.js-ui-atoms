@@ -1,5 +1,5 @@
+import { RouterEvents } from '@ima/core';
 import { Circle } from 'infinite-circle';
-import RouterEvents from 'ima/router/Events';
 
 /**
   @typedef notifyPayload

@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PageContext, AbstractPureComponent } from '@ima/core';
 import React from 'react';
 
 /**
@@ -7,20 +7,9 @@ import React from 'react';
  * @namespace ima.ui.atom.sizer
  * @module ima.ui.atom
  */
-export default class Sizer extends React.PureComponent {
-  static get contextTypes() {
-    return {
-      $Utils: PropTypes.object
-    };
-  }
-
-  static get propTypes() {
-    return {
-      width: PropTypes.number,
-      height: PropTypes.number,
-      placeholder: PropTypes.bool,
-      className: PropTypes.string
-    };
+export default class Sizer extends AbstractPureComponent {
+  static get contextType() {
+    return PageContext;
   }
 
   static get defaultProps() {
@@ -33,7 +22,7 @@ export default class Sizer extends React.PureComponent {
   }
 
   render() {
-    let helper = this.context.$Utils.$UIComponentHelper;
+    let helper = this.utils.$UIComponentHelper;
 
     return (
       <div

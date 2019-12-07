@@ -1,3 +1,4 @@
+import { AbstractPureComponent } from '@ima/core';
 import React from 'react';
 import List from './List';
 
@@ -8,7 +9,7 @@ import List from './List';
  * @module ima.ui.atom
  */
 
-export default class UnorderedList extends React.PureComponent {
+export default class UnorderedList extends AbstractPureComponent {
   render() {
     return <List {...this.props} type="ul" />;
   }

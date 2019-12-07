@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PageContext, AbstractPureComponent } from '@ima/core';
 import React from 'react';
 import Sizer from '../sizer/Sizer';
 
@@ -11,11 +11,9 @@ const EXTENDED_PADDING = 300;
  * @module ima.ui.atom
  */
 
-export default class HtmlVideo extends React.PureComponent {
-  static get contextTypes() {
-    return {
-      $Utils: PropTypes.object
-    };
+export default class HtmlVideo extends AbstractPureComponent {
+  static get contextType() {
+    return PageContext;
   }
 
   constructor(props, context) {
@@ -36,10 +34,6 @@ export default class HtmlVideo extends React.PureComponent {
 
     this._helper = this.utils.$UIComponentHelper;
     this._settings = this.utils.$Settings;
-  }
-
-  get utils() {
-    return this.context.$Utils || this.props.$Utils;
   }
 
   get useIntersectionObserver() {

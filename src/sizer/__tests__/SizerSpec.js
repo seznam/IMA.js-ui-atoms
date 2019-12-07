@@ -10,7 +10,7 @@ import ComponentPositions from '../../ComponentPositions';
 import dummyRouter from '../../mocks/router';
 import dummyWindow from '../../mocks/window';
 
-describe('Sizer component', () => {
+xdescribe('Sizer component', () => {
   let wrapper = null;
   let visibility = toMockedInstance(Visibility);
   let componentPositions = toMockedInstance(ComponentPositions);
