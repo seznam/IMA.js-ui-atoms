@@ -1,3 +1,14 @@
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/seznam/IMA.js-ui-atoms/compare/1.3.0...2.0.0) (2019-12-07)
+
+
+### Features
+
+* uodate to IMA@17 ([5c45ad6](https://github.com/seznam/IMA.js-ui-atoms/commit/5c45ad6))
+* update to ima 17 ([806428c](https://github.com/seznam/IMA.js-ui-atoms/commit/806428c))
+
+
+
 <a name="1.3.0"></a>
 # [1.3.0](https://github.com/seznam/IMA.js-ui-atoms/compare/1.2.10...1.3.0) (2019-11-13)
 
