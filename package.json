@@ -28,7 +28,8 @@
     "url": "https://github.com/seznam/IMA.js-ui-atoms.git"
   },
   "publishConfig": {
-    "registry": "http://registry.npmjs.org/"
+    "registry": "http://registry.npmjs.org/",
+    "access": "public"
   },
   "bugs": {
     "url": "https://github.com/seznam/IMA.js-ui-atoms/issues"

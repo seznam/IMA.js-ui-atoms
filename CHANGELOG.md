@@ -9,8 +9,7 @@
 
 ### Features
 
-* uodate to IMA@17 ([5c45ad6](https://github.com/seznam/IMA.js-ui-atoms/commit/5c45ad6))
-* update to ima 17 ([806428c](https://github.com/seznam/IMA.js-ui-atoms/commit/806428c))
+* update to IMA@17 ([5c45ad6](https://github.com/seznam/IMA.js-ui-atoms/commit/5c45ad6)),  ([806428c](https://github.com/seznam/IMA.js-ui-atoms/commit/806428c))
 
 
 
