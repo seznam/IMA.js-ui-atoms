@@ -36,44 +36,6 @@ describe('Sizer component', () => {
     wrapper = shallow(<Component />, { context });
   });
 
-  // it('should snapshot', () => {
-  //   // const renderer = new ShallowRenderer();
-  //   // renderer.render(<PageContext.Provider value = {context}>
-  //   //   <Sizer />
-  //   // </PageContext.Provider>);
-  //   // const text = renderer.getRenderOutput();
-  //   //
-  //   // console.log(text);
-  //   //
-  //   //
-  //   // let result = TestRenderer.create(
-  //   //   <PageContext.Provider value = {context}>
-  //   //     <Sizer />
-  //   //   </PageContext.Provider>
-  //   // );
-  //
-  //   let instance = shallow(
-  //     <PageContext.Provider value = {context}>
-  //       <Sizer />
-  //     </PageContext.Provider>
-  //   , { context });
-  //
-  //   console.log(instance.dive({ context }));
-  //
-  //   // Sizer.contextTypes = {
-  //   //   $Utils: () => {}
-  //   // };
-  //   //
-  //   // wrapper = shallow(
-  //   //   <Sizer />
-  //   // , { context });
-  //   // //wrapper = wrapper.dive();
-  //   //
-  //   //  expect(wrapper.hasClass('atm-sizer')).toBeTruthy();
-  //   //
-  //   // expect(wrapper).toMatchSnapshot();
-  // });
-
   it('should set atm-sizer class', () => {
     expect(wrapper.hasClass('atm-sizer')).toBeTruthy();
   });
