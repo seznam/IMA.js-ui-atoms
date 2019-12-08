@@ -1,5 +1,4 @@
 import classnames from 'classnames';
-import { PageContext } from '@ima/core';
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Infinite } from 'infinite-circle';
