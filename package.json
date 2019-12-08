@@ -75,6 +75,7 @@
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-replace": "^2.2.0",
+    "shallow-with-context": "0.0.1",
     "to-mock": "^1.5.4",
     "watchify": "3.11.1"
   },
@@ -112,9 +113,9 @@
     "testEnvironment": "node",
     "coverageThreshold": {
       "global": {
-        "functions": 30,
-        "lines": 30,
-        "statements": 30
+        "functions": 45,
+        "lines": 45,
+        "statements": 45
       }
     },
     "setupFiles": [

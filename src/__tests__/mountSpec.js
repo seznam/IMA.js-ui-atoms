@@ -33,8 +33,6 @@ const componentPositions = toMockedInstance(ComponentPositions, {
 });
 const infinite = toMockedInstance(Infinite);
 
-const childContextTypes = PageContext;
-
 function getComponentOptions(overrideSettings = {}) {
   const $Settings = Object.assign({}, _settings, overrideSettings);
 
@@ -56,14 +54,13 @@ function getComponentOptions(overrideSettings = {}) {
   };
   const mountOptions = {
     context,
-    childContextTypes,
     someProp: true
   };
 
   return mountOptions;
 }
 
-xdescribe('UIAtoms mount rendering', () => {
+describe('UIAtoms mount rendering', () => {
   let wrapper = null;
 
   afterEach(() => {
@@ -77,7 +74,12 @@ xdescribe('UIAtoms mount rendering', () => {
 
     it('should render Image with noscript tag', () => {
       const Component = UIAtoms.Image;
-      wrapper = mount(<Component src="example.jpg" />, mountOptions);
+      wrapper = mount(
+        <PageContext.Provider value={mountOptions.context}>
+          <Component src="example.jpg" />
+        </PageContext.Provider>,
+        mountOptions
+      );
 
       expect(wrapper.html()).toMatchSnapshot();
       expect(wrapper.find('noscript').length).toEqual(1);
@@ -85,7 +87,12 @@ xdescribe('UIAtoms mount rendering', () => {
 
     it('should render Video with noscript tag', () => {
       const Component = UIAtoms.Video;
-      wrapper = mount(<Component src="example.mov" />, mountOptions);
+      wrapper = mount(
+        <PageContext.Provider value={mountOptions.context}>
+          <Component src="example.mov" />
+        </PageContext.Provider>,
+        mountOptions
+      );
 
       expect(wrapper.html()).toMatchSnapshot();
       expect(wrapper.find('noscript').length).toEqual(1);
@@ -93,7 +100,12 @@ xdescribe('UIAtoms mount rendering', () => {
 
     it('should render Iframe with noscript tag', () => {
       const Component = UIAtoms.Iframe;
-      wrapper = mount(<Component src="example.html" />, mountOptions);
+      wrapper = mount(
+        <PageContext.Provider value={mountOptions.context}>
+          <Component src="example.html" />
+        </PageContext.Provider>,
+        mountOptions
+      );
 
       expect(wrapper.html()).toMatchSnapshot();
       expect(wrapper.find('noscript').length).toEqual(1);
@@ -106,7 +118,9 @@ xdescribe('UIAtoms mount rendering', () => {
     it('Image without noscript tag', () => {
       const Component = UIAtoms.Image;
       wrapper = mount(
-        <Component src="example.jpg" disableNoScript={true} />,
+        <PageContext.Provider value={mountOptions.context}>
+          <Component src="example.jpg" disableNoScript={true} />
+        </PageContext.Provider>,
         mountOptions
       );
 
@@ -117,7 +131,9 @@ xdescribe('UIAtoms mount rendering', () => {
     it('Video without noscript tag', () => {
       const Component = UIAtoms.Video;
       wrapper = mount(
-        <Component src="example.mov" disableNoScript={true} />,
+        <PageContext.Provider value={mountOptions.context}>
+          <Component src="example.mov" disableNoScript={true} />
+        </PageContext.Provider>,
         mountOptions
       );
 
@@ -128,7 +144,9 @@ xdescribe('UIAtoms mount rendering', () => {
     it('Iframe without noscript tag', () => {
       const Component = UIAtoms.Iframe;
       wrapper = mount(
-        <Component src="example.html" disableNoScript={true} />,
+        <PageContext.Provider value={mountOptions.context}>
+          <Component src="example.html" disableNoScript={true} />
+        </PageContext.Provider>,
         mountOptions
       );
 
@@ -157,14 +175,24 @@ xdescribe('UIAtoms mount rendering', () => {
 
     it('Image without noscript tag', () => {
       const Component = UIAtoms.Image;
-      wrapper = mount(<Component src="example.jpg" />, mountOptions);
+      wrapper = mount(
+        <PageContext.Provider value={mountOptions.context}>
+          <Component src="example.jpg" />
+        </PageContext.Provider>,
+        mountOptions
+      );
 
       expect(wrapper.html()).toMatchSnapshot();
       expect(wrapper.find('noscript').length).toEqual(0);
     });
     it('Video without noscript tag', () => {
       const Component = UIAtoms.Video;
-      wrapper = mount(<Component src="example.mov" />, mountOptions);
+      wrapper = mount(
+        <PageContext.Provider value={mountOptions.context}>
+          <Component src="example.mov" />
+        </PageContext.Provider>,
+        mountOptions
+      );
 
       expect(wrapper.html()).toMatchSnapshot();
       expect(wrapper.find('noscript').length).toEqual(0);
@@ -172,7 +200,12 @@ xdescribe('UIAtoms mount rendering', () => {
 
     it('Iframe without noscript tag', () => {
       const Component = UIAtoms.Iframe;
-      wrapper = mount(<Component src="example.html" />, mountOptions);
+      wrapper = mount(
+        <PageContext.Provider value={mountOptions.context}>
+          <Component src="example.html" />
+        </PageContext.Provider>,
+        mountOptions
+      );
 
       expect(wrapper.html()).toMatchSnapshot();
       expect(wrapper.find('noscript').length).toEqual(0);
@@ -200,7 +233,9 @@ xdescribe('UIAtoms mount rendering', () => {
     it('Image without noscript tag', () => {
       const Component = UIAtoms.Image;
       wrapper = mount(
-        <Component src="example.jpg" disableNoScript={false} />,
+        <PageContext.Provider value={mountOptions.context}>
+          <Component src="example.jpg" disableNoScript={false} />
+        </PageContext.Provider>,
         mountOptions
       );
 
@@ -211,7 +246,9 @@ xdescribe('UIAtoms mount rendering', () => {
     it('Video without noscript tag', () => {
       const Component = UIAtoms.Video;
       wrapper = mount(
-        <Component src="example.mov" disableNoScript={false} />,
+        <PageContext.Provider value={mountOptions.context}>
+          <Component src="example.mov" disableNoScript={false} />
+        </PageContext.Provider>,
         mountOptions
       );
 
@@ -222,7 +259,9 @@ xdescribe('UIAtoms mount rendering', () => {
     it('Iframe without noscript tag', () => {
       const Component = UIAtoms.Iframe;
       wrapper = mount(
-        <Component src="example.html" disableNoScript={false} />,
+        <PageContext.Provider value={mountOptions.context}>
+          <Component src="example.html" disableNoScript={false} />
+        </PageContext.Provider>,
         mountOptions
       );
 
@@ -252,7 +291,9 @@ xdescribe('UIAtoms mount rendering', () => {
     it('Image without noscript tag', () => {
       const Component = UIAtoms.Image;
       wrapper = mount(
-        <Component src="example.jpg" disableNoScript={true} />,
+        <PageContext.Provider value={mountOptions.context}>
+          <Component src="example.jpg" disableNoScript={true} />
+        </PageContext.Provider>,
         mountOptions
       );
 
@@ -263,7 +304,9 @@ xdescribe('UIAtoms mount rendering', () => {
     it('Video without noscript tag', () => {
       const Component = UIAtoms.Video;
       wrapper = mount(
-        <Component src="example.mov" disableNoScript={true} />,
+        <PageContext.Provider value={mountOptions.context}>
+          <Component src="example.mov" disableNoScript={true} />
+        </PageContext.Provider>,
         mountOptions
       );
 
@@ -274,7 +317,9 @@ xdescribe('UIAtoms mount rendering', () => {
     it('Iframe without noscript tag', () => {
       const Component = UIAtoms.Iframe;
       wrapper = mount(
-        <Component src="example.html" disableNoScript={true} />,
+        <PageContext.Provider value={mountOptions.context}>
+          <Component src="example.html" disableNoScript={true} />
+        </PageContext.Provider>,
         mountOptions
       );
 
