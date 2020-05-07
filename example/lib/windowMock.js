@@ -10,7 +10,7 @@ let _window = {
   },
   unbindEventListener: (element, event, listener, useCapture) => {
     element.removeEventListener(event, listener, useCapture);
-  }
+  },
 };
 
 export default _window;

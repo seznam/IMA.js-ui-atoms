@@ -20,7 +20,7 @@ export default class Headline extends React.PureComponent {
       mode: null,
       type: 'h1',
       style: null,
-      'data-e2e': null
+      'data-e2e': null,
     };
   }
 
@@ -32,7 +32,7 @@ export default class Headline extends React.PureComponent {
       {
         ['atm-headline']: true,
         ['atm-' + mode]: mode,
-        ['atm-' + Type]: Type
+        ['atm-' + Type]: Type,
       },
       className
     );

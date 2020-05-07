@@ -26,7 +26,7 @@ export default class AmpImage extends React.PureComponent {
       layout,
       alt,
       noloading,
-      className
+      className,
     } = this.props;
 
     return (

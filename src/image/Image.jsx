@@ -27,7 +27,7 @@ export default class Image extends React.PureComponent {
       'data-e2e': null,
       layout: null,
       noloading: false,
-      extendedPadding: 0
+      extendedPadding: 0,
     };
   }
 

@@ -29,7 +29,7 @@ export default class HtmlImage extends React.PureComponent {
         src: nextProps.src,
         srcSet: nextProps.srcSet,
         sizes: nextProps.sizes,
-        noloading: nextProps.noloading || prevState.noloading || false
+        noloading: nextProps.noloading || prevState.noloading || false,
       };
     }
 
@@ -104,7 +104,7 @@ export default class HtmlImage extends React.PureComponent {
             'atm-overflow': true,
             'atm-placeholder': !this.state.noloading,
             'atm-responsive': this.props.layout === 'responsive',
-            'atm-fill': this.props.layout === 'fill'
+            'atm-fill': this.props.layout === 'fill',
           },
           this.props.className
         )}
@@ -113,7 +113,7 @@ export default class HtmlImage extends React.PureComponent {
             ? {}
             : {
                 width: this.props.width || 'auto',
-                height: this.props.height || 'auto'
+                height: this.props.height || 'auto',
               }
         }
         {...this._helper.getDataProps(this.props)}>
@@ -134,7 +134,7 @@ export default class HtmlImage extends React.PureComponent {
             onError={this.props.onError}
             className={this._helper.cssClasses({
               'atm-fill': true,
-              'atm-loaded': this.state.noloading && this._visibleInViewport
+              'atm-loaded': this.state.noloading && this._visibleInViewport,
             })}
             {...this._helper.getAriaProps(this.props)}
           />
@@ -153,7 +153,7 @@ export default class HtmlImage extends React.PureComponent {
                   class="${this._helper.cssClasses('atm-fill atm-loaded')}"
                   ${this._helper.serializeObjectToNoScript(
                     this._helper.getAriaProps(this.props)
-                  )}/>`
+                  )}/>`,
             }}
           />
         )}
@@ -192,7 +192,7 @@ export default class HtmlImage extends React.PureComponent {
         extendedPadding,
         useIntersectionObserver: this.useIntersectionObserver,
         width: this.props.width,
-        height: this.props.height
+        height: this.props.height,
       }),
       this._helper.wrapVisibilityWriter(this._onVisibilityWriter)
     );

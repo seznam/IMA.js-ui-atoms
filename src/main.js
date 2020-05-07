@@ -34,7 +34,7 @@ import Video from './video/Video';
 
 const defaultDependencies = ['$Router', ComponentPositions, Visibility];
 
-const $registerImaPlugin = ns => {
+const $registerImaPlugin = (ns) => {
   ns.namespace('ima.ui.atom');
   ns.namespace('ima.ui.atom.headline');
   ns.namespace('ima.ui.atom.iframe');
@@ -116,16 +116,16 @@ const initSettings = () => {
           useIntersectionObserver: {
             iframes: true,
             images: true,
-            videos: true
+            videos: true,
           },
           disableNoScript: {
             iframes: false,
             images: false,
-            videos: false
-          }
-        }
-      }
-    }
+            videos: false,
+          },
+        },
+      },
+    },
   };
 };
 
@@ -170,5 +170,5 @@ export {
   $registerImaPlugin,
   Circle,
   Infinite,
-  uuid
+  uuid,
 };

@@ -7,14 +7,14 @@ describe('ComponentPositions', () => {
     top: 0,
     left: 0,
     width: 1024,
-    height: 768
+    height: 768,
   };
 
   let elmRect = {
     top: -70,
     left: 462,
     width: 100,
-    height: 100
+    height: 100,
   };
 
   let componentPositions = null;
@@ -32,16 +32,16 @@ describe('ComponentPositions', () => {
     expect(typeof windowViewportRect.left).toEqual('number');
   });
 
-  describe('getNumberFromRange method', function() {
-    it('should return number from defined range', function() {
+  describe('getNumberFromRange method', function () {
+    it('should return number from defined range', function () {
       expect(componentPositions.getNumberFromRange(0, -1, 1)).toEqual(0);
     });
 
-    it('should return defined min number from range', function() {
+    it('should return defined min number from range', function () {
       expect(componentPositions.getNumberFromRange(-1, 0, 1)).toEqual(0);
     });
 
-    it('should return defined max number from range', function() {
+    it('should return defined max number from range', function () {
       expect(componentPositions.getNumberFromRange(2, 0, 1)).toEqual(1);
     });
   });
@@ -89,7 +89,7 @@ describe('ComponentPositions', () => {
 
     it('should return expanded size for element', () => {
       let element = {
-        getBoundingClientRect: () => elmRect
+        getBoundingClientRect: () => elmRect,
       };
 
       expect(
@@ -98,7 +98,7 @@ describe('ComponentPositions', () => {
         top: -370,
         left: 162,
         width: 700,
-        height: 700
+        height: 700,
       });
     });
 
@@ -106,7 +106,7 @@ describe('ComponentPositions', () => {
       let element = {
         getBoundingClientRect: () => {
           return { top: 0, left: 0, width: 0, height: 0 };
-        }
+        },
       };
 
       expect(
@@ -119,7 +119,7 @@ describe('ComponentPositions', () => {
         top: 0,
         left: 0,
         width: 0,
-        height: 0
+        height: 0,
       });
     });
   });

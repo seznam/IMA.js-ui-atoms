@@ -20,7 +20,7 @@ export default class HtmlVideo extends React.PureComponent {
     super(props, context);
 
     this.state = {
-      noloading: props.noloading || false
+      noloading: props.noloading || false,
     };
 
     this._mounted = false;
@@ -58,7 +58,7 @@ export default class HtmlVideo extends React.PureComponent {
             'atm-overflow': true,
             'atm-placeholder': !this.state.noloading,
             'atm-responsive': this.props.layout === 'responsive',
-            'atm-fill': this.props.layout === 'fill'
+            'atm-fill': this.props.layout === 'fill',
           },
           this.props.className
         )}
@@ -67,7 +67,7 @@ export default class HtmlVideo extends React.PureComponent {
             ? {}
             : {
                 width: this.props.width || 'auto',
-                height: this.props.height || 'auto'
+                height: this.props.height || 'auto',
               }
         }
         {...this._helper.getDataProps(this.props)}>
@@ -90,7 +90,7 @@ export default class HtmlVideo extends React.PureComponent {
             height={this.props.height}
             className={this._helper.cssClasses({
               'atm-fill': true,
-              'atm-loaded': this.state.noloading && this._visibleInViewport
+              'atm-loaded': this.state.noloading && this._visibleInViewport,
             })}
             {...this._helper.getAriaProps(this.props)}>
             <div placeholder="" />
@@ -110,7 +110,7 @@ export default class HtmlVideo extends React.PureComponent {
 								class="${this._helper.cssClasses('atm-fill atm-loaded')}"
 								${this._helper.serializeObjectToNoScript(
                   this._helper.getAriaProps(this.props)
-                )}></video>`
+                )}></video>`,
             }}
           />
         )}
@@ -159,7 +159,7 @@ export default class HtmlVideo extends React.PureComponent {
         useIntersectionObserver: this.useIntersectionObserver,
         extendedPadding,
         width: this.props.width,
-        height: this.props.height
+        height: this.props.height,
       }),
       this._helper.wrapVisibilityWriter(this._onVisibilityWriter)
     );
@@ -168,7 +168,7 @@ export default class HtmlVideo extends React.PureComponent {
   _preLoadPosterImage() {
     if (!this.props.poster) {
       this.setState({
-        noloading: true
+        noloading: true,
       });
       return;
     }
@@ -182,7 +182,7 @@ export default class HtmlVideo extends React.PureComponent {
     function onLoadingCompleted() {
       if (componentInstance._mounted) {
         componentInstance.setState({
-          noloading: true
+          noloading: true,
         });
       }
     }

@@ -28,7 +28,7 @@ export default class AmpVideo extends React.PureComponent {
       height,
       layout,
       className,
-      children
+      children,
     } = this.props;
 
     return (

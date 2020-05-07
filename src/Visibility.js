@@ -47,8 +47,8 @@ export default class Visibility {
    */
   _createVisibilityCircle() {
     return new Circle({
-      listen: notify => this._listenOnEvents(notify),
-      unlisten: notify => this._unlistenOnEvents(notify)
+      listen: (notify) => this._listenOnEvents(notify),
+      unlisten: (notify) => this._unlistenOnEvents(notify),
     });
   }
 
@@ -64,7 +64,7 @@ export default class Visibility {
     return this.circle.register({
       read,
       write,
-      meta: { interval: meta.visibilityInterval }
+      meta: { interval: meta.visibilityInterval },
     });
   }
 

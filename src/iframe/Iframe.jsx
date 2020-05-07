@@ -32,7 +32,7 @@ export default class Iframe extends React.PureComponent {
       onLoad: null,
       'data-e2e': null,
       marginWidth: null,
-      marginHeight: null
+      marginHeight: null,
     };
   }
 

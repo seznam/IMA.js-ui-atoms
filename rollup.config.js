@@ -10,41 +10,41 @@ function generateConfig(environemnt) {
       'react-dom',
       'infinite-circle',
       '@ima/helpers',
-      '@ima/core'
+      '@ima/core',
     ],
     input: 'src/main.js',
     treeshake: {
-      pureExternalModules: true
+      pureExternalModules: true,
     },
     output: [
       {
         file: `./dist/atoms.${environemnt}.cjs.js`,
         format: 'cjs',
-        exports: 'named'
+        exports: 'named',
       },
       {
         file: `./dist/atoms.${environemnt}.esm.js`,
         format: 'esm',
-        exports: 'named'
-      }
+        exports: 'named',
+      },
     ],
     plugins: [
       resolve({
-        extensions: ['.mjs', '.js', '.jsx', '.json']
+        extensions: ['.mjs', '.js', '.jsx', '.json'],
       }),
       babel({
         moduleIds: true,
-        presets: ['@babel/preset-react']
+        presets: ['@babel/preset-react'],
       }),
       json({
         preferConst: true, // Default: false
         compact: true, // Default: false
-        namedExports: true // Default: true
+        namedExports: true, // Default: true
       }),
       jscc({
-        values: { _SERVER: environemnt === 'server' }
-      })
-    ]
+        values: { _SERVER: environemnt === 'server' },
+      }),
+    ],
   };
 }
 

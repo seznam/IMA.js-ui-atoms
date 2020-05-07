@@ -26,8 +26,8 @@ describe('Sizer component', () => {
   );
   let context = {
     $Utils: {
-      $UIComponentHelper: uiComponentHelper
-    }
+      $UIComponentHelper: uiComponentHelper,
+    },
   };
 
   beforeEach(() => {
@@ -49,7 +49,7 @@ describe('Sizer component', () => {
   it('should calculate ratio between width and height', () => {
     wrapper.setProps({
       width: 16,
-      height: 9
+      height: 9,
     });
 
     expect(wrapper.get(0).props.style.paddingTop).toEqual('56.25%');

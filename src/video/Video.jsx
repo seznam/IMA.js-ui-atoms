@@ -27,7 +27,7 @@ export default class Video extends React.PureComponent {
       height: null,
       layout: null,
       className: '',
-      noloading: false
+      noloading: false,
     };
   }
 

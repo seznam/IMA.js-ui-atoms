@@ -19,7 +19,7 @@ export default class Link extends React.PureComponent {
       mode: '',
       style: null,
       className: '',
-      'data-e2e': null
+      'data-e2e': null,
     };
   }
 
@@ -34,7 +34,7 @@ export default class Link extends React.PureComponent {
       onClick,
       children,
       text,
-      style
+      style,
     } = this.props;
 
     return (
@@ -46,7 +46,7 @@ export default class Link extends React.PureComponent {
         className={helper.cssClasses(
           {
             'atm-link': true,
-            ['atm-link-' + mode]: mode
+            ['atm-link-' + mode]: mode,
           },
           className
         )}

@@ -13,7 +13,7 @@ export default class UIComponentHelper {
       ComponentPositions,
       Visibility,
       Infinite,
-      '$CssClasses'
+      '$CssClasses',
     ];
   }
 
@@ -239,12 +239,12 @@ export default class UIComponentHelper {
     const self = this;
     const observerConfig = {
       rootMargin: options.extendedPadding + 'px',
-      tresholds: options.tresholds || [0]
+      tresholds: options.tresholds || [0],
     };
     let intersectionObserverEntry = null;
     let isFirstPositionCalculated = false;
 
-    let observer = new IntersectionObserver(entries => {
+    let observer = new IntersectionObserver((entries) => {
       intersectionObserverEntry = entries[0];
       this._visibility.circle.notify({ type: 'intersectionobserver', entries });
     }, observerConfig);

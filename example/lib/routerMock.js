@@ -5,8 +5,8 @@ export default toMockedInstance(Router, {
   getCurrentRouteInfo: () => {
     return {
       params: {
-        amp: false
-      }
+        amp: false,
+      },
     };
-  }
+  },
 });

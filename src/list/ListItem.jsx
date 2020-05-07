@@ -19,7 +19,7 @@ export default class ListItem extends React.PureComponent {
       mode: '',
       style: null,
       className: '',
-      'data-e2e': null
+      'data-e2e': null,
     };
   }
 
@@ -30,7 +30,7 @@ export default class ListItem extends React.PureComponent {
     let componentClassName = helper.cssClasses(
       {
         'atm-li': true,
-        ['atm-li-' + mode]: mode
+        ['atm-li-' + mode]: mode,
       },
       className
     );

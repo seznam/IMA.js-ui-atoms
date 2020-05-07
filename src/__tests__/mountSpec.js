@@ -21,15 +21,15 @@ import _settings from '../mocks/settings';
 global.window = window;
 global.document = window.document;
 global.navigator = {
-  userAgent: 'node.js'
+  userAgent: 'node.js',
 };
 
 const visibility = toMockedInstance(Visibility);
 const mockPosition = {
-  height: 0
+  height: 0,
 };
 const componentPositions = toMockedInstance(ComponentPositions, {
-  getWindowViewportRect: () => mockPosition
+  getWindowViewportRect: () => mockPosition,
 });
 const infinite = toMockedInstance(Infinite);
 
@@ -49,12 +49,12 @@ function getComponentOptions(overrideSettings = {}) {
   const context = {
     $Utils: {
       $Settings,
-      $UIComponentHelper
-    }
+      $UIComponentHelper,
+    },
   };
   const mountOptions = {
     context,
-    someProp: true
+    someProp: true,
   };
 
   return mountOptions;
@@ -162,15 +162,15 @@ describe('UIAtoms mount rendering', () => {
           useIntersectionObserver: {
             iframes: true,
             images: true,
-            videos: true
+            videos: true,
           },
           disableNoScript: {
             iframes: true,
             images: true,
-            videos: true
-          }
-        }
-      }
+            videos: true,
+          },
+        },
+      },
     });
 
     it('Image without noscript tag', () => {
@@ -219,15 +219,15 @@ describe('UIAtoms mount rendering', () => {
           useIntersectionObserver: {
             iframes: true,
             images: true,
-            videos: true
+            videos: true,
           },
           disableNoScript: {
             iframes: true,
             images: true,
-            videos: true
-          }
-        }
-      }
+            videos: true,
+          },
+        },
+      },
     });
 
     it('Image without noscript tag', () => {
@@ -277,15 +277,15 @@ describe('UIAtoms mount rendering', () => {
           useIntersectionObserver: {
             iframes: true,
             images: true,
-            videos: true
+            videos: true,
           },
           disableNoScript: {
             iframes: false,
             images: false,
-            videos: false
-          }
-        }
-      }
+            videos: false,
+          },
+        },
+      },
     });
 
     it('Image without noscript tag', () => {

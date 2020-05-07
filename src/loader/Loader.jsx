@@ -19,7 +19,7 @@ export default class Loader extends React.PureComponent {
       layout: '',
       color: 'black',
       className: '',
-      'data-e2e': null
+      'data-e2e': null,
     };
   }
 
@@ -33,7 +33,7 @@ export default class Loader extends React.PureComponent {
           {
             'atm-loader': true,
             ['atm-loader-' + mode]: mode,
-            ['atm-loader-' + layout]: layout
+            ['atm-loader-' + layout]: layout,
           },
           className
         )}
@@ -41,7 +41,7 @@ export default class Loader extends React.PureComponent {
         <div
           className={helper.cssClasses({
             'atm-loader-animation': true,
-            ['atm-loader-animation-' + color]: color
+            ['atm-loader-animation-' + color]: color,
           })}
         />
       </div>

@@ -10,7 +10,7 @@ let b = null;
 let gulpConfig = {
   onTerminate() {
     setTimeout(() => process.exit());
-  }
+  },
 };
 
 exports.copy = copy;
@@ -22,7 +22,7 @@ function bundle() {
 
   return b
     .bundle()
-    .on('error', function(err) {
+    .on('error', function (err) {
       // print the error (can replace with gulp-util)
       console.error(err);
       // end this stream
@@ -38,14 +38,14 @@ function createBrowserifyInstance() {
     paths: ['./', './src'],
     extensions: ['.jsx'],
     cache: {},
-    packageCache: {}
+    packageCache: {},
   };
 
   return browserify(['./example/main.js'], options)
     .transform(
       babelify.configure({
         presets: ['@babel/preset-react'],
-        plugins: ['@babel/plugin-transform-modules-commonjs']
+        plugins: ['@babel/plugin-transform-modules-commonjs'],
       })
     )
     .plugin([watchify]);
@@ -56,7 +56,7 @@ function less() {
     .src('./src/**/*.less')
     .pipe(
       gulpLess({
-        paths: [path.join(__dirname, 'less', 'includes')]
+        paths: [path.join(__dirname, 'less', 'includes')],
       })
     )
     .pipe(gulp.dest('./example/dist/'));
@@ -72,7 +72,7 @@ function dev() {
   gulp.watch(
     'example/**/*.js',
     {
-      ignored: 'example/dist/*'
+      ignored: 'example/dist/*',
     },
     bundle
   );

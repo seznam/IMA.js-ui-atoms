@@ -19,7 +19,7 @@ export default class List extends React.PureComponent {
       mode: '',
       type: 'ul',
       style: null,
-      'data-e2e': null
+      'data-e2e': null,
     };
   }
 
@@ -34,7 +34,7 @@ export default class List extends React.PureComponent {
           {
             'atm-list': true,
             ['atm-list-' + mode]: mode,
-            ['atm-list-' + Type]: Type
+            ['atm-list-' + Type]: Type,
           },
           className
         )}

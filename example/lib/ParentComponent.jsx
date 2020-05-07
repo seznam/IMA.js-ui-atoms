@@ -8,22 +8,22 @@ const context = {
   $Utils: {
     $UIComponentHelper: uiComponentHelper,
     $Helper: {
-      throttle
+      throttle,
     },
     $Window: _window,
     $Settings: {
       plugin: {
         uiAtoms: {
           useIntersectionObserver: {
-            images: true
+            images: true,
           },
           disableNoScript: {
-            images: false
-          }
-        }
-      }
-    }
-  }
+            images: false,
+          },
+        },
+      },
+    },
+  },
 };
 
 export default class Parent extends AbstractComponent {
