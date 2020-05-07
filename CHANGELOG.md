@@ -1,3 +1,13 @@
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/seznam/IMA.js-ui-atoms/compare/2.0.2...3.0.0) (2020-05-07)
+
+
+### Bug Fixes
+
+* **componentpositions:** getBoundingClientRect() iOS fix ([211f46f](https://github.com/seznam/IMA.js-ui-atoms/commit/211f46f)), closes [#59](https://github.com/seznam/IMA.js-ui-atoms/issues/59)
+
+
+
 <a name="2.0.2"></a>
 ## [2.0.2](https://github.com/seznam/IMA.js-ui-atoms/compare/2.0.1...2.0.2) (2019-12-07)
 
