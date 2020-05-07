@@ -1,22 +1,39 @@
+import { UserAgent } from '@ima/plugin-useragent';
+
+/**
+ * A bounding client rectangle.
+ * @typedef {{
+ *            top: number,
+ *            left: number,
+ *            width: number,
+ *            height: number
+ *          }} BoundingClientRect
+ */
+
 /**
  * Component positions helper.
  */
 export default class ComponentPositions {
   static get $dependencies() {
-    return ['$Window'];
+    return ['$Window', UserAgent];
   }
 
   /**
    * Initializes the helper.
    *
    * @param {ima.window.Window} window
+   * @param {UserAgent} userAgent
    */
-  constructor(window) {
+  constructor(window, userAgent) {
     /**
-     * @property _window
      * @type {ima.window.Window}
      */
     this._window = window;
+
+    /**
+     * @type {UserAgent}
+     */
+    this._userAgent = userAgent;
   }
 
   /**
@@ -40,7 +57,7 @@ export default class ComponentPositions {
   /**
    * Returns percent of visibility defined area in window viewport.
    *
-   * @param {{top: number, left: number, width: number, height: number}} elmRect
+   * @param {BoundingClientRect} elmRect
    * @return {number} The percent of visibility.
    */
   getPercentOfVisibility(elmRect) {
@@ -71,11 +88,11 @@ export default class ComponentPositions {
   }
 
   /**
-   * Returns intersection rectangle of two defined reactangles.
+   * Returns an intersection rectangle of two defined reactangles.
    *
-   * @param {{top: number, left: number, width: number, height: number}} rect1
-   * @param {{top: number, left: number, width: number, height: number}} rect2
-   * @return {{top: number, left: number, width: number, height: number}} The intersection reactangle.
+   * @param {BoundingClientRect} rect1
+   * @param {BoundingClientRect} rect2
+   * @return {BoundingClientRect} The intersection rectangle.
    */
   getRectsIntersection(rect1, rect2) {
     let top = this.getNumberFromRange(rect2.top, rect1.top, rect1.height);
@@ -97,8 +114,8 @@ export default class ComponentPositions {
   }
 
   /**
-   * Returns number from defined range, if number is not in defined range return min
-   * or max depends on number.
+   * Returns number from defined range, if number is not in defined range return
+   * min or max depends on number.
    *
    * @param {number} number
    * @param {number} min
@@ -112,7 +129,7 @@ export default class ComponentPositions {
   /**
    * Returns window viewport rect.
    *
-   * @return {{top: number, left: number, width: number, height: number}}
+   * @return {BoundingClientRect}
    */
   getWindowViewportRect() {
     let win = this._window.getWindow();
@@ -142,13 +159,13 @@ export default class ComponentPositions {
   }
 
   /**
-   * Returns the size of an element and its position relative to the viewport and
-   * add extended value to returned rect.
+   * Returns the size of an element and its position relative to the viewport
+   * and add extended value to returned rect.
    *
    * @param {Element} element
    * @param {{width: number, height: number}} size
    * @param {number} extended
-   * @return {{top: number, left: number, width: number, height: number}}
+   * @return {BoundingClientRect}
    */
   getBoundingClientRect(
     element,
@@ -182,6 +199,52 @@ export default class ComponentPositions {
       height: (clientRect.height || height || 0 / width || 0) + 2 * extended,
     };
 
-    return elmRectStyle;
+    return this._fixBoundingClientRectOnIOS(elmRectStyle);
+  }
+
+  /**
+   * Applies a fix for iOS 8+ bug, where overscroll messes up
+   * getBoundingClientRect()'s top value on all iOS webkit based devices:
+   * https://github.com/lionheart/openradar-mirror/issues/6233
+   *
+   * @param {BoundingClientRect} boundingClientRect A bounding client rectangle.
+   * @return {BoundingClientRect} A fixed bounding client rectangle.
+   */
+  _fixBoundingClientRectOnIOS(boundingClientRect) {
+    if (this._userAgent.getOSFamily() !== 'iOS') {
+      return boundingClientRect;
+    }
+
+    const window = this._window.getWindow();
+    const maxScrollHeight = this._getMaxScrollHeight();
+    const rect = Object.assign({}, boundingClientRect);
+
+    if (window.scrollY < 0 && rect.top > 0) {
+      rect.top += window.scrollY;
+    } else if (window.scrollY > maxScrollHeight && rect.top < 0) {
+      rect.top += window.scrollY - maxScrollHeight;
+    }
+
+    return rect;
+  }
+
+  /**
+   * Returns maximum available scroll height (minus viewport height).
+   *
+   * @returns {number}
+   */
+  _getMaxScrollHeight() {
+    const window = this._window.getWindow();
+    const document = this._window.getDocument();
+
+    return (
+      Math.max(
+        document.body.scrollHeight || 0,
+        document.body.offsetHeight || 0,
+        document.documentElement.clientHeight || 0,
+        document.documentElement.offsetHeight || 0,
+        document.documentElement.scrollHeight || 0
+      ) - window.innerHeight
+    );
   }
 }
