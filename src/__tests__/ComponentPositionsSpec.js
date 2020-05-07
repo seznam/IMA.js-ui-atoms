@@ -7,7 +7,7 @@ import _window from '../mocks/window';
 
 describe('ComponentPositions', () => {
   const mockedUserAgent = toMockedInstance(UserAgent, {
-    getOSFamily: () => 'Windows'
+    getOSFamily: () => 'Windows',
   });
 
   let windowViewportRect = {
@@ -136,14 +136,14 @@ describe('ComponentPositions', () => {
       spyOn(mockedUserAgent, 'getOSFamily').and.returnValue('iOS');
       spyOn(_window, 'getDocument').and.returnValue({
         body: { scrollHeight: 3000 },
-        documentElement: {}
+        documentElement: {},
       });
     });
 
     it('should return a rectangle with fixed top on iOS', () => {
       spyOn(_window, 'getWindow').and.returnValue({
         innerHeight: 800,
-        scrollY: -100
+        scrollY: -100,
       });
 
       const element = {
@@ -151,22 +151,22 @@ describe('ComponentPositions', () => {
           top: 205,
           left: 361,
           width: 700,
-          height: 700
-        })
+          height: 700,
+        }),
       };
 
       expect(componentPositions.getBoundingClientRect(element, {})).toEqual({
         top: 105,
         left: 361,
         width: 700,
-        height: 700
+        height: 700,
       });
     });
 
     it('should return a rectangle with fixed top on iOS for top < 0', () => {
       spyOn(_window, 'getWindow').and.returnValue({
         innerHeight: 800,
-        scrollY: 2300
+        scrollY: 2300,
       });
 
       const element = {
@@ -174,15 +174,15 @@ describe('ComponentPositions', () => {
           top: -70,
           left: 361,
           width: 700,
-          height: 700
-        })
+          height: 700,
+        }),
       };
 
       expect(componentPositions.getBoundingClientRect(element, {})).toEqual({
         top: 30,
         left: 361,
         width: 700,
-        height: 700
+        height: 700,
       });
     });
   });
