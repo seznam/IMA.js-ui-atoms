@@ -1,3 +1,13 @@
+<a name="3.0.1"></a>
+## [3.0.1](https://github.com/seznam/IMA.js-ui-atoms/compare/3.0.0...3.0.1) (2020-05-13)
+
+
+### Bug Fixes
+
+* **npm:** fix installation warning for npm 6 ([21097d0](https://github.com/seznam/IMA.js-ui-atoms/commit/21097d0))
+
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/seznam/IMA.js-ui-atoms/compare/2.0.2...3.0.0) (2020-05-07)
 
