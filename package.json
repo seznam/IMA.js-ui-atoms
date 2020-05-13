@@ -100,7 +100,7 @@
     "@ima/plugin-useragent": "2.x"
   },
   "engines": {
-    "npm": ">=4 <6"
+    "npm": ">=4 <7"
   },
   "dependencies": {
     "infinite-circle": "^0.2.5"
