@@ -1,3 +1,8 @@
+<a name="3.0.2"></a>
+## [3.0.2](https://github.com/seznam/IMA.js-ui-atoms/compare/3.0.1...3.0.2) (2020-06-02)
+
+
+
 <a name="3.0.1"></a>
 ## [3.0.1](https://github.com/seznam/IMA.js-ui-atoms/compare/3.0.0...3.0.1) (2020-05-13)
 
