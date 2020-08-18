@@ -31,7 +31,9 @@ export default class Link extends React.PureComponent {
       target,
       mode,
       className,
+      onAuxClick,
       onClick,
+      onContextMenu,
       children,
       text,
       style,
@@ -50,7 +52,9 @@ export default class Link extends React.PureComponent {
           },
           className
         )}
+        onAuxClick={onAuxClick}
         onClick={onClick}
+        onContextMenu={onContextMenu}
         {...helper.getDataProps(this.props)}
         {...helper.getAriaProps(this.props)}>
         {children || text}
