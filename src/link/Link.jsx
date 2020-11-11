@@ -18,6 +18,7 @@ export default class Link extends React.PureComponent {
       text: null,
       mode: '',
       style: null,
+      rel: null,
       className: '',
       'data-e2e': null,
     };
@@ -37,6 +38,7 @@ export default class Link extends React.PureComponent {
       children,
       text,
       style,
+      rel,
     } = this.props;
 
     return (
@@ -45,6 +47,7 @@ export default class Link extends React.PureComponent {
         title={title}
         target={target}
         style={style}
+        rel={rel}
         className={helper.cssClasses(
           {
             'atm-link': true,
