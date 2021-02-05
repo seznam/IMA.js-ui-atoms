@@ -124,6 +124,16 @@ export default class HtmlImage extends React.PureComponent {
             placeholder={!this.state.noloading}
           />
         ) : null}
+        {this.props.placeholder ? (
+          <img 
+            src={this.props.placeholder}
+            alt={this.props.alt}
+            className={this._helper.cssClasses({
+              'atm-blur': true,
+              'atm-fill': true,
+              'atm-visibility': !(this.state.noloading && this._visibleInViewport)
+            })}/>
+        ) : null}
         {this.state.noloading ? (
           <img
             src={this.props.src}
@@ -139,7 +149,7 @@ export default class HtmlImage extends React.PureComponent {
             {...this._helper.getAriaProps(this.props)}
           />
         ) : null}
-        {this.state.showLoader && !this.state.noloading ? (
+        {this.state.showLoader  && !this.state.noloading ? (
           <Loader mode="small" layout="center" />
         ) : null}
         {!this.disableNoScript && (
@@ -204,12 +214,16 @@ export default class HtmlImage extends React.PureComponent {
     }, TIME_TO_SHOW_LOADER);
 
     let image = new Image();
-    image.onload = () => {
-      this._imageIsLoaded();
-    };
+
+    if (!image.decode) {
+      image.onload = () => {
+        this._imageIsLoaded();
+      };
+    }     
     image.onerror = () => {
       this._imageIsLoaded();
     };
+
     let { src, srcSet, sizes } = this.props;
 
     if (srcSet && this._areResponsiveImagesSupported(image)) {
@@ -220,6 +234,14 @@ export default class HtmlImage extends React.PureComponent {
       image.srcset = srcSet;
     } else if (src) {
       image.src = src;
+    }
+
+    if (image.decode) {
+      image.decode().then(() => {
+        this._imageIsLoaded();
+      }).catch(() => {
+        this._imageIsLoaded();
+      });
     }
 
     if (!srcSet && !src) {
