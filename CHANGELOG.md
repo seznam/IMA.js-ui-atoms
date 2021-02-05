@@ -1,3 +1,23 @@
+<a name="3.3.0"></a>
+# [3.3.0](https://github.com/seznam/IMA.js-ui-atoms/compare/v3.2.0...v3.3.0) (2021-02-05)
+
+
+### Features
+
+* **htmlimage:** added experimental placeholder properties ([2920c6a](https://github.com/seznam/IMA.js-ui-atoms/commit/2920c6a))
+
+
+### Reverts
+
+* process commits ([629dc86](https://github.com/seznam/IMA.js-ui-atoms/commit/629dc86))
+
+
+
+<a name="3.2.0"></a>
+# [3.2.0](https://github.com/seznam/IMA.js-ui-atoms/compare/v3.1.1...v3.2.0) (2020-11-19)
+
+
+
 <a name="3.2.0"></a>
 # [3.2.0](https://github.com/seznam/IMA.js-ui-atoms/compare/v3.1.1...v3.2.0) (2020-11-19)
 
