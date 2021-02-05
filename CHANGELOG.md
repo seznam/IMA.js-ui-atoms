@@ -1,3 +1,83 @@
+<a name="3.2.0"></a>
+# [3.2.0](https://github.com/seznam/IMA.js-ui-atoms/compare/v3.1.1...v3.2.0) (2020-11-19)
+
+
+
+<a name="3.1.1"></a>
+## [3.1.1](https://github.com/seznam/IMA.js-ui-atoms/compare/v3.1.0...v3.1.1) (2020-11-18)
+
+
+### Features
+
+* **link/link.jsx:** added `rel` support for <link /> component ([#62](https://github.com/seznam/IMA.js-ui-atoms/issues/62)) ([8654447](https://github.com/seznam/IMA.js-ui-atoms/commit/8654447))
+
+
+
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/seznam/IMA.js-ui-atoms/compare/3.0.2...v3.1.0) (2020-08-26)
+
+
+### Features
+
+* **link.jsx:** added support of onAuxClick and onContextMenu to Link ([#61](https://github.com/seznam/IMA.js-ui-atoms/issues/61)) ([54b430c](https://github.com/seznam/IMA.js-ui-atoms/commit/54b430c))
+
+
+
+<a name="3.0.2"></a>
+## [3.0.2](https://github.com/seznam/IMA.js-ui-atoms/compare/3.0.1...3.0.2) (2020-06-02)
+
+
+
+<a name="3.4.0"></a>
+# [3.4.0](https://github.com/seznam/IMA.js-ui-atoms/compare/v3.2.0...v3.4.0) (2021-02-05)
+
+
+### Features
+
+* **htmlimage:** added experimental placeholder properties ([2920c6a](https://github.com/seznam/IMA.js-ui-atoms/commit/2920c6a))
+
+
+
+<a name="3.4.0"></a>
+# [3.4.0](https://github.com/seznam/IMA.js-ui-atoms/compare/v3.2.0...v3.4.0) (2021-02-05)
+
+
+### Features
+
+* **htmlimage:** added experimental placeholder properties ([2920c6a](https://github.com/seznam/IMA.js-ui-atoms/commit/2920c6a))
+
+
+
+<a name="3.2.0"></a>
+# [3.2.0](https://github.com/seznam/IMA.js-ui-atoms/compare/v3.1.1...v3.2.0) (2020-11-19)
+
+
+
+<a name="3.1.1"></a>
+## [3.1.1](https://github.com/seznam/IMA.js-ui-atoms/compare/v3.1.0...v3.1.1) (2020-11-18)
+
+
+### Features
+
+* **link/link.jsx:** added `rel` support for <link /> component ([#62](https://github.com/seznam/IMA.js-ui-atoms/issues/62)) ([8654447](https://github.com/seznam/IMA.js-ui-atoms/commit/8654447))
+
+
+
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/seznam/IMA.js-ui-atoms/compare/3.0.2...v3.1.0) (2020-08-26)
+
+
+### Features
+
+* **link.jsx:** added support of onAuxClick and onContextMenu to Link ([#61](https://github.com/seznam/IMA.js-ui-atoms/issues/61)) ([54b430c](https://github.com/seznam/IMA.js-ui-atoms/commit/54b430c))
+
+
+
+<a name="3.0.2"></a>
+## [3.0.2](https://github.com/seznam/IMA.js-ui-atoms/compare/3.0.1...3.0.2) (2020-06-02)
+
+
+
 <a name="3.0.2"></a>
 ## [3.0.2](https://github.com/seznam/IMA.js-ui-atoms/compare/3.0.1...3.0.2) (2020-06-02)
 
