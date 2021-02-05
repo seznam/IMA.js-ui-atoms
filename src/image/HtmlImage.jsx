@@ -125,14 +125,17 @@ export default class HtmlImage extends React.PureComponent {
           />
         ) : null}
         {this.props.placeholder ? (
-          <img 
+          <img
             src={this.props.placeholder}
             alt={this.props.alt}
             className={this._helper.cssClasses({
               'atm-blur': true,
               'atm-fill': true,
-              'atm-visibility': !(this.state.noloading && this._visibleInViewport)
-            })}/>
+              'atm-visibility': !(
+                this.state.noloading && this._visibleInViewport
+              ),
+            })}
+          />
         ) : null}
         {this.state.noloading ? (
           <img
@@ -149,7 +152,7 @@ export default class HtmlImage extends React.PureComponent {
             {...this._helper.getAriaProps(this.props)}
           />
         ) : null}
-        {this.state.showLoader  && !this.state.noloading ? (
+        {this.state.showLoader && !this.state.noloading ? (
           <Loader mode="small" layout="center" />
         ) : null}
         {!this.disableNoScript && (
@@ -219,7 +222,7 @@ export default class HtmlImage extends React.PureComponent {
       image.onload = () => {
         this._imageIsLoaded();
       };
-    }     
+    }
     image.onerror = () => {
       this._imageIsLoaded();
     };
@@ -237,11 +240,14 @@ export default class HtmlImage extends React.PureComponent {
     }
 
     if (image.decode) {
-      image.decode().then(() => {
-        this._imageIsLoaded();
-      }).catch(() => {
-        this._imageIsLoaded();
-      });
+      image
+        .decode()
+        .then(() => {
+          this._imageIsLoaded();
+        })
+        .catch(() => {
+          this._imageIsLoaded();
+        });
     }
 
     if (!srcSet && !src) {
