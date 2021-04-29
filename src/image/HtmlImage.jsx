@@ -151,7 +151,7 @@ export default class HtmlImage extends React.PureComponent {
           />
         ) : null}
         {!this.state.noloading ? (
-          <Loader mode="small" layout="center" timeout={TIME_TO_SHOW_LOADER}/>
+          <Loader mode="small" layout="center" timeout={TIME_TO_SHOW_LOADER} />
         ) : null}
         {!this.disableNoScript && (
           <noscript
