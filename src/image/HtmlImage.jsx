@@ -25,6 +25,7 @@ export default class HtmlImage extends React.PureComponent {
       nextProps.sizes !== prevState.sizes
     ) {
       return {
+        showLoader: prevState.showLoader || false,
         src: nextProps.src,
         srcSet: nextProps.srcSet,
         sizes: nextProps.sizes,
@@ -42,6 +43,7 @@ export default class HtmlImage extends React.PureComponent {
 
     this._mounted = false;
     this._visibleInViewport = false;
+    this._loadIndicatorTimer = null;
 
     this._registeredVisibilityId = null;
 
@@ -150,8 +152,8 @@ export default class HtmlImage extends React.PureComponent {
             {...this._helper.getAriaProps(this.props)}
           />
         ) : null}
-        {!this.state.noloading ? (
-          <Loader mode="small" layout="center" timeout={TIME_TO_SHOW_LOADER} />
+        {this.state.showLoader && !this.state.noloading ? (
+          <Loader mode="small" layout="center" />
         ) : null}
         {!this.disableNoScript && (
           <noscript
@@ -210,6 +212,10 @@ export default class HtmlImage extends React.PureComponent {
   }
 
   _preLoadImage() {
+    this._loadIndicatorTimer = setTimeout(() => {
+      this.setState({ showLoader: true });
+    }, TIME_TO_SHOW_LOADER);
+
     let image = new Image();
 
     if (!image.decode) {
@@ -250,8 +256,15 @@ export default class HtmlImage extends React.PureComponent {
   }
 
   _imageIsLoaded() {
-    if (this._mounted && !this.state.noloading) {
-      this.setState({ noloading: true });
+    if (!this._loadIndicatorTimer) {
+      return;
+    }
+
+    clearTimeout(this._loadIndicatorTimer);
+    this._loadIndicatorTimer = null;
+
+    if (this._mounted) {
+      this.setState({ noloading: true, showLoader: false });
     }
   }
 
