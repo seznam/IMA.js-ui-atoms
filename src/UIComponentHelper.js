@@ -166,6 +166,25 @@ export default class UIComponentHelper {
   }
 
   /**
+   * Filters the provided properties and returns only the properties which's
+   * names start with the {@code on[A-Z]} prefix.
+   *
+   * @param {Object<string, *>} props
+   * @return {Object<string, (number|string)>}
+   */
+  getEventProps(props) {
+    let eventProps = {};
+
+    for (let propertyName of Object.keys(props)) {
+      if (/^on[A-Z]/.test(propertyName)) {
+        eventProps[propertyName] = props[propertyName];
+      }
+    }
+
+    return eventProps;
+  }
+
+  /**
    * Serialize object as key and value pairs for using in noscript tag.
    *
    * @param {Object<string, *>} object

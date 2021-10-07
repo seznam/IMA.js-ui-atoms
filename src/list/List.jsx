@@ -39,6 +39,7 @@ export default class List extends React.PureComponent {
           className
         )}
         id={id}
+        {...helper.getEventProps(this.props)}
         {...helper.getDataProps(this.props)}
         {...helper.getAriaProps(this.props)}>
         {children}

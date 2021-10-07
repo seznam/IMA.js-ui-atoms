@@ -81,6 +81,7 @@ export default class Loader extends React.PureComponent {
           },
           className
         )}
+        {...helper.getEventProps(this.props)}
         {...helper.getDataProps(this.props)}>
         <div
           className={helper.cssClasses({

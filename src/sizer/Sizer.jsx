@@ -36,6 +36,7 @@ export default class Sizer extends React.PureComponent {
         style={{
           paddingTop: (this.props.height / this.props.width) * 100 + '%',
         }}
+        {...helper.getEventProps(this.props)}
         {...helper.getDataProps(this.props)}
       />
     );

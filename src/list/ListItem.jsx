@@ -40,6 +40,7 @@ export default class ListItem extends React.PureComponent {
         <li
           style={style}
           className={componentClassName}
+          {...helper.getEventProps(this.props)}
           {...helper.getDataProps(this.props)}>
           {children}
         </li>
@@ -49,6 +50,7 @@ export default class ListItem extends React.PureComponent {
         <li
           style={style}
           className={componentClassName}
+          {...helper.getEventProps(this.props)}
           {...helper.getDataProps(this.props)}
           dangerouslySetInnerHTML={{ __html: text }}
         />
