@@ -176,7 +176,10 @@ export default class UIComponentHelper {
     let eventProps = {};
 
     for (let propertyName of Object.keys(props)) {
-      if (/^on[A-Z]/.test(propertyName)) {
+      if (
+        /^on[A-Z]/.test(propertyName) &&
+        typeof props[propertyName] === 'function'
+      ) {
         eventProps[propertyName] = props[propertyName];
       }
     }
