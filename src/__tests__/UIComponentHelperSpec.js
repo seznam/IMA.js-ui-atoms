@@ -80,6 +80,27 @@ describe('UIComponentHelper', () => {
     });
   });
 
+  describe('getEventProps method', () => {
+    let eventProps = {
+      onKeyDown: () => {},
+      onClick: function () {},
+    };
+    let props = Object.assign(
+      {
+        key: 'key',
+        once: 'notValid',
+        oNsubmit: 'notValid',
+        onSubmit: 'notValid',
+        onDrag: {},
+      },
+      eventProps
+    );
+
+    it('should return only attributes with name on[A-Z]*', () => {
+      expect(uiComponentHelper.getEventProps(props)).toEqual(eventProps);
+    });
+  });
+
   describe('serializeObjectToNoScript method', () => {
     let ariaProps = {
       'aria-label': 'something',

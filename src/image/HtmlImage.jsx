@@ -116,6 +116,7 @@ export default class HtmlImage extends React.PureComponent {
                 height: this.props.height || 'auto',
               }
         }
+        {...this._helper.getEventProps(this.props)}
         {...this._helper.getDataProps(this.props)}>
         {this.props.layout === 'responsive' ? (
           <Sizer
