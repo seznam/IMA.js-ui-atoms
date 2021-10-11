@@ -26,17 +26,8 @@ export default class Link extends React.PureComponent {
 
   render() {
     let helper = this.context.$Utils.$UIComponentHelper;
-    let {
-      href,
-      title,
-      target,
-      mode,
-      className,
-      children,
-      text,
-      style,
-      rel,
-    } = this.props;
+    let { href, title, target, mode, className, children, text, style, rel } =
+      this.props;
 
     return (
       <a

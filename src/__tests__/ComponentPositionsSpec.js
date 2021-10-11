@@ -73,9 +73,8 @@ describe('ComponentPositions', () => {
         windowViewportRect
       );
 
-      let percentOfVisibility = componentPositions.getPercentOfVisibility(
-        elmRect
-      );
+      let percentOfVisibility =
+        componentPositions.getPercentOfVisibility(elmRect);
 
       expect(percentOfVisibility).toEqual(30);
     });
