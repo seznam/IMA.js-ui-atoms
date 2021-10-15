@@ -41,7 +41,7 @@
     "@babel/preset-react": "^7.10.1",
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
-    "@ima/core": "17.0.1",
+    "@ima/core": "^17.6.0",
     "@ima/helpers": "^17.4.0",
     "@ima/plugin-useragent": "^2.0.1",
     "babel-eslint": "^10.1.0",
@@ -64,7 +64,7 @@
     "eslint-plugin-react": "^7.20.0",
     "gulp": "4.0.2",
     "gulp-less": "4.0.1",
-    "husky": "^4.2.5",
+    "husky": "^7.0.0",
     "ima-clientify": "^0.1.2",
     "jest": "^26.0.1",
     "prettier": "^2.0.5",
@@ -100,7 +100,7 @@
     "@ima/plugin-useragent": "3.x"
   },
   "engines": {
-    "npm": ">=4 <7"
+    "npm": ">=4 <9"
   },
   "dependencies": {
     "infinite-circle": "^0.2.6"
