@@ -28,12 +28,14 @@ export default class Loader extends React.PureComponent {
     if (!nextProps.timeout) {
       return {
         showLoader: true,
+        timeout: Loader.defaultProps.timeout,
       };
     }
 
     if (nextProps.timeout !== prevState.timeout) {
       return {
         showLoader: prevState.showLoader || false,
+        timeout: nextProps.timeout,
       };
     }
 

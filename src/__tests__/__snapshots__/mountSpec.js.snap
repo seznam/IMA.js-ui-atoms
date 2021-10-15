@@ -95,3 +95,49 @@ exports[`UIAtoms mount rendering should render atoms without noscript tag - enab
 exports[`UIAtoms mount rendering should render atoms without noscript tag - enabled by $Settings, overriden by props:  Image without noscript tag 1`] = `"<div class=\\"atm-image atm-overflow atm-placeholder\\" style=\\"width: auto; height: auto;\\"></div>"`;
 
 exports[`UIAtoms mount rendering should render atoms without noscript tag - enabled by $Settings, overriden by props:  Video without noscript tag 1`] = `"<div class=\\"atm-video atm-overflow atm-placeholder\\" style=\\"width: auto; height: auto;\\"></div>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  Headers:  Headline1:  with children 1`] = `"<h1 class=\\"atm-headline atm-h1\\">Headline1</h1>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  Headers:  Headline1:  with text 1`] = `"<h1 class=\\"atm-headline atm-h1\\">text</h1>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  Headers:  Headline2:  with children 1`] = `"<h2 class=\\"atm-headline atm-h2\\">Headline2</h2>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  Headers:  Headline2:  with text 1`] = `"<h2 class=\\"atm-headline atm-h2\\">text</h2>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  Headers:  Headline3:  with children 1`] = `"<h3 class=\\"atm-headline atm-h3\\">Headline3</h3>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  Headers:  Headline3:  with text 1`] = `"<h3 class=\\"atm-headline atm-h3\\">text</h3>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  Headers:  Headline4:  with children 1`] = `"<h4 class=\\"atm-headline atm-h4\\">Headline4</h4>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  Headers:  Headline4:  with text 1`] = `"<h4 class=\\"atm-headline atm-h4\\">text</h4>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  Headers:  Headline5:  with children 1`] = `"<h5 class=\\"atm-headline atm-h5\\">Headline5</h5>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  Headers:  Headline5:  with text 1`] = `"<h5 class=\\"atm-headline atm-h5\\">text</h5>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  Headers:  Headline6:  with children 1`] = `"<h6 class=\\"atm-headline atm-h6\\">Headline6</h6>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  Headers:  Headline6:  with text 1`] = `"<h6 class=\\"atm-headline atm-h6\\">text</h6>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  Link - with children 1`] = `"<a href=\\"href\\" class=\\"atm-link atm-link-children css-class\\">children</a>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  Link - with text 1`] = `"<a href=\\"href\\" class=\\"atm-link atm-link-text css-class\\">text</a>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  List:  ListItem - full with text 1`] = `"<li style=\\"position: relative;\\" class=\\"atm-li atm-li-full-with-text css-class\\">text</li>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  List:  OrderedList 1`] = `"<ol class=\\"atm-list atm-list-mode atm-list-ol css-class\\"></ol>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  List:  UnorderedList 1`] = `"<ul class=\\"atm-list atm-list-mode atm-list-ul css-class\\"></ul>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  Loader snap 1`] = `"<div class=\\"atm-loader atm-loader-basic atm-loader-layout\\"><div class=\\"atm-loader-animation atm-loader-animation-red\\"></div></div>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  Loader timeout 1`] = `null`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  Loader timeout 2`] = `"<div class=\\"atm-loader atm-loader-timeout atm-loader-layout\\"><div class=\\"atm-loader-animation atm-loader-animation-red\\"></div></div>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  Paragraphs - empty 1`] = `"<p class=\\"atm-paragraph\\"></p>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  Paragraphs - full with children 1`] = `"<p style=\\"position: relative;\\" class=\\"atm-paragraph atm-paragraph-full-with-children css-class\\"><span>span</span></p>"`;
+
+exports[`UIAtoms mount rendering should render simple UI atoms:  Paragraphs - full with text 1`] = `"<p style=\\"position: relative;\\" class=\\"atm-paragraph atm-paragraph-full-with-text css-class\\">text</p>"`;
