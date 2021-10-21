@@ -64,6 +64,7 @@ describe('UIAtoms shallow rendering', () => {
         height: 9,
       });
 
+      expect(wrapper.html()).toMatchSnapshot();
       expect(wrapper.get(0).props.style.paddingTop).toEqual('56.25%');
     });
   });

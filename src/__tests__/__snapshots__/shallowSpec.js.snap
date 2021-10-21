@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UIAtoms shallow rendering Sizer component should render sizer and set atm-sizer class 1`] = `"<div class=\\"atm-sizer\\" style=\\"padding-top:NaN%\\"></div>"`;
+exports[`UIAtoms shallow rendering Sizer component should calculate ratio between width and height 1`] = `"<div class=\\"atm-sizer\\" style=\\"padding-top:56.25%\\"></div>"`;
+
+exports[`UIAtoms shallow rendering Sizer component should render sizer and set atm-sizer class 1`] = `"<div class=\\"atm-sizer\\" style=\\"padding-top:0%\\"></div>"`;

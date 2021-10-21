@@ -14,7 +14,7 @@ export default class Sizer extends React.PureComponent {
 
   static get defaultProps() {
     return {
-      width: 0,
+      width: 1,
       height: 0,
       placeholder: false,
       className: '',
@@ -22,19 +22,20 @@ export default class Sizer extends React.PureComponent {
   }
 
   render() {
-    let helper = this.context.$Utils.$UIComponentHelper;
+    const helper = this.context.$Utils.$UIComponentHelper;
+    const { className, height, width, placeholder } = this.props;
 
     return (
       <div
         className={helper.cssClasses(
           {
             'atm-sizer': true,
-            'atm-placeholder': this.props.placeholder,
+            'atm-placeholder': !!placeholder,
           },
-          this.props.className
+          className
         )}
         style={{
-          paddingTop: (this.props.height / this.props.width) * 100 + '%',
+          paddingTop: (height / width) * 100 + '%',
         }}
         {...helper.getEventProps(this.props)}
         {...helper.getDataProps(this.props)}
