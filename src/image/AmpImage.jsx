@@ -24,6 +24,7 @@ export default class AmpImage extends React.PureComponent {
       width,
       height,
       layout,
+      cover,
       alt,
       noloading,
       className,
@@ -39,7 +40,7 @@ export default class AmpImage extends React.PureComponent {
         layout={layout}
         alt={alt}
         noloading={noloading ? '' : null}
-        class={helper.cssClasses(className)}
+        class={helper.cssClasses({ [className]: true, 'atm-cover': cover })}
         {...helper.getDataProps(this.props)}
         {...helper.getAriaProps(this.props)}
       />

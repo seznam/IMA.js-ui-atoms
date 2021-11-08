@@ -149,6 +149,7 @@ export default class HtmlImage extends React.PureComponent {
             className={this._helper.cssClasses({
               'atm-fill': true,
               'atm-loaded': this.state.noloading && this._visibleInViewport,
+              'atm-cover': this.props.cover,
             })}
             {...this._helper.getAriaProps(this.props)}
           />

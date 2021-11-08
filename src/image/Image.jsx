@@ -28,6 +28,7 @@ export default class Image extends React.PureComponent {
       layout: null,
       noloading: false,
       extendedPadding: 0,
+      cover: false,
     };
   }
 
