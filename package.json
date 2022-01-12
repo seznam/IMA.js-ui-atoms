@@ -103,7 +103,7 @@
     "npm": ">=4 <9"
   },
   "dependencies": {
-    "infinite-circle": "^0.2.6"
+    "infinite-circle": "^0.3.0"
   },
   "config": {
     "commitizen": {
