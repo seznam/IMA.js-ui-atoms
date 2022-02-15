@@ -1,3 +1,13 @@
+<a name="5.0.1"></a>
+## [5.0.1](https://github.com/seznam/IMA.js-ui-atoms/compare/v5.0.0...v5.0.1) (2022-02-15)
+
+
+### Bug Fixes
+
+* calling notify after register ([#68](https://github.com/seznam/IMA.js-ui-atoms/issues/68)) ([56df17c](https://github.com/seznam/IMA.js-ui-atoms/commit/56df17c))
+
+
+
 <a name="3.4.0"></a>
 # [3.4.0](https://github.com/seznam/IMA.js-ui-atoms/compare/v3.3.0...v3.4.0) (2021-04-29)
 
