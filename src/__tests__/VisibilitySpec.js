@@ -28,6 +28,26 @@ describe('Visibility', () => {
 
       expect(visibility._listenOnEvents).toHaveBeenCalled();
     });
+
+    it('should notify if registering after handle route', () => {
+      const notify = jest.spyOn(visibility, 'notify');
+
+      visibility.register(reader, writer, options);
+
+      expect(visibility.notify).not.toHaveBeenCalled();
+      notify.mockClear();
+
+      visibility._afterHandleRoute({});
+      visibility.register(reader, writer, options);
+
+      expect(visibility.notify).toHaveBeenCalled();
+      notify.mockClear();
+
+      visibility._beforeHandleRoute();
+      visibility.register(reader, writer, options);
+
+      expect(visibility.notify).not.toHaveBeenCalled();
+    });
   });
 
   describe('unregister method', () => {

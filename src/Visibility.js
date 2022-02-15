@@ -34,6 +34,12 @@ export default class Visibility {
     this._dispatcher = dispatcher;
 
     /**
+     * @property _afterHandleRouteCalled
+     * @type {boolean}
+     */
+    this._afterHandleRouteCalled = false;
+
+    /**
      * @property circle
      * @type {Circle}
      */
@@ -61,11 +67,17 @@ export default class Visibility {
    * @return {number} The registered id
    */
   register(read, write, meta = { visibilityInterval: 180 }) {
-    return this.circle.register({
+    let id =  this.circle.register({
       read,
       write,
       meta: { interval: meta.visibilityInterval },
     });
+
+    if (this._afterHandleRouteCalled) {
+      this.notify({ id });
+    }
+
+    return id;
   }
 
   /**
@@ -137,6 +149,11 @@ export default class Visibility {
    */
   _listenOnEvents(notify) {
     this._dispatcher.listen(
+      RouterEvents.BEFORE_HANDLE_ROUTE,
+      this._beforeHandleRoute,
+      this
+    );
+    this._dispatcher.listen(
       RouterEvents.AFTER_HANDLE_ROUTE,
       this._afterHandleRoute,
       this
@@ -151,6 +168,11 @@ export default class Visibility {
    * @param {notifyCallback}
    */
   _unlistenOnEvents(notify) {
+    this._dispatcher.unlisten(
+      RouterEvents.BEFORE_HANDLE_ROUTE,
+      this._beforeHandleRoute,
+      this
+    );
     this._dispatcher.unlisten(
       RouterEvents.AFTER_HANDLE_ROUTE,
       this._afterHandleRoute,
@@ -169,11 +191,20 @@ export default class Visibility {
   }
 
   /**
+   * The method resets `_afterHandleRoute` marker.
+   */
+   _beforeHandleRoute() {
+    this._afterHandleRouteCalled = false;
+  }
+
+  /**
    * The method normalize routeInfo to {@notifyPayload}.
    *
    * @param {Object} routeInfo
    */
   _afterHandleRoute(routeInfo) {
+    this._afterHandleRouteCalled = true;
+
     const payload = Object.assign(
       { type: RouterEvents.AFTER_HANDLE_ROUTE },
       routeInfo
