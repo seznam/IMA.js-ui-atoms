@@ -82,7 +82,6 @@ export default class HtmlIframe extends React.PureComponent {
                 height: this.props.height || 'auto',
               }
         }
-        {...this._helper.getEventProps(this.props)}
         {...this._helper.getDataProps(this.props)}>
         {this.props.layout === 'responsive' ? (
           <Sizer
@@ -103,12 +102,12 @@ export default class HtmlIframe extends React.PureComponent {
             frameBorder={this.props.frameBorder}
             allow={this.props.allow}
             allowFullScreen={this.props.allowFullScreen}
-            onLoad={this.props.onLoad}
             marginWidth={this.props.marginWidth}
             marginHeight={this.props.marginHeight}
             className={this._helper.cssClasses({
               'atm-fill': true,
             })}
+            {...this._helper.getEventProps(this.props)}
             {...this._helper.getAriaProps(this.props)}
           />
         ) : null}

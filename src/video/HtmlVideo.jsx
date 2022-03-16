@@ -70,7 +70,6 @@ export default class HtmlVideo extends React.PureComponent {
                 height: this.props.height || 'auto',
               }
         }
-        {...this._helper.getEventProps(this.props)}
         {...this._helper.getDataProps(this.props)}>
         {this.props.layout === 'responsive' ? (
           <Sizer
@@ -93,6 +92,7 @@ export default class HtmlVideo extends React.PureComponent {
               'atm-fill': true,
               'atm-loaded': this.state.noloading && this._visibleInViewport,
             })}
+            {...this._helper.getEventProps(this.props)}
             {...this._helper.getAriaProps(this.props)}>
             <div placeholder="" />
             {this.props.children}
