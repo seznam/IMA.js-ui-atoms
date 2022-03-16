@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-atoms",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "IMA.js UI React atoms",
   "main": "index.server.cjs.js",
   "browser": "index.client.cjs.js",
