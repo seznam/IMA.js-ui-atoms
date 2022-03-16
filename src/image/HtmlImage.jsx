@@ -116,7 +116,6 @@ export default class HtmlImage extends React.PureComponent {
                 height: this.props.height || 'auto',
               }
         }
-        {...this._helper.getEventProps(this.props)}
         {...this._helper.getDataProps(this.props)}>
         {this.props.layout === 'responsive' ? (
           <Sizer
@@ -144,13 +143,12 @@ export default class HtmlImage extends React.PureComponent {
             srcSet={this.props.srcSet}
             sizes={this.props.sizes}
             alt={this.props.alt}
-            onLoad={this.props.onLoad}
-            onError={this.props.onError}
             className={this._helper.cssClasses({
               'atm-fill': true,
               'atm-loaded': this.state.noloading && this._visibleInViewport,
               'atm-cover': this.props.cover,
             })}
+            {...this._helper.getEventProps(this.props)}
             {...this._helper.getAriaProps(this.props)}
           />
         ) : null}
