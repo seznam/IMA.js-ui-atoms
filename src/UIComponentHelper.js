@@ -218,7 +218,7 @@ export default class UIComponentHelper {
 
   /**
    * @param {HTMLElement} element
-   * @param {{ width: ?number, height: ?number, extendedPadding: ?number, useIntersectionObserver: boolean, tresholds: number[] }} options
+   * @param {{ width: ?number, height: ?number, extendedPadding: ?number, useIntersectionObserver: boolean, threshold: number[] }} options
    * @return {function}
    */
   getVisibilityReader(element, options) {
@@ -235,7 +235,7 @@ export default class UIComponentHelper {
 
   /**
    * @param {HTMLElement} element
-   * @param {{ width: ?number, height: ?number, extendedPadding: ?number, useIntersectionObserver: boolean, tresholds: number[] }} options
+   * @param {{ width: ?number, height: ?number, extendedPadding: ?number, useIntersectionObserver: boolean, threshold: number[] }} options
    * @return {function}
    */
   _getReader(element, options) {
@@ -254,14 +254,14 @@ export default class UIComponentHelper {
 
   /**
    * @param {HTMLElement} element
-   * @param {{ width: ?number, height: ?number, extendedPadding: ?number, useIntersectionObserver: boolean, tresholds: number[] }} options
+   * @param {{ width: ?number, height: ?number, extendedPadding: ?number, useIntersectionObserver: boolean, threshold: number[] }} options
    * @return {function}
    */
   _getObserableReader(element, options) {
     const self = this;
     const observerConfig = {
       rootMargin: options.extendedPadding + 'px',
-      tresholds: options.tresholds || [0],
+      threshold: options.threshold || [0]
     };
     let intersectionObserverEntry = null;
     let isFirstPositionCalculated = false;
