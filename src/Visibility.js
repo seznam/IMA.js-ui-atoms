@@ -67,7 +67,7 @@ export default class Visibility {
    * @return {number} The registered id
    */
   register(read, write, meta = { visibilityInterval: 180 }) {
-    let id =  this.circle.register({
+    let id = this.circle.register({
       read,
       write,
       meta: { interval: meta.visibilityInterval },
@@ -193,7 +193,7 @@ export default class Visibility {
   /**
    * The method resets `_afterHandleRoute` marker.
    */
-   _beforeHandleRoute() {
+  _beforeHandleRoute() {
     this._afterHandleRouteCalled = false;
   }
 

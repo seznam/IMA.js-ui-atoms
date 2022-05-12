@@ -261,7 +261,7 @@ export default class UIComponentHelper {
     const self = this;
     const observerConfig = {
       rootMargin: options.extendedPadding + 'px',
-      threshold: options.threshold || [0]
+      threshold: options.threshold || [0],
     };
     let intersectionObserverEntry = null;
     let isFirstPositionCalculated = false;
