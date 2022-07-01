@@ -26,7 +26,7 @@ export default class Link extends React.PureComponent {
 
   render() {
     let helper = this.context.$Utils.$UIComponentHelper;
-    let { href, title, target, mode, className, children, text, style, rel } =
+    let { href, title, target, mode, className, id, children, text, style, rel } =
       this.props;
 
     return (
@@ -36,6 +36,7 @@ export default class Link extends React.PureComponent {
         target={target}
         style={style}
         rel={rel}
+        id={id}
         className={helper.cssClasses(
           {
             'atm-link': true,
