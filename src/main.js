@@ -1,4 +1,4 @@
-import { ComponentUtils } from '@ima/core';
+import { ComponentUtils, pluginLoader } from '@ima/core';
 import { Infinite, Circle, uuid } from 'infinite-circle';
 
 import UIComponentHelper from './UIComponentHelper';
@@ -128,6 +128,16 @@ const initSettings = () => {
     },
   };
 };
+
+pluginLoader.register('@ima/plugin-atoms', (ns) => {
+  $registerImaPlugin(ns);
+
+  return {
+    initBind,
+    initServices,
+    initSettings,
+  };
+});
 
 export {
   UIComponentHelper,
