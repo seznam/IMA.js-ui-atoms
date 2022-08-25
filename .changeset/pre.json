@@ -1,0 +1,8 @@
+{
+  "mode": "pre",
+  "tag": "rc",
+  "initialVersions": {
+    "@ima/plugin-atoms": "6.1.1"
+  },
+  "changesets": []
+}
