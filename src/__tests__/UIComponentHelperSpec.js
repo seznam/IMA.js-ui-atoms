@@ -26,10 +26,10 @@ describe('UIComponentHelper', () => {
     );
   });
 
-  xdescribe('isAmp method', () => {
+  describe('isAmp method', () => {
     it('should return true if url query contains amp flag of value true', () => {
       spyOn(_router, 'getCurrentRouteInfo').and.returnValue({
-        params: { amp: true }
+        params: { amp: true },
       });
 
       expect(uiComponentHelper.isAmp()).toBeTruthy();
@@ -37,7 +37,7 @@ describe('UIComponentHelper', () => {
 
     it('should return true if url query contains amp flag of value "1"', () => {
       spyOn(_router, 'getCurrentRouteInfo').and.returnValue({
-        params: { amp: '1' }
+        params: { amp: '1' },
       });
 
       expect(uiComponentHelper.isAmp()).toBeTruthy();
@@ -45,7 +45,7 @@ describe('UIComponentHelper', () => {
 
     it('should return false if url query does not contain amp flag', () => {
       spyOn(_router, 'getCurrentRouteInfo').and.returnValue({
-        params: { amp: '0' }
+        params: { amp: '0' },
       });
 
       expect(uiComponentHelper.isAmp()).toBeFalsy();
@@ -59,7 +59,7 @@ describe('UIComponentHelper', () => {
   describe('getDataProps method', () => {
     let dataProps = {
       'data-e2e': 'something',
-      'data-key': 'key'
+      'data-key': 'key',
     };
     let props = Object.assign({ key: 'key' }, dataProps);
 
@@ -71,12 +71,46 @@ describe('UIComponentHelper', () => {
   describe('getAriaProps method', () => {
     let ariaProps = {
       'aria-label': 'something',
-      'aria-hidden': true
+      'aria-hidden': true,
     };
     let props = Object.assign({ key: 'key' }, ariaProps);
 
     it('should return only attributes with name aria-*', () => {
       expect(uiComponentHelper.getAriaProps(props)).toEqual(ariaProps);
+    });
+  });
+
+  describe('getEventProps method', () => {
+    let eventProps = {
+      onKeyDown: () => {},
+      onClick: function () {},
+    };
+    let props = Object.assign(
+      {
+        key: 'key',
+        once: 'notValid',
+        oNsubmit: 'notValid',
+        onSubmit: 'notValid',
+        onDrag: {},
+      },
+      eventProps
+    );
+
+    it('should return only attributes with name on[A-Z]*', () => {
+      expect(uiComponentHelper.getEventProps(props)).toEqual(eventProps);
+    });
+  });
+
+  describe('serializeObjectToNoScript method', () => {
+    let ariaProps = {
+      'aria-label': 'something',
+      'aria-hidden': true,
+    };
+
+    it('should return serialized object to string for noscript tag', () => {
+      expect(
+        uiComponentHelper.serializeObjectToNoScript(ariaProps)
+      ).toMatchSnapshot();
     });
   });
 
@@ -89,7 +123,7 @@ describe('UIComponentHelper', () => {
             foo: true,
             bar: false,
             another: false,
-            'more-things': true
+            'more-things': true,
           },
           'things'
         )
@@ -102,6 +136,63 @@ describe('UIComponentHelper', () => {
       expect(
         typeof uiComponentHelper.getVisibilityReader({}, {}) === 'function'
       ).toBeTruthy();
+    });
+  });
+
+  describe('wrapVisibilityWriter method', () => {
+    function writer(...args) {
+      return `writer value: ${args.join(',')}`;
+    }
+
+    function wrapWriterTest(payload) {
+      const entry = { payload };
+      const parse = uiComponentHelper.wrapVisibilityWriter(writer);
+
+      return parse(entry);
+    }
+
+    const OBSERVER = {};
+    const PAYLOAD = 42;
+    const PAYLOAD_OBJECT = {
+      observer: OBSERVER,
+      intersectionObserverEntry: {
+        intersectionRatio: 0.3,
+        isIntersecting: true,
+      },
+    };
+    const NONINTERSECTED_PAYLOAD_OBJECT = {
+      observer: OBSERVER,
+      intersectionObserverEntry: {
+        intersectionRatio: 0,
+        isIntersecting: false,
+      },
+    };
+    const BUGGED_PAYLOAD_OBJECT = {
+      observer: OBSERVER,
+      intersectionObserverEntry: {
+        intersectionRatio: 0,
+        isIntersecting: true,
+      },
+    };
+
+    it('should return a return value of writer(PAYLOAD)', () => {
+      const result = wrapWriterTest(PAYLOAD);
+      expect(result).toBe(writer(PAYLOAD));
+    });
+
+    it('should return a return value of writer(30, OBSERVER)', () => {
+      const result = wrapWriterTest(PAYLOAD_OBJECT);
+      expect(result).toBe(writer(30, OBSERVER));
+    });
+
+    it('should return a return value of writer(0, OBSERVER)', () => {
+      const result = wrapWriterTest(NONINTERSECTED_PAYLOAD_OBJECT);
+      expect(result).toBe(writer(0, OBSERVER));
+    });
+
+    it('should return a return value of writer(100, OBSERVER)', () => {
+      const result = wrapWriterTest(BUGGED_PAYLOAD_OBJECT);
+      expect(result).toBe(writer(100, OBSERVER));
     });
   });
 });

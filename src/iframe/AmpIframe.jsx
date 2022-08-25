@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PageContext } from '@ima/core';
 import React from 'react';
 
 // @server-side class AmpIframe extends __VARIABLE__ {__CLEAR__}\nexports.default = AmpIframe;
@@ -10,10 +10,9 @@ import React from 'react';
  * @module ima.ui.atom
  */
 export default class AmpIframe extends React.PureComponent {
-  static get contextTypes() {
-    return {
-      $Utils: PropTypes.object
-    };
+  //#if _SERVER
+  static get contextType() {
+    return PageContext;
   }
 
   render() {
@@ -29,7 +28,9 @@ export default class AmpIframe extends React.PureComponent {
       frameBorder,
       className,
       allowFullScreen,
-      resizable
+      resizable,
+      marginWidth,
+      marginHeight,
     } = this.props;
     let props = {
       src,
@@ -40,7 +41,9 @@ export default class AmpIframe extends React.PureComponent {
       layout,
       sandbox,
       frameBorder,
-      class: helper.cssClasses(className)
+      marginWidth,
+      marginHeight,
+      class: helper.cssClasses(className),
     };
 
     if (allowFullScreen) {
@@ -60,4 +63,5 @@ export default class AmpIframe extends React.PureComponent {
       </amp-iframe>
     );
   }
+  //#endif
 }

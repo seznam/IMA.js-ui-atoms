@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PageContext } from '@ima/core';
 import React from 'react';
 import AmpVideo from './AmpVideo';
 import HtmlVideo from './HtmlVideo';
@@ -11,26 +11,8 @@ import HtmlVideo from './HtmlVideo';
  */
 
 export default class Video extends React.PureComponent {
-  static get contextTypes() {
-    return {
-      $Utils: PropTypes.object
-    };
-  }
-
-  static get propTypes() {
-    return {
-      src: PropTypes.string,
-      poster: PropTypes.string,
-      autoplay: PropTypes.bool,
-      controls: PropTypes.bool,
-      loop: PropTypes.bool,
-      muted: PropTypes.bool,
-      width: PropTypes.number,
-      height: PropTypes.number,
-      layout: PropTypes.string,
-      className: PropTypes.string,
-      noloading: PropTypes.bool
-    };
+  static get contextType() {
+    return PageContext;
   }
 
   static get defaultProps() {
@@ -45,7 +27,7 @@ export default class Video extends React.PureComponent {
       height: null,
       layout: null,
       className: '',
-      noloading: false
+      noloading: false,
     };
   }
 

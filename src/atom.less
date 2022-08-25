@@ -40,6 +40,17 @@
 				0.75s cubic-bezier(0.150, 0.555, 0.695, 0.675) resource-fade-in_saturation*/;
 	}
 
+	&blur {
+		-webkit-filter: blur(20px);
+		filter: blur(20px);
+		transition: visibility 0ms ease 400ms;
+		visibility: hidden;
+	}
+
+	&visibility {
+		visibility: visible;
+	};
+
 	&responsive {
 		display: block;
 		position: relative;
@@ -63,5 +74,9 @@
 		min-height: 100%;
 		max-height: 100%;
 		margin: auto;
+	}
+
+	&cover {
+		object-fit: cover;
 	}
 }

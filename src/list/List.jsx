@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PageContext } from '@ima/core';
 import React from 'react';
 
 /**
@@ -9,20 +9,8 @@ import React from 'react';
  */
 
 export default class List extends React.PureComponent {
-  static get contextTypes() {
-    return {
-      $Utils: PropTypes.object
-    };
-  }
-
-  static get propTypes() {
-    return {
-      className: PropTypes.string,
-      mode: PropTypes.string,
-      type: PropTypes.string,
-      style: PropTypes.object,
-      'data-e2e': PropTypes.string
-    };
+  static get contextType() {
+    return PageContext;
   }
 
   static get defaultProps() {
@@ -31,7 +19,7 @@ export default class List extends React.PureComponent {
       mode: '',
       type: 'ul',
       style: null,
-      'data-e2e': null
+      'data-e2e': null,
     };
   }
 
@@ -46,11 +34,12 @@ export default class List extends React.PureComponent {
           {
             'atm-list': true,
             ['atm-list-' + mode]: mode,
-            ['atm-list-' + Type]: Type
+            ['atm-list-' + Type]: Type,
           },
           className
         )}
         id={id}
+        {...helper.getEventProps(this.props)}
         {...helper.getDataProps(this.props)}
         {...helper.getAriaProps(this.props)}>
         {children}

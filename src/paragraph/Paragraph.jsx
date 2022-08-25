@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PageContext } from '@ima/core';
 import React from 'react';
 
 /**
@@ -9,20 +9,8 @@ import React from 'react';
  */
 
 export default class Paragraph extends React.PureComponent {
-  static get contextTypes() {
-    return {
-      $Utils: PropTypes.object
-    };
-  }
-
-  static get propTypes() {
-    return {
-      className: PropTypes.string,
-      text: PropTypes.string,
-      mode: PropTypes.string,
-      style: PropTypes.object,
-      'data-e2e': PropTypes.string
-    };
+  static get contextType() {
+    return PageContext;
   }
 
   static get defaultProps() {
@@ -31,7 +19,7 @@ export default class Paragraph extends React.PureComponent {
       text: null,
       mode: '',
       style: null,
-      'data-e2e': null
+      'data-e2e': null,
     };
   }
 
@@ -43,7 +31,7 @@ export default class Paragraph extends React.PureComponent {
       {
         'atm-paragraph': true,
         ['atm-paragraph-' + mode]: mode,
-        ['atm-paragraph-align-' + align]: align
+        ['atm-paragraph-align-' + align]: align,
       },
       className
     );
@@ -53,6 +41,7 @@ export default class Paragraph extends React.PureComponent {
         <p
           style={style}
           className={componentClassName}
+          {...helper.getEventProps(this.props)}
           {...helper.getDataProps(this.props)}
           {...helper.getAriaProps(this.props)}>
           {children}
@@ -63,6 +52,7 @@ export default class Paragraph extends React.PureComponent {
         <p
           style={style}
           className={componentClassName}
+          {...helper.getEventProps(this.props)}
           {...helper.getDataProps(this.props)}
           {...helper.getAriaProps(this.props)}
           dangerouslySetInnerHTML={{ __html: text }}

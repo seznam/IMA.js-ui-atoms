@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PageContext } from '@ima/core';
 import React from 'react';
 
 /**
@@ -9,20 +9,8 @@ import React from 'react';
  */
 
 export default class ListItem extends React.PureComponent {
-  static get contextTypes() {
-    return {
-      $Utils: PropTypes.object
-    };
-  }
-
-  static get propTypes() {
-    return {
-      text: PropTypes.string,
-      mode: PropTypes.string,
-      style: PropTypes.object,
-      className: PropTypes.string,
-      'data-e2e': PropTypes.string
-    };
+  static get contextType() {
+    return PageContext;
   }
 
   static get defaultProps() {
@@ -31,7 +19,7 @@ export default class ListItem extends React.PureComponent {
       mode: '',
       style: null,
       className: '',
-      'data-e2e': null
+      'data-e2e': null,
     };
   }
 
@@ -42,7 +30,7 @@ export default class ListItem extends React.PureComponent {
     let componentClassName = helper.cssClasses(
       {
         'atm-li': true,
-        ['atm-li-' + mode]: mode
+        ['atm-li-' + mode]: mode,
       },
       className
     );
@@ -52,6 +40,7 @@ export default class ListItem extends React.PureComponent {
         <li
           style={style}
           className={componentClassName}
+          {...helper.getEventProps(this.props)}
           {...helper.getDataProps(this.props)}>
           {children}
         </li>
@@ -61,6 +50,7 @@ export default class ListItem extends React.PureComponent {
         <li
           style={style}
           className={componentClassName}
+          {...helper.getEventProps(this.props)}
           {...helper.getDataProps(this.props)}
           dangerouslySetInnerHTML={{ __html: text }}
         />

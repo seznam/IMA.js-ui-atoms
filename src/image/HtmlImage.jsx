@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PageContext } from '@ima/core';
 import React from 'react';
 import Loader from '../loader/Loader';
 import Sizer from '../sizer/Sizer';
@@ -14,10 +14,8 @@ const TIME_TO_SHOW_LOADER = 3000;
  */
 
 export default class HtmlImage extends React.PureComponent {
-  static get contextTypes() {
-    return {
-      $Utils: PropTypes.object
-    };
+  static get contextType() {
+    return PageContext;
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -31,9 +29,11 @@ export default class HtmlImage extends React.PureComponent {
         src: nextProps.src,
         srcSet: nextProps.srcSet,
         sizes: nextProps.sizes,
-        noloading: nextProps.noloading || prevState.noloading || false
+        noloading: nextProps.noloading || prevState.noloading || false,
       };
     }
+
+    return null;
   }
 
   constructor(props, context) {
@@ -50,10 +50,21 @@ export default class HtmlImage extends React.PureComponent {
     this._onVisibilityWriter = this.onVisibilityWriter.bind(this);
 
     this._rootElement = React.createRef();
+
+    this._helper = this.context.$Utils.$UIComponentHelper;
+    this._settings = this.context.$Utils.$Settings;
   }
 
-  get utils() {
-    return this.context.$Utils || this.props.$Utils;
+  get useIntersectionObserver() {
+    return this.props.useIntersectionObserver !== undefined
+      ? this.props.useIntersectionObserver
+      : this._settings.plugin.uiAtoms.useIntersectionObserver.images;
+  }
+
+  get disableNoScript() {
+    return this.props.disableNoScript !== undefined
+      ? this.props.disableNoScript
+      : this._settings.plugin.uiAtoms.disableNoScript.images;
   }
 
   componentDidMount() {
@@ -84,18 +95,16 @@ export default class HtmlImage extends React.PureComponent {
   }
 
   render() {
-    let helper = this.utils.$UIComponentHelper;
-
     return (
       <div
         ref={this._rootElement}
-        className={helper.cssClasses(
+        className={this._helper.cssClasses(
           {
             'atm-image': true,
             'atm-overflow': true,
             'atm-placeholder': !this.state.noloading,
             'atm-responsive': this.props.layout === 'responsive',
-            'atm-fill': this.props.layout === 'fill'
+            'atm-fill': this.props.layout === 'fill',
           },
           this.props.className
         )}
@@ -104,15 +113,28 @@ export default class HtmlImage extends React.PureComponent {
             ? {}
             : {
                 width: this.props.width || 'auto',
-                height: this.props.height || 'auto'
+                height: this.props.height || 'auto',
               }
         }
-        {...helper.getDataProps(this.props)}>
+        {...this._helper.getDataProps(this.props)}>
         {this.props.layout === 'responsive' ? (
           <Sizer
             width={this.props.width}
             height={this.props.height}
             placeholder={!this.state.noloading}
+          />
+        ) : null}
+        {this.props.placeholder ? (
+          <img
+            src={this.props.placeholder}
+            alt={this.props.alt}
+            className={this._helper.cssClasses({
+              'atm-blur': true,
+              'atm-fill': true,
+              'atm-visibility': !(
+                this.state.noloading && this._visibleInViewport
+              ),
+            })}
           />
         ) : null}
         {this.state.noloading ? (
@@ -121,27 +143,33 @@ export default class HtmlImage extends React.PureComponent {
             srcSet={this.props.srcSet}
             sizes={this.props.sizes}
             alt={this.props.alt}
-            className={helper.cssClasses({
+            className={this._helper.cssClasses({
               'atm-fill': true,
-              'atm-loaded': this.state.noloading && this._visibleInViewport
+              'atm-loaded': this.state.noloading && this._visibleInViewport,
+              'atm-cover': this.props.cover,
             })}
-            {...helper.getAriaProps(this.props)}
+            {...this._helper.getEventProps(this.props)}
+            {...this._helper.getAriaProps(this.props)}
           />
         ) : null}
         {this.state.showLoader && !this.state.noloading ? (
           <Loader mode="small" layout="center" />
         ) : null}
-        <noscript
-          dangerouslySetInnerHTML={{
-            __html: `<img
-								src="${this.props.src || ''}"
-								srcset="${this.props.srcSet || ''}"
-								sizes="${this.props.sizes || ''}"
-								alt="${this.props.alt || ''}"
-								class="${helper.cssClasses('atm-fill atm-loaded')}"
-								${helper.getAriaProps(this.props)}/>`
-          }}
-        />
+        {!this.disableNoScript && (
+          <noscript
+            dangerouslySetInnerHTML={{
+              __html: `<img
+                  src="${this.props.src || ''}"
+                  srcset="${this.props.srcSet || ''}"
+                  sizes="${this.props.sizes || ''}"
+                  alt="${this.props.alt || ''}"
+                  class="${this._helper.cssClasses('atm-fill atm-loaded')}"
+                  ${this._helper.serializeObjectToNoScript(
+                    this._helper.getAriaProps(this.props)
+                  )}/>`,
+            }}
+          />
+        )}
       </div>
     );
   }
@@ -156,31 +184,30 @@ export default class HtmlImage extends React.PureComponent {
   }
 
   _unregisterToCheckingVisibility() {
-    this.utils.$UIComponentHelper.visibility.unregister(
-      this._registeredVisibilityId
-    );
+    if (this._registeredVisibilityId) {
+      this._helper.visibility.unregister(this._registeredVisibilityId);
+      this._registeredVisibilityId = null;
+    }
   }
 
   _registerToCheckingVisibility() {
-    let { $UIComponentHelper } = this.utils;
     let extendedPadding =
       this.props.extendedPadding ||
       Math.max(
         Math.round(
-          $UIComponentHelper.componentPositions.getWindowViewportRect().height *
-            2
+          this._helper.componentPositions.getWindowViewportRect().height
         ),
         MIN_EXTENDED_PADDING
       );
 
-    this._registeredVisibilityId = $UIComponentHelper.visibility.register(
-      $UIComponentHelper.getVisibilityReader(this._rootElement.current, {
+    this._registeredVisibilityId = this._helper.visibility.register(
+      this._helper.getVisibilityReader(this._rootElement.current, {
         extendedPadding,
-        useIntersectionObserver: true,
+        useIntersectionObserver: this.useIntersectionObserver,
         width: this.props.width,
-        height: this.props.height
+        height: this.props.height,
       }),
-      $UIComponentHelper.wrapVisibilityWriter(this._onVisibilityWriter)
+      this._helper.wrapVisibilityWriter(this._onVisibilityWriter)
     );
   }
 
@@ -190,24 +217,37 @@ export default class HtmlImage extends React.PureComponent {
     }, TIME_TO_SHOW_LOADER);
 
     let image = new Image();
-    image.onload = () => {
-      this._imageIsLoaded();
-    };
+
+    if (!image.decode) {
+      image.onload = () => {
+        this._imageIsLoaded();
+      };
+    }
     image.onerror = () => {
       this._imageIsLoaded();
     };
+
     let { src, srcSet, sizes } = this.props;
 
-    if (sizes) {
-      image.sizes = sizes;
-    }
+    if (srcSet && this._areResponsiveImagesSupported(image)) {
+      if (sizes) {
+        image.sizes = sizes;
+      }
 
-    if (srcSet) {
       image.srcset = srcSet;
+    } else if (src) {
+      image.src = src;
     }
 
-    if (src) {
-      image.src = src;
+    if (image.decode) {
+      image
+        .decode()
+        .then(() => {
+          this._imageIsLoaded();
+        })
+        .catch(() => {
+          this._imageIsLoaded();
+        });
     }
 
     if (!srcSet && !src) {
@@ -226,5 +266,9 @@ export default class HtmlImage extends React.PureComponent {
     if (this._mounted) {
       this.setState({ noloading: true, showLoader: false });
     }
+  }
+
+  _areResponsiveImagesSupported(image) {
+    return 'srcset' in image && 'sizes' in image;
   }
 }

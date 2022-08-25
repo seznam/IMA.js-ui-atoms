@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PageContext } from '@ima/core';
 import React from 'react';
 
 /**
@@ -9,46 +9,101 @@ import React from 'react';
  */
 
 export default class Loader extends React.PureComponent {
-  static get contextTypes() {
-    return {
-      $Utils: PropTypes.object
-    };
-  }
-
-  static get propTypes() {
-    return {
-      mode: PropTypes.string, //possible values: [small, big]
-      layout: PropTypes.string, //possible values: [center]
-      className: PropTypes.string,
-      'data-e2e': PropTypes.string
-    };
+  static get contextType() {
+    return PageContext;
   }
 
   static get defaultProps() {
     return {
       mode: '',
       layout: '',
+      timeout: null,
+      color: 'black',
       className: '',
-      'data-e2e': null
+      'data-e2e': null,
     };
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (!nextProps.timeout) {
+      return {
+        showLoader: true,
+      };
+    }
+
+    if (nextProps.timeout !== prevState.timeout) {
+      return {
+        showLoader: prevState.showLoader || false,
+      };
+    }
+
+    return null;
+  }
+
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {};
+
+    this._timer = null;
+  }
+
+  componentDidMount() {
+    this._setTimer();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.timeout !== this.props.timeout) {
+      this._clearTimer();
+      this._setTimer();
+    }
+  }
+
+  componentWillUnmount() {
+    this._clearTimer();
+  }
+
   render() {
-    let helper = this.context.$Utils.$UIComponentHelper;
+    const helper = this.context.$Utils.$UIComponentHelper;
+    const { className, mode, layout, color = 'black' } = this.props;
+
+    if (!this.state.showLoader) {
+      return null;
+    }
 
     return (
       <div
         className={helper.cssClasses(
           {
             'atm-loader': true,
-            ['atm-loader-' + this.props.mode]: this.props.mode,
-            ['atm-loader-' + this.props.layout]: this.props.layout
+            ['atm-loader-' + mode]: mode,
+            ['atm-loader-' + layout]: layout,
           },
-          this.props.className
+          className
         )}
+        {...helper.getEventProps(this.props)}
         {...helper.getDataProps(this.props)}>
-        <div className={helper.cssClasses('atm-loader-animation')} />
+        <div
+          className={helper.cssClasses({
+            'atm-loader-animation': true,
+            ['atm-loader-animation-' + color]: color,
+          })}
+        />
       </div>
     );
+  }
+
+  _setTimer() {
+    if (!this.props.timeout) {
+      return;
+    }
+
+    this._timer = setTimeout(() => {
+      this.setState({ showLoader: true });
+    }, this.props.timeout);
+  }
+
+  _clearTimer() {
+    clearTimeout(this._timer);
   }
 }

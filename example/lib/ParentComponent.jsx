@@ -1,27 +1,37 @@
-import PropTypes from 'prop-types';
+import { PageContext, AbstractComponent } from '@ima/core';
 import React from 'react';
 import uiComponentHelper from './uiComponentHelper';
 import _window from './windowMock';
 import throttle from './throttle';
 
-export default class Parent extends React.Component {
-  getChildContext() {
-    return {
-      $Utils: {
-        $UIComponentHelper: uiComponentHelper,
-        $Helper: {
-          throttle
+const context = {
+  $Utils: {
+    $UIComponentHelper: uiComponentHelper,
+    $Helper: {
+      throttle,
+    },
+    $Window: _window,
+    $Settings: {
+      plugin: {
+        uiAtoms: {
+          useIntersectionObserver: {
+            images: true,
+          },
+          disableNoScript: {
+            images: false,
+          },
         },
-        $Window: _window
-      }
-    };
-  }
+      },
+    },
+  },
+};
 
+export default class Parent extends AbstractComponent {
   render() {
-    return <span>{this.props.children}</span>;
+    return (
+      <PageContext.Provider value={context}>
+        <span>{this.props.children}</span>
+      </PageContext.Provider>
+    );
   }
 }
-
-Parent.childContextTypes = {
-  $Utils: PropTypes.object
-};

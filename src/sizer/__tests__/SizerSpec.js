@@ -3,6 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Infinite } from 'infinite-circle';
 import { toMockedInstance } from 'to-mock';
+import { withContext } from 'shallow-with-context';
 import Sizer from '../Sizer';
 import UIComponentHelper from '../../UIComponentHelper';
 import Visibility from '../../Visibility';
@@ -25,15 +26,17 @@ describe('Sizer component', () => {
   );
   let context = {
     $Utils: {
-      $UIComponentHelper: uiComponentHelper
-    }
+      $UIComponentHelper: uiComponentHelper,
+    },
   };
 
   beforeEach(() => {
-    wrapper = shallow(<Sizer />, { context });
+    const Component = withContext(Sizer, context);
+
+    wrapper = shallow(<Component />, { context });
   });
 
-  fit('should set atm-sizer class', () => {
+  it('should set atm-sizer class', () => {
     expect(wrapper.hasClass('atm-sizer')).toBeTruthy();
   });
 
@@ -46,7 +49,7 @@ describe('Sizer component', () => {
   it('should calculate ratio between width and height', () => {
     wrapper.setProps({
       width: 16,
-      height: 9
+      height: 9,
     });
 
     expect(wrapper.get(0).props.style.paddingTop).toEqual('56.25%');

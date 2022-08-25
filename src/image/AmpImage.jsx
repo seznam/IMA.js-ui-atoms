@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PageContext } from '@ima/core';
 import React from 'react';
 
 // @server-side class AmpImage extends __VARIABLE__ {__CLEAR__}\nexports.default = AmpImage;
@@ -10,10 +10,9 @@ import React from 'react';
  * @module ima.ui.atom
  */
 export default class AmpImage extends React.PureComponent {
-  static get contextTypes() {
-    return {
-      $Utils: PropTypes.object
-    };
+  //#if _SERVER
+  static get contextType() {
+    return PageContext;
   }
 
   render() {
@@ -25,9 +24,10 @@ export default class AmpImage extends React.PureComponent {
       width,
       height,
       layout,
+      cover,
       alt,
       noloading,
-      className
+      className,
     } = this.props;
 
     return (
@@ -40,10 +40,11 @@ export default class AmpImage extends React.PureComponent {
         layout={layout}
         alt={alt}
         noloading={noloading ? '' : null}
-        class={helper.cssClasses(className)}
+        class={helper.cssClasses({ [className]: true, 'atm-cover': cover })}
         {...helper.getDataProps(this.props)}
         {...helper.getAriaProps(this.props)}
       />
     );
   }
+  //#endif
 }

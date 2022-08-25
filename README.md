@@ -1,4 +1,4 @@
-# ima-ui-atoms
+# @ima/plugin-atoms
 
 The [IMA](https://imajs.io) UI atoms are elementary UI components based on
 the [Pattern Lab](http://patternlab.io/) design pattern for creating atomic design
@@ -15,7 +15,7 @@ All the atoms provided by this package are
 
 ```javascript
 
-npm install ima-ui-atoms --save
+npm install @ima/plugin-atoms --save
 
 ```
 
@@ -24,13 +24,13 @@ npm install ima-ui-atoms --save
 
 var vendors = {
     common: [
-        'ima-ui-atoms',
+        '@ima/plugin-atoms',
         'infinite-circle'
     ]
 };
 
 var less = [
-	'./node_modules/ima-ui-atoms/*.less',
+	'./node_modules/@ima/plugin-atoms/dist/*.less',
 ];
 
 /*
@@ -40,28 +40,27 @@ ns.ima.ui.atom.headline.Headline1;
 ns.ima.ui.atom.paragraph.Paragraph;
 ...
 
-import { Headline1, Paragraph, Link, Image, Iframe, Video, ListItem, UnorderedList, Loader } from 'ima-ui-atoms';
+import { Headline1, Paragraph, Link, Image, Iframe, Video, ListItem, UnorderedList, Loader } from '@ima/plugin-atoms';
 */
 ```
 
-```
-// /app/config/bind.js
-import { UIComponentHelper } from 'ima-ui-atoms';
+## Contributing
 
-// add helper to utils
-oc.constant('$Utils', {
-	.
-	.
-	.
-	$UIComponentHelper: oc.get(UIComponentHelper)
-});
+Contributing to this repository is done via [Pull-Requests](https://github.com/seznam/IMA.js-ui-atoms/pulls).
+Any commit that you make must follow simple rules that are automatically validated upon committing.
+1. type of change (`build`, `ci`, `chore`, `docs`, `feat`, `fix`, `perf`, `refactor`, `revert`, `style`, `test`)
+2. scope of change in brackets `( ... )`. This should be one-word description of what part of the repository you've changed.
+3. colon `:`
+4. message (lower-case)
 
-oc.bind('GoogleAnalytic', GoogleAnalytic);
+`fix(iframe): message`
 
-```
+`feat(loader): message`
+
+To simplify this process you can use `npm run commit` command that will interactively prompt for details and will also run linter before you commit. For more information see [commitizen/cz-cli](https://github.com/commitizen/cz-cli) repository.
 
 ## IMA.js
 
 The [IMA.js](https://imajs.io) is an application development stack for developing
 isomorphic applications written in pure JavaScript.
-You can find the [IMA.js](https://imajs.io) skeleton application at <https://github.com/seznam/IMA.js-skeleton>.
+You can find the [IMA.js](https://imajs.io) skeleton application at <https://github.com/seznam/ima>.

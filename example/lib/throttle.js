@@ -14,7 +14,7 @@ function throttle(func, interval, scope) {
   }
 
   function callCallback() {
-    timeout = setTimeout(function() {
+    timeout = setTimeout(function () {
       timeout = null;
       if (shouldFireMethod) {
         shouldFireMethod = false;
@@ -24,7 +24,7 @@ function throttle(func, interval, scope) {
     func(...args);
   }
 
-  return function() {
+  return function () {
     let rest = [].slice.call(arguments);
     args = rest;
 

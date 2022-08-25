@@ -1,5 +1,16 @@
+import { RouterEvents } from '@ima/core';
 import { Circle } from 'infinite-circle';
-import RouterEvents from 'ima/router/Events';
+
+/**
+  @typedef notifyPayload
+  @type {object}
+  @property {string} type - event type
+ /
+
+/**
+ * @callback notifyCallback
+ * @param {notifyPayload} payload
+ */
 
 /**
  * Visibility helper.
@@ -23,6 +34,12 @@ export default class Visibility {
     this._dispatcher = dispatcher;
 
     /**
+     * @property _afterHandleRouteCalled
+     * @type {boolean}
+     */
+    this._afterHandleRouteCalled = false;
+
+    /**
      * @property circle
      * @type {Circle}
      */
@@ -36,8 +53,8 @@ export default class Visibility {
    */
   _createVisibilityCircle() {
     return new Circle({
-      listen: notify => this._listenOnEvents(notify),
-      unlisten: notify => this._unlistenOnEvents(notify)
+      listen: (notify) => this._listenOnEvents(notify),
+      unlisten: (notify) => this._unlistenOnEvents(notify),
     });
   }
 
@@ -50,11 +67,17 @@ export default class Visibility {
    * @return {number} The registered id
    */
   register(read, write, meta = { visibilityInterval: 180 }) {
-    return this.circle.register({
+    let id = this.circle.register({
       read,
       write,
-      meta: { interval: meta.visibilityInterval }
+      meta: { interval: meta.visibilityInterval },
     });
+
+    if (this._afterHandleRouteCalled) {
+      this.notify({ id });
+    }
+
+    return id;
   }
 
   /**
@@ -71,7 +94,7 @@ export default class Visibility {
    * method use requestAnimationFrame function which is called during page
    * scrolling.
    *
-   * @method throttl
+   * @method throttle
    * @param {function(...)} eventHandler
    * @param {number?} interval
    * @param {Object?} context
@@ -111,19 +134,50 @@ export default class Visibility {
   }
 
   /**
+   * The method add circle instance to be running in the next infinite loop.
+   *
+   * @param {notifyPayload}
+   */
+  notify(...rest) {
+    this.circle.notify(...rest);
+  }
+
+  /**
    * The visibility helper start checking visibility of registered entries.
+   *
+   * @param {notifyCallback}
    */
   _listenOnEvents(notify) {
-    this._dispatcher.listen(RouterEvents.AFTER_HANDLE_ROUTE, notify);
+    this._dispatcher.listen(
+      RouterEvents.BEFORE_HANDLE_ROUTE,
+      this._beforeHandleRoute,
+      this
+    );
+    this._dispatcher.listen(
+      RouterEvents.AFTER_HANDLE_ROUTE,
+      this._afterHandleRoute,
+      this
+    );
     this._window.bindEventListener(this._window.getWindow(), 'resize', notify);
     this._window.bindEventListener(this._window.getWindow(), 'scroll', notify);
   }
 
   /**
    * The visibility helper stop checking visibility of registered entries.
+   *
+   * @param {notifyCallback}
    */
   _unlistenOnEvents(notify) {
-    this._dispatcher.unlisten(RouterEvents.AFTER_HANDLE_ROUTE, notify);
+    this._dispatcher.unlisten(
+      RouterEvents.BEFORE_HANDLE_ROUTE,
+      this._beforeHandleRoute,
+      this
+    );
+    this._dispatcher.unlisten(
+      RouterEvents.AFTER_HANDLE_ROUTE,
+      this._afterHandleRoute,
+      this
+    );
     this._window.unbindEventListener(
       this._window.getWindow(),
       'resize',
@@ -134,5 +188,28 @@ export default class Visibility {
       'scroll',
       notify
     );
+  }
+
+  /**
+   * The method resets `_afterHandleRoute` marker.
+   */
+  _beforeHandleRoute() {
+    this._afterHandleRouteCalled = false;
+  }
+
+  /**
+   * The method normalize routeInfo to {@notifyPayload}.
+   *
+   * @param {Object} routeInfo
+   */
+  _afterHandleRoute(routeInfo) {
+    this._afterHandleRouteCalled = true;
+
+    const payload = Object.assign(
+      { type: RouterEvents.AFTER_HANDLE_ROUTE },
+      routeInfo
+    );
+
+    this.notify(payload);
   }
 }

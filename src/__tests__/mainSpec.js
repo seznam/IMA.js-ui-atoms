@@ -75,18 +75,18 @@ describe('UIAtoms', () => {
 
   it('should call $registerImaPlugin method without throwing error', () => {
     let mockNs = {
-      namespace: namespace => {
+      namespace: (namespace) => {
         let parts = namespace.split('.');
         let namespacePart = mockNs;
 
-        parts.forEach(part => {
+        parts.forEach((part) => {
           if (!namespacePart[part]) {
             namespacePart[part] = {};
           }
 
           namespacePart = namespacePart[part];
         });
-      }
+      },
     };
 
     expect(() => {

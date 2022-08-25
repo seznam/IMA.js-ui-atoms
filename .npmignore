@@ -6,6 +6,7 @@
 .npmignore
 .prettierignore
 .travis.yml
+.tern-project
 README.md
 CHANGELOG.md
 commitlint.config.js

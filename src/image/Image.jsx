@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PageContext } from '@ima/core';
 import React from 'react';
 import HtmlImage from './HtmlImage';
 import AmpImage from './AmpImage';
@@ -11,26 +11,8 @@ import AmpImage from './AmpImage';
  */
 
 export default class Image extends React.PureComponent {
-  static get contextTypes() {
-    return {
-      $Utils: PropTypes.object
-    };
-  }
-
-  static get propTypes() {
-    return {
-      src: PropTypes.string,
-      srcSet: PropTypes.string,
-      sizes: PropTypes.string,
-      width: PropTypes.number,
-      height: PropTypes.number,
-      layout: PropTypes.string,
-      alt: PropTypes.string,
-      noloading: PropTypes.bool,
-      className: PropTypes.string,
-      'data-e2e': PropTypes.string,
-      extendedPadding: PropTypes.number
-    };
+  static get contextType() {
+    return PageContext;
   }
 
   static get defaultProps() {
@@ -40,12 +22,13 @@ export default class Image extends React.PureComponent {
       sizes: null,
       width: null,
       height: null,
-      layout: null,
       alt: null,
-      noloading: false,
       className: '',
       'data-e2e': null,
-      extendedPadding: 0
+      layout: null,
+      noloading: false,
+      extendedPadding: 0,
+      cover: false,
     };
   }
 

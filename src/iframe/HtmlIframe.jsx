@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PageContext } from '@ima/core';
 import React from 'react';
 import Sizer from '../sizer/Sizer';
 
@@ -12,28 +12,42 @@ const MIN_EXTENDED_PADDING = 500;
  */
 
 export default class HtmlIframe extends React.PureComponent {
-  static get contextTypes() {
+  static get contextType() {
+    return PageContext;
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
     return {
-      $Utils: PropTypes.object
+      visibleInViewport:
+        nextProps.noloading || prevState.visibleInViewport || false,
     };
   }
 
   constructor(props, context) {
     super(props, context);
 
-    this.state = {
-      visibleInViewport: props.noloading || false
-    };
+    this.state = {};
 
     this._registeredVisibilityId = null;
 
     this._onVisibilityWriter = this.onVisibilityWriter.bind(this);
 
     this._rootElement = React.createRef();
+
+    this._helper = this.context.$Utils.$UIComponentHelper;
+    this._settings = this.context.$Utils.$Settings;
   }
 
-  get utils() {
-    return this.context.$Utils || this.props.$Utils;
+  get useIntersectionObserver() {
+    return this.props.useIntersectionObserver !== undefined
+      ? this.props.useIntersectionObserver
+      : this._settings.plugin.uiAtoms.useIntersectionObserver.iframes;
+  }
+
+  get disableNoScript() {
+    return this.props.disableNoScript !== undefined
+      ? this.props.disableNoScript
+      : this._settings.plugin.uiAtoms.disableNoScript.iframes;
   }
 
   componentDidMount() {
@@ -47,18 +61,16 @@ export default class HtmlIframe extends React.PureComponent {
   }
 
   render() {
-    let helper = this.utils.$UIComponentHelper;
-
     return (
       <div
         ref={this._rootElement}
-        className={helper.cssClasses(
+        className={this._helper.cssClasses(
           {
             'atm-iframe': true,
             'atm-overflow': true,
             'atm-placeholder': !this.state.visibleInViewport,
             'atm-responsive': this.props.layout === 'responsive',
-            'atm-fill': this.props.layout === 'fill'
+            'atm-fill': this.props.layout === 'fill',
           },
           this.props.className
         )}
@@ -67,10 +79,10 @@ export default class HtmlIframe extends React.PureComponent {
             ? {}
             : {
                 width: this.props.width || 'auto',
-                height: this.props.height || 'auto'
+                height: this.props.height || 'auto',
               }
         }
-        {...helper.getDataProps(this.props)}>
+        {...this._helper.getDataProps(this.props)}>
         {this.props.layout === 'responsive' ? (
           <Sizer
             width={this.props.width}
@@ -88,67 +100,97 @@ export default class HtmlIframe extends React.PureComponent {
             scrolling={this.props.scrolling}
             sandbox={this.props.sandbox}
             frameBorder={this.props.frameBorder}
+            allow={this.props.allow}
             allowFullScreen={this.props.allowFullScreen}
-            className={helper.cssClasses({
-              'atm-fill': true
+            marginWidth={this.props.marginWidth}
+            marginHeight={this.props.marginHeight}
+            className={this._helper.cssClasses({
+              'atm-fill': true,
             })}
-            {...helper.getAriaProps(this.props)}
+            {...this._helper.getEventProps(this.props)}
+            {...this._helper.getAriaProps(this.props)}
           />
         ) : null}
-        <noscript
-          className={helper.cssClasses('atm-fill')}
-          style={{
-            display: 'block',
-            width: this.props.width || 'auto',
-            height: this.props.height || 'auto'
-          }}
-          dangerouslySetInnerHTML={{
-            __html: `<iframe
-								src="${this.props.src}"
-								${this.props.srcDoc !== null ? `srcdoc="${this.props.srcDoc}"` : ''}
-								width="${this.props.width || 'auto'}"
-								height="${this.props.height || 'auto'}"
-								${this.props.sandbox ? `sandbox="${this.props.sandbox}"` : ''}
-								scrolling="${this.props.scrolling || 'no'}"
-								frameborder="${this.props.frameBorder || '0'}"
-								allowfullscreen="${this.props.allowFullScreen || '0'}"
-								class="${helper.cssClasses('atm-fill atm-loaded')}"
-								${helper.getAriaProps(this.props)}></iframe>`
-          }}
-        />
+        {!this.disableNoScript && (
+          <noscript
+            className={this._helper.cssClasses('atm-fill')}
+            style={{
+              display: 'block',
+              width: this.props.width || 'auto',
+              height: this.props.height || 'auto',
+            }}
+            dangerouslySetInnerHTML={{
+              __html: `<iframe
+                  src="${this.props.src}"
+                  ${
+                    this.props.srcDoc !== null
+                      ? `srcdoc="${this.props.srcDoc}"`
+                      : ''
+                  }
+                  width="${this.props.width || 'auto'}"
+                  height="${this.props.height || 'auto'}"
+                  ${this.props.sandbox ? `sandbox="${this.props.sandbox}"` : ''}
+                  scrolling="${this.props.scrolling || 'no'}"
+                  frameborder="${this.props.frameBorder || '0'}"
+                                  ${
+                                    this.props.allow
+                                      ? `allow="${this.props.allow}"`
+                                      : ''
+                                  }
+                  allowfullscreen="${this.props.allowFullScreen || '0'}"
+                  ${
+                    Number.isInteger(this.props.marginWidth)
+                      ? `marginwidth="${this.props.marginWidth}"`
+                      : ''
+                  }
+                  ${
+                    Number.isInteger(this.props.marginHeight)
+                      ? `marginheight="${this.props.marginHeight}"`
+                      : ''
+                  }
+                  class="${this._helper.cssClasses('atm-fill atm-loaded')}"
+                  ${this._helper.serializeObjectToNoScript(
+                    this._helper.getAriaProps(this.props)
+                  )}></iframe>`,
+            }}
+          />
+        )}
       </div>
     );
   }
 
   onVisibilityWriter(visibility, observer) {
-    if (this.state.visibleInViewport === false && visibility > 0) {
+    if (visibility > 0) {
       observer && observer.disconnect();
       this._unregisterToCheckingVisibility();
-      this.setState({ visibleInViewport: true });
+
+      if (this.state.visibleInViewport === false) {
+        this.setState({ visibleInViewport: true });
+      }
     }
   }
 
   _unregisterToCheckingVisibility() {
-    this.utils.$UIComponentHelper.visibility.unregister(
-      this._registeredVisibilityId
-    );
+    if (this._registeredVisibilityId) {
+      this._helper.visibility.unregister(this._registeredVisibilityId);
+      this._registeredVisibilityId = null;
+    }
   }
 
   _registerToCheckingVisibility() {
-    let { $UIComponentHelper } = this.utils;
     let extendedPadding = Math.max(
-      $UIComponentHelper.componentPositions.getWindowViewportRect().height / 2,
+      this._helper.componentPositions.getWindowViewportRect().height / 2,
       MIN_EXTENDED_PADDING
     );
 
-    this._registeredVisibilityId = $UIComponentHelper.visibility.register(
-      $UIComponentHelper.getVisibilityReader(this._rootElement.current, {
-        useIntersectionObserver: true,
+    this._registeredVisibilityId = this._helper.visibility.register(
+      this._helper.getVisibilityReader(this._rootElement.current, {
+        useIntersectionObserver: this.useIntersectionObserver,
         extendedPadding,
         width: this.props.width,
-        height: this.props.height
+        height: this.props.height,
       }),
-      $UIComponentHelper.wrapVisibilityWriter(this._onVisibilityWriter)
+      this._helper.wrapVisibilityWriter(this._onVisibilityWriter)
     );
   }
 }

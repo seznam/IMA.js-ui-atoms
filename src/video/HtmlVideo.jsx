@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PageContext } from '@ima/core';
 import React from 'react';
 import Sizer from '../sizer/Sizer';
 
@@ -12,17 +12,15 @@ const EXTENDED_PADDING = 300;
  */
 
 export default class HtmlVideo extends React.PureComponent {
-  static get contextTypes() {
-    return {
-      $Utils: PropTypes.object
-    };
+  static get contextType() {
+    return PageContext;
   }
 
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      noloading: props.noloading || false
+      noloading: props.noloading || false,
     };
 
     this._mounted = false;
@@ -33,25 +31,34 @@ export default class HtmlVideo extends React.PureComponent {
     this._onVisibilityWriter = this.onVisibilityWriter.bind(this);
 
     this._rootElement = React.createRef();
+
+    this._helper = this.context.$Utils.$UIComponentHelper;
+    this._settings = this.context.$Utils.$Settings;
   }
 
-  get utils() {
-    return this.context.$Utils || this.props.$Utils;
+  get useIntersectionObserver() {
+    return this.props.useIntersectionObserver !== undefined
+      ? this.props.useIntersectionObserver
+      : this._settings.plugin.uiAtoms.useIntersectionObserver.videos;
+  }
+
+  get disableNoScript() {
+    return this.props.disableNoScript !== undefined
+      ? this.props.disableNoScript
+      : this._settings.plugin.uiAtoms.disableNoScript.videos;
   }
 
   render() {
-    let helper = this.utils.$UIComponentHelper;
-
     return (
       <div
         ref={this._rootElement}
-        className={helper.cssClasses(
+        className={this._helper.cssClasses(
           {
             'atm-video': true,
             'atm-overflow': true,
             'atm-placeholder': !this.state.noloading,
             'atm-responsive': this.props.layout === 'responsive',
-            'atm-fill': this.props.layout === 'fill'
+            'atm-fill': this.props.layout === 'fill',
           },
           this.props.className
         )}
@@ -60,10 +67,10 @@ export default class HtmlVideo extends React.PureComponent {
             ? {}
             : {
                 width: this.props.width || 'auto',
-                height: this.props.height || 'auto'
+                height: this.props.height || 'auto',
               }
         }
-        {...helper.getDataProps(this.props)}>
+        {...this._helper.getDataProps(this.props)}>
         {this.props.layout === 'responsive' ? (
           <Sizer
             width={this.props.width}
@@ -81,28 +88,33 @@ export default class HtmlVideo extends React.PureComponent {
             muted={this.props.muted}
             width={this.props.width}
             height={this.props.height}
-            className={helper.cssClasses({
+            className={this._helper.cssClasses({
               'atm-fill': true,
-              'atm-loaded': this.state.noloading && this._visibleInViewport
+              'atm-loaded': this.state.noloading && this._visibleInViewport,
             })}
-            {...helper.getAriaProps(this.props)}>
+            {...this._helper.getEventProps(this.props)}
+            {...this._helper.getAriaProps(this.props)}>
             <div placeholder="" />
             {this.props.children}
           </video>
         ) : null}
-        <noscript
-          dangerouslySetInnerHTML={{
-            __html: `<video
+        {!this.disableNoScript && (
+          <noscript
+            dangerouslySetInnerHTML={{
+              __html: `<video
 								src="${this.props.src || ''}"
 								poster="${this.props.alt || ''}"
 								controls
 								${this.props.autoplay ? 'autoPlay' : ''}
 								${this.props.loop ? 'loop' : ''}
 								${this.props.muted ? 'muted' : ''}
-								class="${helper.cssClasses('atm-fill atm-loaded')}"
-								${helper.getAriaProps(this.props)}></video>`
-          }}
-        />
+								class="${this._helper.cssClasses('atm-fill atm-loaded')}"
+								${this._helper.serializeObjectToNoScript(
+                  this._helper.getAriaProps(this.props)
+                )}></video>`,
+            }}
+          />
+        )}
       </div>
     );
   }
@@ -130,34 +142,34 @@ export default class HtmlVideo extends React.PureComponent {
   }
 
   _unregisterToCheckingVisibility() {
-    this.utils.$UIComponentHelper.visibility.unregister(
-      this._registeredVisibilityId
-    );
+    if (this._registeredVisibilityId) {
+      this._helper.visibility.unregister(this._registeredVisibilityId);
+      this._registeredVisibilityId = null;
+    }
   }
 
   _registerToCheckingVisibility() {
-    let { $UIComponentHelper } = this.utils;
     let extendedPadding = Math.max(
       Math.round(
-        $UIComponentHelper.componentPositions.getWindowViewportRect().height / 2
+        this._helper.componentPositions.getWindowViewportRect().height / 2
       ),
       EXTENDED_PADDING
     );
-    this._registeredVisibilityId = $UIComponentHelper.visibility.register(
-      $UIComponentHelper.getVisibilityReader(this._rootElement.current, {
-        useIntersectionObserver: true,
+    this._registeredVisibilityId = this._helper.visibility.register(
+      this._helper.getVisibilityReader(this._rootElement.current, {
+        useIntersectionObserver: this.useIntersectionObserver,
         extendedPadding,
         width: this.props.width,
-        height: this.props.height
+        height: this.props.height,
       }),
-      $UIComponentHelper.wrapVisibilityWriter(this._onVisibilityWriter)
+      this._helper.wrapVisibilityWriter(this._onVisibilityWriter)
     );
   }
 
   _preLoadPosterImage() {
     if (!this.props.poster) {
       this.setState({
-        noloading: true
+        noloading: true,
       });
       return;
     }
@@ -171,7 +183,7 @@ export default class HtmlVideo extends React.PureComponent {
     function onLoadingCompleted() {
       if (componentInstance._mounted) {
         componentInstance.setState({
-          noloading: true
+          noloading: true,
         });
       }
     }

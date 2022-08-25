@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PageContext } from '@ima/core';
 import React from 'react';
 
 /**
@@ -9,24 +9,8 @@ import React from 'react';
  */
 
 export default class Link extends React.PureComponent {
-  static get contextTypes() {
-    return {
-      $Utils: PropTypes.object
-    };
-  }
-
-  static get propTypes() {
-    return {
-      text: PropTypes.string,
-      href: PropTypes.string,
-      title: PropTypes.string,
-      target: PropTypes.string,
-      onClick: PropTypes.func,
-      mode: PropTypes.string,
-      style: PropTypes.object,
-      className: PropTypes.string,
-      'data-e2e': PropTypes.string
-    };
+  static get contextType() {
+    return PageContext;
   }
 
   static get defaultProps() {
@@ -34,24 +18,16 @@ export default class Link extends React.PureComponent {
       text: null,
       mode: '',
       style: null,
+      rel: null,
       className: '',
-      'data-e2e': null
+      'data-e2e': null,
     };
   }
 
   render() {
     let helper = this.context.$Utils.$UIComponentHelper;
-    let {
-      href,
-      title,
-      target,
-      mode,
-      className,
-      onClick,
-      children,
-      text,
-      style
-    } = this.props;
+    let { href, title, target, mode, className, id, children, text, style, rel } =
+      this.props;
 
     return (
       <a
@@ -59,14 +35,16 @@ export default class Link extends React.PureComponent {
         title={title}
         target={target}
         style={style}
+        rel={rel}
+        id={id}
         className={helper.cssClasses(
           {
             'atm-link': true,
-            ['atm-link-' + mode]: mode
+            ['atm-link-' + mode]: mode,
           },
           className
         )}
-        onClick={onClick}
+        {...helper.getEventProps(this.props)}
         {...helper.getDataProps(this.props)}
         {...helper.getAriaProps(this.props)}>
         {children || text}

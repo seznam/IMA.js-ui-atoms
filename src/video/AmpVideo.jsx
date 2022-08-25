@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PageContext } from '@ima/core';
 import React from 'react';
 
 // @server-side class AmpVideo extends __VARIABLE__ {__CLEAR__}\nexports.default = AmpVideo;
@@ -10,10 +10,9 @@ import React from 'react';
  * @module ima.ui.atom
  */
 export default class AmpVideo extends React.PureComponent {
-  static get contextTypes() {
-    return {
-      $Utils: PropTypes.object
-    };
+  //#if _SERVER
+  static get contextType() {
+    return PageContext;
   }
 
   render() {
@@ -29,7 +28,7 @@ export default class AmpVideo extends React.PureComponent {
       height,
       layout,
       className,
-      children
+      children,
     } = this.props;
 
     return (
@@ -51,4 +50,5 @@ export default class AmpVideo extends React.PureComponent {
       </amp-video>
     );
   }
+  //#endif
 }

@@ -13,7 +13,7 @@ export default class UIComponentHelper {
       ComponentPositions,
       Visibility,
       Infinite,
-      '$CssClasses'
+      '$CssClasses',
     ];
   }
 
@@ -148,7 +148,7 @@ export default class UIComponentHelper {
 
   /**
    * Filters the provided properties and returns only the properties which's
-   * names start with the {@code aria-} prefix.
+   * names start with the {@code aria-} prefix or role or tabindex property.
    *
    * @param {Object<string, *>} props
    * @return {Object<string, (number|string)>}
@@ -157,12 +157,46 @@ export default class UIComponentHelper {
     let ariaProps = {};
 
     for (let propertyName of Object.keys(props)) {
-      if (/^aria-/.test(propertyName)) {
+      if (/^(aria-|role|tabIndex)/.test(propertyName)) {
         ariaProps[propertyName] = props[propertyName];
       }
     }
 
     return ariaProps;
+  }
+
+  /**
+   * Filters the provided properties and returns only the properties which's
+   * names start with the {@code on[A-Z]} prefix.
+   *
+   * @param {Object<string, *>} props
+   * @return {Object<string, (number|string)>}
+   */
+  getEventProps(props) {
+    let eventProps = {};
+
+    for (let propertyName of Object.keys(props)) {
+      if (
+        /^on[A-Z]/.test(propertyName) &&
+        typeof props[propertyName] === 'function'
+      ) {
+        eventProps[propertyName] = props[propertyName];
+      }
+    }
+
+    return eventProps;
+  }
+
+  /**
+   * Serialize object as key and value pairs for using in noscript tag.
+   *
+   * @param {Object<string, *>} object
+   * @return {string}
+   */
+  serializeObjectToNoScript(object = {}) {
+    return Object.keys(object).reduce((string, key) => {
+      return string + ` ${key}="${object[key]}"`;
+    }, '');
   }
 
   /**
@@ -184,7 +218,7 @@ export default class UIComponentHelper {
 
   /**
    * @param {HTMLElement} element
-   * @param {{ width: ?number, height: ?number, extendedPadding: ?number, useIntersectionObserver: boolean, tresholds: number[] }} options
+   * @param {{ width: ?number, height: ?number, extendedPadding: ?number, useIntersectionObserver: boolean, threshold: number[] }} options
    * @return {function}
    */
   getVisibilityReader(element, options) {
@@ -201,7 +235,7 @@ export default class UIComponentHelper {
 
   /**
    * @param {HTMLElement} element
-   * @param {{ width: ?number, height: ?number, extendedPadding: ?number, useIntersectionObserver: boolean, tresholds: number[] }} options
+   * @param {{ width: ?number, height: ?number, extendedPadding: ?number, useIntersectionObserver: boolean, threshold: number[] }} options
    * @return {function}
    */
   _getReader(element, options) {
@@ -220,27 +254,28 @@ export default class UIComponentHelper {
 
   /**
    * @param {HTMLElement} element
-   * @param {{ width: ?number, height: ?number, extendedPadding: ?number, useIntersectionObserver: boolean, tresholds: number[] }} options
+   * @param {{ width: ?number, height: ?number, extendedPadding: ?number, useIntersectionObserver: boolean, threshold: number[] }} options
    * @return {function}
    */
   _getObserableReader(element, options) {
     const self = this;
     const observerConfig = {
       rootMargin: options.extendedPadding + 'px',
-      tresholds: options.tresholds || [0]
+      threshold: options.threshold || [0],
     };
     let intersectionObserverEntry = null;
     let isFirstPositionCalculated = false;
 
-    let observer = new IntersectionObserver(entries => {
+    let observer = new IntersectionObserver((entries) => {
       intersectionObserverEntry = entries[0];
+      this._visibility.circle.notify({ type: 'intersectionobserver', entries });
     }, observerConfig);
     observer.observe(element);
 
     return function readVisibility() {
       if (!isFirstPositionCalculated) {
         isFirstPositionCalculated = true;
-        return self._getReader(element, options)();
+        return { visibility: self._getReader(element, options)(), observer };
       }
 
       return { intersectionObserverEntry, observer };
@@ -260,10 +295,20 @@ export default class UIComponentHelper {
         payload.observer &&
         payload.intersectionObserverEntry
       ) {
+        const { intersectionObserverEntry: entry, observer } = payload;
+        const isIntersectionBugged =
+          entry.intersectionRatio === 0 && entry.isIntersecting;
+
         return writer(
-          payload.intersectionObserverEntry.intersectionRatio * 100,
-          payload.observer
+          !isIntersectionBugged ? entry.intersectionRatio * 100 : 100,
+          observer
         );
+      } else if (
+        typeof payload === 'object' &&
+        payload.observer &&
+        payload.visibility
+      ) {
+        return writer(payload.visibility, payload.observer);
       } else {
         return writer(payload);
       }
