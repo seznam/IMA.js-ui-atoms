@@ -18,49 +18,44 @@ All the atoms provided by this package are
 npm install @ima/plugin-atoms --save
 
 ```
+## Contributing
+Contributing to this repository is done via [Pull-Requests](https://github.com/seznam/IMA.js-ui-atoms/pulls).
+Any commit that you make must follow simp
 
-```javascript
-// /app/build.js
+### Changesets
+We are using [changesets](https://github.com/changesets/changesets/blob/main/docs/common-questions.md) for version management. 
 
-var vendors = {
-    common: [
-        '@ima/plugin-atoms',
-        'infinite-circle'
-    ]
-};
+To simplify the changeset creation process, you can use command 
 
-var less = [
-	'./node_modules/@ima/plugin-atoms/dist/*.less',
-];
-
-/*
-The atom components are now available within the namespace:
-
-ns.ima.ui.atom.headline.Headline1;
-ns.ima.ui.atom.paragraph.Paragraph;
-...
-
-import { Headline1, Paragraph, Link, Image, Iframe, Video, ListItem, UnorderedList, Loader } from '@ima/plugin-atoms';
-*/
+```
+npm run changeset
 ```
 
-## Contributing
+It opens an interactive interface, which should help you with changeset file composition.
 
-Contributing to this repository is done via [Pull-Requests](https://github.com/seznam/IMA.js-ui-atoms/pulls).
-Any commit that you make must follow simple rules that are automatically validated upon committing.
-1. type of change (`build`, `ci`, `chore`, `docs`, `feat`, `fix`, `perf`, `refactor`, `revert`, `style`, `test`)
-2. scope of change in brackets `( ... )`. This should be one-word description of what part of the repository you've changed.
-3. colon `:`
-4. message (lower-case)
+### Release
+For a new version release of packages, we use changesets, which will automatically bump version and generate changelogs. Following command will initialize interactive guide through the version release per package. Run from root:
 
-`fix(iframe): message`
+```
+npm run release
+```
 
-`feat(loader): message`
+This command prepares commit, tag and pushes everything to git and triggers pipeline in CI, which publishes the packages into npm registry.
 
-To simplify this process you can use `npm run commit` command that will interactively prompt for details and will also run linter before you commit. For more information see [commitizen/cz-cli](https://github.com/commitizen/cz-cli) repository.
+### Versioning
+Plugins in this repository are abided by [Semantic Versioning](https://semver.org/).
+Among others this means that plugins with major version zero (0.y.z) shouldn't be used in production.
+Such plugins are in development or are not tested enough to be marked as **"production ready"**.
+That doesn't necessary mean that this plugin version is not stable (or is not currently running in production environment on some project), but it's a way to say **"Don't use it yet"** to other teams.
+
+### Release candidate
+We use changesets [prereleases](https://github.com/changesets/changesets/blob/main/docs/prereleases.md) in this repository to release RC versions of packages. 
+
+Pre-release maintener usualy inits this stage **once** by `npm run release:next:init` and team then commit and release RC version from branch `next` by common release command `npm run release`.
+
+Maintener can close pre-release stage by `npm run release:graduate` command , whitch will exit `pre` mode and releases new production versions of packages.
 
 ## IMA.js
-
 The [IMA.js](https://imajs.io) is an application development stack for developing
 isomorphic applications written in pure JavaScript.
 You can find the [IMA.js](https://imajs.io) skeleton application at <https://github.com/seznam/ima>.

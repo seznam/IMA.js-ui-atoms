@@ -6,15 +6,20 @@
   "browser": "index.client.cjs.js",
   "module": "index.server.esm.js",
   "scripts": {
-    "preversion": "npm test && npm run lint && npm run build && npm run copy",
-    "postversion": "npm run build && npm run changelog && git push && git push --tags && npm publish",
-    "lint": "node_modules/.bin/eslint -c ./.eslintrc.js --fix './src/**/*.{js,jsx}' './example/**/*.{js,jsx}' './*.js' --ignore-path ./.prettierignore",
-    "test": "node_modules/.bin/jest --no-watchman",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1",
-    "commit": "node_modules/.bin/git-cz",
-    "copy": "node_modules/.bin/gulp copy",
+    "changeset": "changeset add",
+    "test:ci": "jest --coverage --colors --no-watchman --config=jest.config.js",
+    "test": "jest --onlyChanged --no-watchman --config=jest.config.js",
+    "lint:cmd": "eslint -c ./.eslintrc.js --ignore-path ./.gitignore",
+    "lint": "npm run lint:cmd -- --cache './**/*.{js,jsx}'",
+    "lint:fix": "npm run lint -- --fix",
+    "precommit": "lint-staged",
     "build": "node_modules/.bin/rollup --config",
-    "dev": "node_modules/.bin/gulp dev"
+    "release": "npm run release:prepare && npm run release:push",
+    "release:prepare": "changeset version",
+    "release:push": "git add . && git commit -m 'release: publish' && changeset tag && git push --follow-tags",
+    "release:graduate": "changeset pre exit && npm run release",
+    "release:next:init": "changeset pre enter rc",
+    "release:publish": "changeset publish --no-git-tag"
   },
   "keywords": [
     "React",
@@ -39,8 +44,7 @@
     "@babel/core": "^7.10.2",
     "@babel/plugin-transform-modules-commonjs": "^7.10.1",
     "@babel/preset-react": "^7.10.1",
-    "@commitlint/cli": "^8.3.5",
-    "@commitlint/config-conventional": "^8.3.4",
+    "@changesets/cli": "2.24.2",
     "@ima/core": "^17.6.0",
     "@ima/helpers": "^17.4.0",
     "@ima/plugin-useragent": "^2.0.1",
@@ -49,9 +53,6 @@
     "babelify": "10.0.0",
     "browserify": "16.5.1",
     "classnames": "2.2.6",
-    "commitizen": "^4.1.2",
-    "conventional-changelog-cli": "^2.0.34",
-    "cz-conventional-changelog": "^3.2.0",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "enzyme-to-json": "^3.5.0",
@@ -65,7 +66,6 @@
     "gulp": "4.0.2",
     "gulp-less": "4.0.1",
     "husky": "^7.0.0",
-    "ima-clientify": "^0.1.2",
     "jest": "^26.0.1",
     "prettier": "^2.0.5",
     "react": "^16.7.0",
@@ -81,23 +81,15 @@
     "to-mock": "^1.6.2",
     "watchify": "3.11.1"
   },
-  "browserify": {
-    "transform": [
-      "ima-clientify",
-      "loose-envify",
-      "babelify"
-    ]
-  },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint",
-      "commit-msg": "node_modules/.bin/commitlint -e $GIT_PARAMS"
+      "pre-commit": "npm run lint"
     }
   },
   "peerDependencies": {
-    "react": "16.x",
-    "@ima/core": "17.x",
-    "@ima/plugin-useragent": "3.x"
+    "react": ">=16.13",
+    "@ima/core": "*",
+    "@ima/plugin-useragent": "*"
   },
   "engines": {
     "npm": ">=4 <9"

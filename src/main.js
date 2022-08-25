@@ -1,4 +1,4 @@
-import { ComponentUtils } from '@ima/core';
+import { ComponentUtils, pluginLoader } from '@ima/core';
 import { Infinite, Circle, uuid } from 'infinite-circle';
 
 import UIComponentHelper from './UIComponentHelper';
@@ -34,7 +34,7 @@ import Video from './video/Video';
 
 const defaultDependencies = ['$Router', ComponentPositions, Visibility];
 
-const $registerImaPlugin = (ns) => {
+pluginLoader.register('@ima/plugin-atoms', (ns) => {
   ns.namespace('ima.ui.atom');
   ns.namespace('ima.ui.atom.headline');
   ns.namespace('ima.ui.atom.iframe');
@@ -91,43 +91,42 @@ const $registerImaPlugin = (ns) => {
   ns.ima.ui.atom.Visibility = Visibility;
   ns.ima.ui.atom.ComponentPositions = ComponentPositions;
   ns.ima.ui.atom.defaultDependencies = defaultDependencies;
-};
 
-const initBind = (ns, oc) => {
-  oc.inject(Infinite, []);
-  //oc.inject(UIComponentHelper, defaultDependencies);
-};
-
-const initServices = (ns, oc) => {
-  oc.get(UIComponentHelper).init();
-
-  oc.get(ComponentUtils).register(
-    '$UIComponentHelper',
-    UIComponentHelper,
-    '@ima/plugin-atoms'
-  );
-};
-
-const initSettings = () => {
   return {
-    prod: {
-      plugin: {
-        uiAtoms: {
-          useIntersectionObserver: {
-            iframes: true,
-            images: true,
-            videos: true,
-          },
-          disableNoScript: {
-            iframes: false,
-            images: false,
-            videos: false,
+    initBind: (ns, oc) => {
+      oc.inject(Infinite, []);
+    },
+    initServices: (ns, oc) => {
+      oc.get(UIComponentHelper).init();
+
+      oc.get(ComponentUtils).register(
+        '$UIComponentHelper',
+        UIComponentHelper,
+        '@ima/plugin-atoms'
+      );
+    },
+    initSettings: () => {
+      return {
+        prod: {
+          plugin: {
+            uiAtoms: {
+              useIntersectionObserver: {
+                iframes: true,
+                images: true,
+                videos: true,
+              },
+              disableNoScript: {
+                iframes: false,
+                images: false,
+                videos: false,
+              },
+            },
           },
         },
-      },
+      };
     },
   };
-};
+});
 
 export {
   UIComponentHelper,
@@ -164,10 +163,6 @@ export {
   Paragraph as P,
   Sizer,
   Video,
-  initBind,
-  initServices,
-  initSettings,
-  $registerImaPlugin,
   Circle,
   Infinite,
   uuid,
