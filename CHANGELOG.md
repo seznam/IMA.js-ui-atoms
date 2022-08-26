@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 7.0.0-rc.1
+
+### Patch Changes
+
+- 803a3e2: fix build for release process
+
 ## 7.0.0-rc.0
 
 ### Major Changes
