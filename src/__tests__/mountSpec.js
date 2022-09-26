@@ -14,9 +14,9 @@ import { JSDOM } from 'jsdom';
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
 const { window } = jsdom;
 
-import _router from '../mocks/router';
-import _window from '../mocks/window';
-import _settings from '../mocks/settings';
+import _router from './mocks/router';
+import _window from './mocks/window';
+import _settings from './mocks/settings';
 
 global.window = window;
 global.document = window.document;

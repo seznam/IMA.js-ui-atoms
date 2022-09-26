@@ -8,8 +8,8 @@ import Sizer from '../Sizer';
 import UIComponentHelper from '../../UIComponentHelper';
 import Visibility from '../../Visibility';
 import ComponentPositions from '../../ComponentPositions';
-import dummyRouter from '../../mocks/router';
-import dummyWindow from '../../mocks/window';
+import dummyRouter from '../../__tests__/mocks/router';
+import dummyWindow from '../../__tests__/mocks/window';
 
 describe('Sizer component', () => {
   let wrapper = null;

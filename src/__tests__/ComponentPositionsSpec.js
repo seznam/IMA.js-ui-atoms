@@ -3,7 +3,7 @@ import { toMockedInstance } from 'to-mock';
 
 import ComponentPositions from '../ComponentPositions';
 
-import _window from '../mocks/window';
+import _window from './mocks/window';
 
 describe('ComponentPositions', () => {
   const mockedUserAgent = toMockedInstance(UserAgent, {

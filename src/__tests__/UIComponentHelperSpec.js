@@ -6,8 +6,8 @@ import UIComponentHelper from '../UIComponentHelper';
 import Visibility from '../Visibility';
 import { Infinite } from 'infinite-circle';
 
-import _router from '../mocks/router';
-import _window from '../mocks/window';
+import _router from './mocks/router';
+import _window from './mocks/window';
 
 describe('UIComponentHelper', () => {
   let uiComponentHelper = null;
