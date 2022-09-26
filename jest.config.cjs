@@ -1,22 +1,13 @@
 module.exports = {
   bail: true,
-  verbose: false,
-  testEnvironment: 'node',
-  coverageThreshold: {
-    global: {
-      functions: 45,
-      lines: 45,
-      statements: 45,
-    },
-  },
-  setupFiles: ['<rootDir>/setupJest.js'],
+  verbose: true,
+  testRegex: '(/src(/?[^/]*){0,5}/__tests__/).*Spec\\.jsx?$',
   modulePaths: ['<rootDir>/'],
+  setupFiles: ['<rootDir>/setupJest.js'],
   snapshotSerializers: ['enzyme-to-json/serializer'],
-  transformIgnorePatterns: [
-    'node_modules/(?!(@ima/core|@ima/plugin-useragent)/)',
-  ],
+  transformIgnorePatterns: ['node_modules/(?!(@ima)/)'],
   transform: {
-    '\\.jsx?': './preprocess.cjs',
+    '\\.(js|jsx|ts|tsx)': '<rootDir>/preprocess.cjs',
   },
-  testRegex: '(/src/(.*/)?__tests__/).*Spec\\.jsx?$',
+  testEnvironment: 'node',
 };

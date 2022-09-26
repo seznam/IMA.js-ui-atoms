@@ -1,12 +1,12 @@
 const babel = require('@babel/core');
-//let jestPreset = require('babel-preset-jest');
+const filesRe = /\.(js|jsx|ts|tsx)$/;
 
 module.exports = {
   process: function (src, filename) {
-    if (filename.endsWith('.js') || filename.endsWith('.jsx')) {
+    if (filesRe.test(filename)) {
       return babel.transform(src, {
         filename,
-        presets: ['@babel/preset-react'],
+        presets: ['@babel/preset-react', 'babel-preset-jest'],
         plugins: ['@babel/plugin-transform-modules-commonjs'],
         retainLines: true,
       }).code;
