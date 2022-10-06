@@ -1,8 +1,6 @@
 import { PageContext } from '@ima/core';
 import React from 'react';
 
-// @server-side class AmpIframe extends __VARIABLE__ {__CLEAR__}\nexports.default = AmpIframe;
-
 /**
  * Amp iframe
  *
@@ -10,7 +8,7 @@ import React from 'react';
  * @module ima.ui.atom
  */
 export default class AmpIframe extends React.PureComponent {
-  //#if _SERVER
+  // @if server
   static get contextType() {
     return PageContext;
   }
@@ -63,5 +61,5 @@ export default class AmpIframe extends React.PureComponent {
       </amp-iframe>
     );
   }
-  //#endif
+  // @endif
 }

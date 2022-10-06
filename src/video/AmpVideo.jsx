@@ -1,8 +1,6 @@
 import { PageContext } from '@ima/core';
 import React from 'react';
 
-// @server-side class AmpVideo extends __VARIABLE__ {__CLEAR__}\nexports.default = AmpVideo;
-
 /**
  * Amp video player.
  *
@@ -10,7 +8,7 @@ import React from 'react';
  * @module ima.ui.atom
  */
 export default class AmpVideo extends React.PureComponent {
-  //#if _SERVER
+  // @if server
   static get contextType() {
     return PageContext;
   }
@@ -50,5 +48,5 @@ export default class AmpVideo extends React.PureComponent {
       </amp-video>
     );
   }
-  //#endif
+  // @endif
 }
