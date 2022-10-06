@@ -1,5 +1,16 @@
 <a name="5.0.1"></a>
 
+## 7.0.0-rc.2
+
+### Major Changes
+
+- 81474ba: New build approach using @ima/plugin-cli
+  The package is now pure esm module
+
+### Patch Changes
+
+- aa10023: Fixed server-specific pragma syntax
+
 ## 7.0.0-rc.1
 
 ### Patch Changes
