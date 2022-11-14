@@ -32,7 +32,7 @@ export default class AmpImage extends React.PureComponent {
 
     return (
       <amp-img
-        src={src}
+        src={helper.sanitizeUrl(src)}
         srcSet={srcSet}
         sizes={sizes}
         width={width}

@@ -33,7 +33,7 @@ export default class AmpIframe extends React.PureComponent {
       marginHeight,
     } = this.props;
     let props = {
-      src,
+      src: helper.sanitizeUrl(src),
       srcDoc,
       width,
       height,

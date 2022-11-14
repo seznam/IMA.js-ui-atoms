@@ -95,6 +95,8 @@ export default class HtmlImage extends React.PureComponent {
   }
 
   render() {
+    const src = this._helper.sanitizeUrl(this.props.src);
+
     return (
       <div
         ref={this._rootElement}
@@ -126,7 +128,7 @@ export default class HtmlImage extends React.PureComponent {
         ) : null}
         {this.props.placeholder ? (
           <img
-            src={this.props.placeholder}
+            src={this._helper.sanitizeUrl(this.props.placeholder)}
             alt={this.props.alt}
             className={this._helper.cssClasses({
               'atm-blur': true,
@@ -139,7 +141,7 @@ export default class HtmlImage extends React.PureComponent {
         ) : null}
         {this.state.noloading ? (
           <img
-            src={this.props.src}
+            src={src}
             srcSet={this.props.srcSet}
             sizes={this.props.sizes}
             alt={this.props.alt}
@@ -159,7 +161,7 @@ export default class HtmlImage extends React.PureComponent {
           <noscript
             dangerouslySetInnerHTML={{
               __html: `<img
-                  src="${this.props.src || ''}"
+                  src="${src || ''}"
                   srcset="${this.props.srcSet || ''}"
                   sizes="${this.props.sizes || ''}"
                   alt="${this.props.alt || ''}"
@@ -236,7 +238,7 @@ export default class HtmlImage extends React.PureComponent {
 
       image.srcset = srcSet;
     } else if (src) {
-      image.src = src;
+      image.src = this._helper.sanitizeUrl(src);
     }
 
     if (image.decode) {

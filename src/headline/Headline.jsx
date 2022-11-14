@@ -16,7 +16,7 @@ export default class Headline extends React.PureComponent {
     return {
       id: null,
       className: '',
-      text: null,
+      html: null,
       mode: null,
       type: 'h1',
       style: null,
@@ -26,7 +26,7 @@ export default class Headline extends React.PureComponent {
 
   render() {
     let headline = null;
-    let { type: Type, id, mode, text, className, children, style } = this.props;
+    let { type: Type, id, mode, html, className, children, style } = this.props;
     let helper = this.context.$Utils.$UIComponentHelper;
     let computedClassName = helper.cssClasses(
       {
@@ -58,7 +58,7 @@ export default class Headline extends React.PureComponent {
           {...helper.getEventProps(this.props)}
           {...helper.getDataProps(this.props)}
           {...helper.getAriaProps(this.props)}
-          dangerouslySetInnerHTML={{ __html: text }}
+          dangerouslySetInnerHTML={{ __html: html }}
         />
       );
     }
