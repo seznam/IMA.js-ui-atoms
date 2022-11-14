@@ -33,7 +33,7 @@ export default class AmpVideo extends React.PureComponent {
 
     return (
       <amp-video
-        src={src}
+        src={helper.sanitizeUrl(src)}
         poster={poster}
         autoplay={autoplay}
         controls={controls}
